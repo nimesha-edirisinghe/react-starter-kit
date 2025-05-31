@@ -1,38 +1,67 @@
 {
-  "name": "tanstack-start-example-basic",
-  "private": true,
-  "sideEffects": false,
-  "type": "module",
-  "scripts": {
-    "dev": "vinxi dev",
-    "build": "vinxi build",
-    "start": "vinxi start"
-  },
-  "dependencies": {
-    "@radix-ui/react-slot": "^1.2.3",
-    "@tailwindcss/postcss": "^4.1.8",
-    "@tanstack/react-router": "^1.120.12",
-    "@tanstack/react-router-devtools": "^1.120.12",
-    "@tanstack/react-start": "^1.120.12",
-    "@tanstack/start": "^1.120.12",
-    "axios": "^1.9.0",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.511.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.3.0",
-    "tailwindcss-animate": "^1.0.7",
-    "vinxi": "0.5.3"
-  },
-  "devDependencies": {
-    "@types/node": "^22.5.4",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.5.1",
-    "tailwindcss": "^4.1.8",
-    "typescript": "^5.7.2",
-    "vite-tsconfig-paths": "^5.1.4"
-  }
+    "name": "tanstack-start-example-basic",
+    "private": true,
+    "sideEffects": false,
+    "type": "module",
+    "scripts": {
+        "dev": "vinxi dev",
+        "build": "vinxi build",
+        "start": "vinxi start",
+        "prepare": "husky"
+    },
+    "dependencies": {
+        "@hookform/resolvers": "^5.0.1",
+        "@radix-ui/react-label": "^2.1.7",
+        "@radix-ui/react-slot": "^1.2.3",
+        "@tailwindcss/postcss": "^4.1.8",
+        "@tanstack/react-query": "^5.79.0",
+        "@tanstack/react-router": "^1.120.12",
+        "@tanstack/react-router-devtools": "^1.120.12",
+        "@tanstack/react-start": "^1.120.12",
+        "@tanstack/start": "^1.120.12",
+        "axios": "^1.9.0",
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "framer-motion": "^12.15.0",
+        "lucide-react": "^0.511.0",
+        "msw": "^2.8.7",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-hook-form": "^7.56.4",
+        "react-hot-toast": "^2.5.2",
+        "tailwind-merge": "^3.3.0",
+        "tailwindcss-animate": "^1.0.7",
+        "vinxi": "0.5.3",
+        "zod": "^3.25.42",
+        "zustand": "^5.0.5"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.28.0",
+        "@types/node": "^22.5.4",
+        "@types/react": "^19.0.8",
+        "@types/react-dom": "^19.0.3",
+        "autoprefixer": "^10.4.20",
+        "eslint": "^9.28.0",
+        "eslint-config-prettier": "^10.1.5",
+        "eslint-plugin-prettier": "^5.4.1",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.1.0",
+        "postcss": "^8.5.1",
+        "prettier": "^3.5.3",
+        "tailwindcss": "^4.1.8",
+        "typescript": "^5.7.2",
+        "typescript-eslint": "^8.33.0",
+        "vite-tsconfig-paths": "^5.1.4"
+    },
+    "lint-staged": {
+        "*.{js,ts,tsx,json,css,md}": [
+            "prettier --write",
+            "eslint --fix"
+        ]
+    },
+    "msw": {
+        "workerDirectory": [
+            "public"
+        ]
+    }
 }

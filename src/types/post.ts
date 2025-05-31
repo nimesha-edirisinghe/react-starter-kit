@@ -1,5 +1,5 @@
 export interface PostI {
-  id: string;
+  id: number;
   title: string;
   body: string;
 }
