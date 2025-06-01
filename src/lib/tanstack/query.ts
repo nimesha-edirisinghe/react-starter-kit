@@ -13,9 +13,9 @@ const handleError = (error: unknown) => {
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5,
-      gcTime: 1000 * 60 * 60,
-      retry: 1,
+      staleTime: 1000 * 10,
+      gcTime: 1000 * 60 * 5,
+      retry: 3,
       refetchOnWindowFocus: false,
       refetchOnMount: true,
       refetchOnReconnect: true

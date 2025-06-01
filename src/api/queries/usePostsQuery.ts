@@ -5,7 +5,7 @@ export const usePostsQuery = () =>
   useQuery({
     queryKey: ['posts'],
     queryFn: getPosts,
-    staleTime: 5 * 60 * 1000
+    staleTime: 10 * 1000
   });
 
 export const usePostByIdQuery = (postId: string) =>

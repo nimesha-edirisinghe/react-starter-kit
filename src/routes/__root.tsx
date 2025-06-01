@@ -15,6 +15,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '~/lib/tanstack/query';
 import { NavBar } from '~/components/layout/Navbar/Navbar';
 import { useThemeStore } from '~/stores/themeStore';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -49,6 +50,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <RootLayout>
         <Outlet />
+        <ReactQueryDevtools initialIsOpen={false} position="bottom" />
       </RootLayout>
     </QueryClientProvider>
   );
@@ -72,7 +74,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
       <HeadContent />
       {!hideNavBar && <NavBar />}
       <main className="">{children}</main>
-      <TanStackRouterDevtools position="bottom-right" />
+      <TanStackRouterDevtools position="bottom-left" />
       <Scripts />
     </div>
   );
