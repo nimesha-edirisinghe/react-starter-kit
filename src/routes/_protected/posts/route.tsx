@@ -1,7 +1,7 @@
 import { Link, Outlet, createFileRoute } from '@tanstack/react-router';
 import { usePostsQuery } from '~/api/queries/usePostsQuery';
 
-export const Route = createFileRoute('/_authenticated/posts')({
+export const Route = createFileRoute('/_protected/posts')({
   component: PostsLayoutComponent
 });
 

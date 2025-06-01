@@ -1,7 +1,7 @@
 import { Link, Outlet, createFileRoute } from '@tanstack/react-router';
 import { useUsersQuery } from '~/api/queries/useUsersQuery';
 
-export const Route = createFileRoute('/_authenticated/users')({
+export const Route = createFileRoute('/_protected/users')({
   component: UsersLayoutComponent
 });
 

@@ -3,7 +3,7 @@ import { NotFound } from '~/components/feedback/NotFound';
 import { UserErrorComponent } from '~/components/feedback/UserError';
 import { useUserByIdQuery } from '~/api/queries/useUsersQuery';
 
-export const Route = createFileRoute('/_authenticated/users/$userId')({
+export const Route = createFileRoute('/_protected/users/$userId')({
   errorComponent: UserErrorComponent,
   component: UserComponent,
   notFoundComponent: () => {

@@ -3,7 +3,7 @@ import { usePostByIdQuery } from '~/api/queries/usePostsQuery';
 import { NotFound } from '~/components/feedback/NotFound';
 import { PostErrorComponent } from '~/components/feedback/PostError';
 
-export const Route = createFileRoute('/_authenticated/posts/$postId')({
+export const Route = createFileRoute('/_protected/posts/$postId')({
   errorComponent: PostErrorComponent,
   component: PostComponent,
   notFoundComponent: () => {
