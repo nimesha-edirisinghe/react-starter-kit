@@ -1,10 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import type { UserI } from '~/types/user';
-
-const mockUsers: UserI[] = [
-  { id: 1, name: 'Alice Doe', email: 'alice@example.com' },
-  { id: 2, name: 'Bob Smith', email: 'bob@example.com' }
-];
+import { mockUsers } from '../fixtures/mockUsers';
 
 export const userHandlers = [
   http.get('/users', () => {
@@ -24,7 +20,6 @@ export const userHandlers = [
 
   http.post('/users', async ({ request }) => {
     const body = (await request.json()) as Partial<UserI> | undefined;
-
     if (!body || !body.name || !body.email) {
       return new HttpResponse('Invalid user data', { status: 400 });
     }
@@ -36,7 +31,6 @@ export const userHandlers = [
     };
 
     mockUsers.push(newUser);
-
     return HttpResponse.json(newUser, { status: 201 });
   })
 ];

@@ -1,11 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import type { PostI } from '~/types/post';
-
-const mockPosts: PostI[] = [
-  { id: 1, title: 'First Post', body: 'This is the first post.' },
-  { id: 2, title: 'Second Post', body: 'Another post content.' },
-  { id: 3, title: 'Mocked News', body: 'MSW is now mocking posts!' }
-];
+import { mockPosts } from '../fixtures/mockPosts';
 
 export const postHandlers = [
   http.get('/posts', () => {

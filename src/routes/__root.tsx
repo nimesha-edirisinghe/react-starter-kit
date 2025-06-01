@@ -13,7 +13,7 @@ import appCss from '~/styles/app.css?url';
 import { seo } from '~/utils/seo';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '~/lib/tanstack/query';
-import { NavBar } from '~/components/layout/Navbar';
+import { NavBar } from '~/components/layout/Navbar/Navbar';
 
 export const Route = createRootRoute({
   head: () => ({
