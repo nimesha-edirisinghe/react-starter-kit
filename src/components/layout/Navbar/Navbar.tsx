@@ -6,6 +6,7 @@ import { NavToggle } from './NavToggle';
 import { NavAuthButton } from './NavAuthButton';
 import { MobileNavMenu } from './MobileNavMenu';
 import { useState } from 'react';
+import { ThemeToggle } from './ThemeToggle';
 
 export const NavBar = () => {
   const { isAuthenticated, logout } = useAuthStore();
@@ -25,6 +26,7 @@ export const NavBar = () => {
           {isAuthenticated && <NavLinks />}
           {isAuthenticated && <NavToggle onClick={() => setMenuOpen(!menuOpen)} />}
           <NavAuthButton isAuthenticated={isAuthenticated} onLogout={handleLogout} />
+          <ThemeToggle />
         </div>
       </nav>
       {isAuthenticated && <MobileNavMenu isOpen={menuOpen} onClose={() => setMenuOpen(false)} />}

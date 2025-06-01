@@ -3,8 +3,8 @@ import { useAuthStore } from '~/features/auth/store';
 
 export const Route = createFileRoute('/_authenticated')({
   beforeLoad: async () => {
-    const token = useAuthStore.getState().token;
-    if (!token) {
+    const isAuthenticated = useAuthStore.getState().isAuthenticated;
+    if (!isAuthenticated) {
       throw redirect({ to: '/login' });
     }
   }

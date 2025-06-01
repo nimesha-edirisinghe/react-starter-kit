@@ -1,10 +1,9 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { createUser } from '../endpoints/users';
 import { UserI } from '~/types/user';
+import { queryClient } from '~/lib/tanstack/query';
 
 export const useCreateUser = () => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (user: Partial<UserI>) => createUser(user),
     onSuccess: () => {

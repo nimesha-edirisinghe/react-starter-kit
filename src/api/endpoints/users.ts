@@ -1,5 +1,6 @@
 import { UserI } from '~/types/user';
 import { apiClient } from '../client';
+import log from '~/utils/log';
 
 export const getUsers = async (): Promise<UserI[]> => {
   const res = await apiClient.get('/users');
@@ -18,7 +19,7 @@ export const getUserById = async (userId: string): Promise<UserI> => {
     const res = await apiClient.get(`/users/${id}`);
     return res.data;
   } catch (error) {
-    console.error('Endpoint: getUserById failed', error);
+    log.error('Endpoint: getUserById failed', error);
     throw new Error('Failed to fetch user');
   }
 };

@@ -1,5 +1,6 @@
 import { PostI } from '~/types/post';
 import { apiClient } from '../client';
+import log from '~/utils/log';
 
 export const getPosts = async (): Promise<PostI[]> => {
   const res = await apiClient.get('/posts');
@@ -13,7 +14,7 @@ export const getPostById = async (postId: string): Promise<PostI> => {
     const res = await apiClient.get(`/posts/${id}`);
     return res.data;
   } catch (error) {
-    console.error('Endpoint: getPostById failed', error);
+    log.error('Endpoint: getPostById failed', error);
     throw new Error('Failed to fetch post');
   }
 };

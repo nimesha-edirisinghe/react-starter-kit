@@ -1,4 +1,5 @@
 import type { AxiosInstance } from 'axios';
+import log from '~/utils/log';
 
 export const attachResponseInterceptor = (api: AxiosInstance) => {
   api.interceptors.response.use(
@@ -8,8 +9,7 @@ export const attachResponseInterceptor = (api: AxiosInstance) => {
 
       if (typeof window !== 'undefined') {
         if (status === 401 || status === 403) {
-          console.warn('Redirecting to login...');
-          // Optional: window.location.href = "/login";
+          log.warn('Redirecting to login...');
         }
       }
 
