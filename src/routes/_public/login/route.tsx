@@ -47,7 +47,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted px-4">
+    <div className="relative overflow-hidden min-h-screen bg-gradient-to-br from-rose-100 via-sky-100 to-lime-100 flex items-center justify-center">
       <Card className="w-full max-w-md shadow-xl border border-gray-200">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Welcome Back</CardTitle>

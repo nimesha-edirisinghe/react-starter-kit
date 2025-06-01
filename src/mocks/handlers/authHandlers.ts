@@ -6,7 +6,7 @@ export const authHandlers = [
       email: string;
       password: string;
     };
-    if (email === 'admin@gmail.com' && password === 'admin123') {
+    if (email === 'admin@gmail.com' && password === '1Qaz2wsx#') {
       return HttpResponse.json({
         user: { id: '1', name: 'Admin', email },
         token: 'mock-token-123'
