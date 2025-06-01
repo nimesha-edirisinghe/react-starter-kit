@@ -2,10 +2,8 @@ import { Link, createFileRoute } from '@tanstack/react-router';
 import { usePostByIdQuery } from '~/api/queries/usePostsQuery';
 import { NotFound } from '~/components/feedback/NotFound';
 import { PostErrorComponent } from '~/components/feedback/PostError';
-import { requireAuth } from '~/utils/requireAuth';
 
-export const Route = createFileRoute('/_protected/posts/$postId')({
-  beforeLoad: requireAuth,
+export const Route = createFileRoute('/_authenticated/posts/$postId')({
   errorComponent: PostErrorComponent,
   component: PostComponent,
   notFoundComponent: () => {

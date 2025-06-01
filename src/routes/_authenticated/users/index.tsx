@@ -1,8 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { requireAuth } from '~/utils/requireAuth';
 
-export const Route = createFileRoute('/_protected/users/')({
-  beforeLoad: requireAuth,
+export const Route = createFileRoute('/_authenticated/users/')({
   component: UsersIndexComponent
 });
 

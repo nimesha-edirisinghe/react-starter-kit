@@ -1,10 +1,8 @@
 import { Link, createFileRoute } from '@tanstack/react-router';
 import { PostErrorComponent } from '~/components/feedback/PostError';
 import { usePostByIdQuery } from '~/api/queries/usePostsQuery';
-import { requireAuth } from '~/utils/requireAuth';
 
-export const Route = createFileRoute('/_protected/posts/_/$postId/deep')({
-  beforeLoad: requireAuth,
+export const Route = createFileRoute('/_authenticated/posts/_/$postId/deep')({
   errorComponent: PostErrorComponent,
   component: PostDeepComponent
 });
