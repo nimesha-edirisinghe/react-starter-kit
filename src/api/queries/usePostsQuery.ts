@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getPosts, getPostById } from '../endpoints/posts';
+import { getPosts, getPostById } from '../services/posts';
 
 export const usePostsQuery = () =>
   useQuery({
@@ -13,5 +13,5 @@ export const usePostByIdQuery = (postId: string) =>
     queryKey: ['post', postId],
     queryFn: () => getPostById(postId),
     enabled: !!postId,
-    staleTime: 5 * 60 * 1000
+    staleTime: 10 * 1000
   });

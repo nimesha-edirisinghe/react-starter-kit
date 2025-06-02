@@ -1,10 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { useUserByIdQuery } from '~/api/index';
 import { NotFound } from '~/components/feedback/NotFound';
-import { UserErrorComponent } from '~/components/feedback/UserError';
-import { useUserByIdQuery } from '~/api/queries/useUsersQuery';
 
 export const Route = createFileRoute('/_protected/users/$userId')({
-  errorComponent: UserErrorComponent,
+  errorComponent: UserComponent,
   component: UserComponent,
   notFoundComponent: () => {
     return <NotFound>User not found</NotFound>;

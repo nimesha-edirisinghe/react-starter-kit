@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { createUser } from '../endpoints/users';
+import { createUser } from '../services/users';
 import { UserI } from '~/types/user';
 import { queryClient } from '~/lib/tanstack/query';
 

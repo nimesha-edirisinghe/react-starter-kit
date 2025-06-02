@@ -16,6 +16,7 @@ import { queryClient } from '~/lib/tanstack/query';
 import { NavBar } from '~/components/layout/Navbar/Navbar';
 import { useThemeStore } from '~/stores/themeStore';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Toaster } from 'react-hot-toast';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -50,6 +51,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <RootLayout>
         <Outlet />
+        <Toaster position="top-right" reverseOrder={false} />
         <ReactQueryDevtools initialIsOpen={false} position="bottom" />
       </RootLayout>
     </QueryClientProvider>
