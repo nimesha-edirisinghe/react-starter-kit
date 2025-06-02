@@ -22,7 +22,7 @@ export const TodoInput = ({ newTodo, setNewTodo, onSubmit, isEditing }: TodoInpu
         placeholder="Add or update todo"
         className="flex-1"
       />
-      <Button onClick={onSubmit} className="shrink-0">
+      <Button onClick={onSubmit} className="shrink-0 cursor-pointer">
         {isEditing ? 'Update' : 'Add'}
       </Button>
     </div>

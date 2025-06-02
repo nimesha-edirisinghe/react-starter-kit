@@ -1,21 +1,48 @@
 import { Link } from '@tanstack/react-router';
 import { usePostByIdQuery } from '~/api/queries/usePostsQuery';
 import { Route } from '~/routes/_protected/posts/_.$postId.deep';
+import { Skeleton } from '~/components/ui/skeleton';
+import { Button } from '~/components/ui/button';
 
 const PostDeepComponent = () => {
   const { postId } = Route.useParams();
   const { data: post, isLoading, isError } = usePostByIdQuery(postId);
 
-  if (isLoading) return <p className="p-4">Loading post...</p>;
-  if (isError || !post) return <p className="p-4 text-red-500">Post not found</p>;
+  if (isLoading) {
+    return (
+      <div className="p-6 space-y-4">
+        <Skeleton className="h-4 w-32" />
+        <Skeleton className="h-6 w-3/4" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-11/12" />
+      </div>
+    );
+  }
+
+  if (isError || !post) {
+    return (
+      <div className="p-6 text-center text-red-500 text-sm">
+        Post not found. Please check the link or go back.
+      </div>
+    );
+  }
 
   return (
-    <div className="p-2 space-y-2">
-      <Link to="/posts" className="block py-1 text-blue-800 hover:text-blue-600">
-        ← All Posts
-      </Link>
-      <h4 className="text-xl font-bold underline">{post.title}</h4>
-      <div className="text-sm">{post.body}</div>
+    <div className="p-6 space-y-6 animate-in fade-in slide-in-from-bottom-2">
+      <div className="text-sm text-muted-foreground">
+        <Link to="/posts" className="hover:text-primary underline transition-colors">
+          ← Back to Posts
+        </Link>
+      </div>
+      <div className="rounded-lg border bg-background p-5 shadow-sm transition hover:shadow-md">
+        <h2 className="text-2xl font-semibold text-primary mb-2">{post.title}</h2>
+        <p className="text-muted-foreground leading-relaxed">{post.body}</p>
+      </div>
+      <div className="flex justify-end">
+        <Button asChild variant="outline">
+          <Link to="/posts">Browse More Posts</Link>
+        </Button>
+      </div>
     </div>
   );
 };

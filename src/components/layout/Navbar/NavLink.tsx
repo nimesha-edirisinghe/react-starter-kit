@@ -6,7 +6,7 @@ type NavLinkProps = {
   exact?: boolean;
 };
 
-export const NavLink = ({ to, label, exact }: NavLinkProps) => (
+export const NavLink = ({ to, label, exact = false }: NavLinkProps) => (
   <Link
     to={to}
     activeProps={{

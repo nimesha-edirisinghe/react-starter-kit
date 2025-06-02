@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router';
-import { useAuthStore } from '~/features/auth/store';
+import { useAuthStore } from '~/features/auth/authStore';
 
 export const Route = createFileRoute('/_protected')({
   beforeLoad: async () => {

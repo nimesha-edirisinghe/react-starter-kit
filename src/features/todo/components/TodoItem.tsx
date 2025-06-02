@@ -28,7 +28,7 @@ export const TodoItem = ({ todo, toggleTodo, startEditing, removeTodo }: TodoIte
         <Button
           variant="outline"
           size="icon"
-          className="h-8 w-8"
+          className="h-8 w-8 cursor-pointer"
           onClick={() => startEditing(todo.id, todo.title)}
         >
           ✏️
@@ -36,7 +36,7 @@ export const TodoItem = ({ todo, toggleTodo, startEditing, removeTodo }: TodoIte
         <Button
           variant="secondary"
           size="icon"
-          className="h-8 w-8"
+          className="h-8 w-8 cursor-pointer"
           onClick={() => removeTodo(todo.id)}
         >
           🗑️

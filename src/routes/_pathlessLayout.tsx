@@ -1,4 +1,7 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router';
+import { Home, LayoutPanelTop } from 'lucide-react';
+import { Button } from '~/components/ui/button';
+import { Link } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_pathlessLayout')({
   component: LayoutComponent
@@ -6,11 +9,24 @@ export const Route = createFileRoute('/_pathlessLayout')({
 
 function LayoutComponent() {
   return (
-    <div className="p-2">
-      <div className="border-b">I'm a layout</div>
-      <div>
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <header className="border-b px-6 py-4 shadow-sm bg-white dark:bg-gray-950 flex items-center justify-between">
+        <div className="flex items-center gap-2 text-lg font-semibold">
+          <LayoutPanelTop className="h-5 w-5 text-primary" />
+          <span>My App Layout</span>
+        </div>
+        <Button asChild variant="outline" size="sm">
+          <Link to="/">
+            <Home className="h-4 w-4 mr-1" /> Home
+          </Link>
+        </Button>
+      </header>
+      <main className="flex-1 p-6 animate-in fade-in slide-in-from-bottom-2">
         <Outlet />
-      </div>
+      </main>
+      <footer className="border-t text-sm text-muted-foreground px-6 py-4 text-center">
+        © {new Date().getFullYear()} My App. All rights reserved.
+      </footer>
     </div>
   );
 }

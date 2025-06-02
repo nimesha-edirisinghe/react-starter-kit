@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from '@tanstack/react-router';
-import { useAuthStore } from '~/features/auth/store';
+import { useAuthStore } from '~/features/auth/authStore';
 import type { LoginFormData } from '~/features/auth/types';
 import { useLoginMutation } from './useLoginMutation';
 

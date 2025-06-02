@@ -4,14 +4,12 @@ import { getPosts, getPostById } from '../services/posts';
 export const usePostsQuery = () =>
   useQuery({
     queryKey: ['posts'],
-    queryFn: getPosts,
-    staleTime: 10 * 1000
+    queryFn: getPosts
   });
 
 export const usePostByIdQuery = (postId: string) =>
   useQuery({
     queryKey: ['post', postId],
     queryFn: () => getPostById(postId),
-    enabled: !!postId,
-    staleTime: 10 * 1000
+    enabled: !!postId
   });
