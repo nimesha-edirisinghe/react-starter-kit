@@ -9,6 +9,7 @@ export const NavLinks = () => (
     className="hidden md:flex items-center gap-2"
   >
     <NavLink to="/" label="Home" exact />
+    <NavLink to="/todo" label="Todos" />
     <NavLink to="/posts" label="Posts" />
     <NavLink to="/users" label="Users" />
     <NavLink to="/route-a" label="Pathless Layout" />

@@ -21,11 +21,12 @@ import { Route as PublicLoginRouteImport } from './routes/_public/login/route'
 import { Route as ProtectedUsersRouteImport } from './routes/_protected/users/route'
 import { Route as ProtectedPostsRouteImport } from './routes/_protected/posts/route'
 import { Route as ProtectedUsersIndexImport } from './routes/_protected/users/index'
+import { Route as ProtectedTodoIndexImport } from './routes/_protected/todo/index'
 import { Route as ProtectedPostsIndexImport } from './routes/_protected/posts/index'
 import { Route as PathlessLayoutNestedLayoutRouteBImport } from './routes/_pathlessLayout/_nested-layout/route-b'
 import { Route as PathlessLayoutNestedLayoutRouteAImport } from './routes/_pathlessLayout/_nested-layout/route-a'
-import { Route as ProtectedUsersUserIdRouteImport } from './routes/_protected/users/$userId/route'
-import { Route as ProtectedPostsPostIdRouteImport } from './routes/_protected/posts/$postId/route'
+import { Route as ProtectedUsersUserIdIndexImport } from './routes/_protected/users/$userId/index'
+import { Route as ProtectedPostsPostIdIndexImport } from './routes/_protected/posts/$postId/index'
 import { Route as ProtectedPostsPostIdDeepImport } from './routes/_protected/posts/_.$postId.deep'
 
 // Create/Update Routes
@@ -89,6 +90,12 @@ const ProtectedUsersIndexRoute = ProtectedUsersIndexImport.update({
   getParentRoute: () => ProtectedUsersRouteRoute,
 } as any)
 
+const ProtectedTodoIndexRoute = ProtectedTodoIndexImport.update({
+  id: '/todo/',
+  path: '/todo/',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+
 const ProtectedPostsIndexRoute = ProtectedPostsIndexImport.update({
   id: '/',
   path: '/',
@@ -109,15 +116,15 @@ const PathlessLayoutNestedLayoutRouteARoute =
     getParentRoute: () => PathlessLayoutNestedLayoutRoute,
   } as any)
 
-const ProtectedUsersUserIdRouteRoute = ProtectedUsersUserIdRouteImport.update({
-  id: '/$userId',
-  path: '/$userId',
+const ProtectedUsersUserIdIndexRoute = ProtectedUsersUserIdIndexImport.update({
+  id: '/$userId/',
+  path: '/$userId/',
   getParentRoute: () => ProtectedUsersRouteRoute,
 } as any)
 
-const ProtectedPostsPostIdRouteRoute = ProtectedPostsPostIdRouteImport.update({
-  id: '/$postId',
-  path: '/$postId',
+const ProtectedPostsPostIdIndexRoute = ProtectedPostsPostIdIndexImport.update({
+  id: '/$postId/',
+  path: '/$postId/',
   getParentRoute: () => ProtectedPostsRouteRoute,
 } as any)
 
@@ -194,20 +201,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PathlessLayoutNestedLayoutImport
       parentRoute: typeof PathlessLayoutImport
     }
-    '/_protected/posts/$postId': {
-      id: '/_protected/posts/$postId'
-      path: '/$postId'
-      fullPath: '/posts/$postId'
-      preLoaderRoute: typeof ProtectedPostsPostIdRouteImport
-      parentRoute: typeof ProtectedPostsRouteImport
-    }
-    '/_protected/users/$userId': {
-      id: '/_protected/users/$userId'
-      path: '/$userId'
-      fullPath: '/users/$userId'
-      preLoaderRoute: typeof ProtectedUsersUserIdRouteImport
-      parentRoute: typeof ProtectedUsersRouteImport
-    }
     '/_pathlessLayout/_nested-layout/route-a': {
       id: '/_pathlessLayout/_nested-layout/route-a'
       path: '/route-a'
@@ -229,11 +222,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedPostsIndexImport
       parentRoute: typeof ProtectedPostsRouteImport
     }
+    '/_protected/todo/': {
+      id: '/_protected/todo/'
+      path: '/todo'
+      fullPath: '/todo'
+      preLoaderRoute: typeof ProtectedTodoIndexImport
+      parentRoute: typeof ProtectedImport
+    }
     '/_protected/users/': {
       id: '/_protected/users/'
       path: '/'
       fullPath: '/users/'
       preLoaderRoute: typeof ProtectedUsersIndexImport
+      parentRoute: typeof ProtectedUsersRouteImport
+    }
+    '/_protected/posts/$postId/': {
+      id: '/_protected/posts/$postId/'
+      path: '/$postId'
+      fullPath: '/posts/$postId'
+      preLoaderRoute: typeof ProtectedPostsPostIdIndexImport
+      parentRoute: typeof ProtectedPostsRouteImport
+    }
+    '/_protected/users/$userId/': {
+      id: '/_protected/users/$userId/'
+      path: '/$userId'
+      fullPath: '/users/$userId'
+      preLoaderRoute: typeof ProtectedUsersUserIdIndexImport
       parentRoute: typeof ProtectedUsersRouteImport
     }
     '/_protected/posts/_/$postId/deep': {
@@ -279,14 +293,14 @@ const PathlessLayoutRouteWithChildren = PathlessLayoutRoute._addFileChildren(
 )
 
 interface ProtectedPostsRouteRouteChildren {
-  ProtectedPostsPostIdRouteRoute: typeof ProtectedPostsPostIdRouteRoute
   ProtectedPostsIndexRoute: typeof ProtectedPostsIndexRoute
+  ProtectedPostsPostIdIndexRoute: typeof ProtectedPostsPostIdIndexRoute
   ProtectedPostsPostIdDeepRoute: typeof ProtectedPostsPostIdDeepRoute
 }
 
 const ProtectedPostsRouteRouteChildren: ProtectedPostsRouteRouteChildren = {
-  ProtectedPostsPostIdRouteRoute: ProtectedPostsPostIdRouteRoute,
   ProtectedPostsIndexRoute: ProtectedPostsIndexRoute,
+  ProtectedPostsPostIdIndexRoute: ProtectedPostsPostIdIndexRoute,
   ProtectedPostsPostIdDeepRoute: ProtectedPostsPostIdDeepRoute,
 }
 
@@ -294,13 +308,13 @@ const ProtectedPostsRouteRouteWithChildren =
   ProtectedPostsRouteRoute._addFileChildren(ProtectedPostsRouteRouteChildren)
 
 interface ProtectedUsersRouteRouteChildren {
-  ProtectedUsersUserIdRouteRoute: typeof ProtectedUsersUserIdRouteRoute
   ProtectedUsersIndexRoute: typeof ProtectedUsersIndexRoute
+  ProtectedUsersUserIdIndexRoute: typeof ProtectedUsersUserIdIndexRoute
 }
 
 const ProtectedUsersRouteRouteChildren: ProtectedUsersRouteRouteChildren = {
-  ProtectedUsersUserIdRouteRoute: ProtectedUsersUserIdRouteRoute,
   ProtectedUsersIndexRoute: ProtectedUsersIndexRoute,
+  ProtectedUsersUserIdIndexRoute: ProtectedUsersUserIdIndexRoute,
 }
 
 const ProtectedUsersRouteRouteWithChildren =
@@ -309,11 +323,13 @@ const ProtectedUsersRouteRouteWithChildren =
 interface ProtectedRouteChildren {
   ProtectedPostsRouteRoute: typeof ProtectedPostsRouteRouteWithChildren
   ProtectedUsersRouteRoute: typeof ProtectedUsersRouteRouteWithChildren
+  ProtectedTodoIndexRoute: typeof ProtectedTodoIndexRoute
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedPostsRouteRoute: ProtectedPostsRouteRouteWithChildren,
   ProtectedUsersRouteRoute: ProtectedUsersRouteRouteWithChildren,
+  ProtectedTodoIndexRoute: ProtectedTodoIndexRoute,
 }
 
 const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
@@ -328,12 +344,13 @@ export interface FileRoutesByFullPath {
   '/posts': typeof ProtectedPostsRouteRouteWithChildren
   '/users': typeof ProtectedUsersRouteRouteWithChildren
   '/login': typeof PublicLoginRouteRoute
-  '/posts/$postId': typeof ProtectedPostsPostIdRouteRoute
-  '/users/$userId': typeof ProtectedUsersUserIdRouteRoute
   '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
   '/posts/': typeof ProtectedPostsIndexRoute
+  '/todo': typeof ProtectedTodoIndexRoute
   '/users/': typeof ProtectedUsersIndexRoute
+  '/posts/$postId': typeof ProtectedPostsPostIdIndexRoute
+  '/users/$userId': typeof ProtectedUsersUserIdIndexRoute
   '/posts/$postId/deep': typeof ProtectedPostsPostIdDeepRoute
 }
 
@@ -343,12 +360,13 @@ export interface FileRoutesByTo {
   '/deferred': typeof DeferredRoute
   '/redirect': typeof RedirectRoute
   '/login': typeof PublicLoginRouteRoute
-  '/posts/$postId': typeof ProtectedPostsPostIdRouteRoute
-  '/users/$userId': typeof ProtectedUsersUserIdRouteRoute
   '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
   '/posts': typeof ProtectedPostsIndexRoute
+  '/todo': typeof ProtectedTodoIndexRoute
   '/users': typeof ProtectedUsersIndexRoute
+  '/posts/$postId': typeof ProtectedPostsPostIdIndexRoute
+  '/users/$userId': typeof ProtectedUsersUserIdIndexRoute
   '/posts/$postId/deep': typeof ProtectedPostsPostIdDeepRoute
 }
 
@@ -363,12 +381,13 @@ export interface FileRoutesById {
   '/_protected/users': typeof ProtectedUsersRouteRouteWithChildren
   '/_public/login': typeof PublicLoginRouteRoute
   '/_pathlessLayout/_nested-layout': typeof PathlessLayoutNestedLayoutRouteWithChildren
-  '/_protected/posts/$postId': typeof ProtectedPostsPostIdRouteRoute
-  '/_protected/users/$userId': typeof ProtectedUsersUserIdRouteRoute
   '/_pathlessLayout/_nested-layout/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
   '/_pathlessLayout/_nested-layout/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
   '/_protected/posts/': typeof ProtectedPostsIndexRoute
+  '/_protected/todo/': typeof ProtectedTodoIndexRoute
   '/_protected/users/': typeof ProtectedUsersIndexRoute
+  '/_protected/posts/$postId/': typeof ProtectedPostsPostIdIndexRoute
+  '/_protected/users/$userId/': typeof ProtectedUsersUserIdIndexRoute
   '/_protected/posts/_/$postId/deep': typeof ProtectedPostsPostIdDeepRoute
 }
 
@@ -382,12 +401,13 @@ export interface FileRouteTypes {
     | '/posts'
     | '/users'
     | '/login'
-    | '/posts/$postId'
-    | '/users/$userId'
     | '/route-a'
     | '/route-b'
     | '/posts/'
+    | '/todo'
     | '/users/'
+    | '/posts/$postId'
+    | '/users/$userId'
     | '/posts/$postId/deep'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -396,12 +416,13 @@ export interface FileRouteTypes {
     | '/deferred'
     | '/redirect'
     | '/login'
-    | '/posts/$postId'
-    | '/users/$userId'
     | '/route-a'
     | '/route-b'
     | '/posts'
+    | '/todo'
     | '/users'
+    | '/posts/$postId'
+    | '/users/$userId'
     | '/posts/$postId/deep'
   id:
     | '__root__'
@@ -414,12 +435,13 @@ export interface FileRouteTypes {
     | '/_protected/users'
     | '/_public/login'
     | '/_pathlessLayout/_nested-layout'
-    | '/_protected/posts/$postId'
-    | '/_protected/users/$userId'
     | '/_pathlessLayout/_nested-layout/route-a'
     | '/_pathlessLayout/_nested-layout/route-b'
     | '/_protected/posts/'
+    | '/_protected/todo/'
     | '/_protected/users/'
+    | '/_protected/posts/$postId/'
+    | '/_protected/users/$userId/'
     | '/_protected/posts/_/$postId/deep'
   fileRoutesById: FileRoutesById
 }
@@ -473,7 +495,8 @@ export const routeTree = rootRoute
       "filePath": "_protected.tsx",
       "children": [
         "/_protected/posts",
-        "/_protected/users"
+        "/_protected/users",
+        "/_protected/todo/"
       ]
     },
     "/deferred": {
@@ -486,8 +509,8 @@ export const routeTree = rootRoute
       "filePath": "_protected/posts/route.tsx",
       "parent": "/_protected",
       "children": [
-        "/_protected/posts/$postId",
         "/_protected/posts/",
+        "/_protected/posts/$postId/",
         "/_protected/posts/_/$postId/deep"
       ]
     },
@@ -495,8 +518,8 @@ export const routeTree = rootRoute
       "filePath": "_protected/users/route.tsx",
       "parent": "/_protected",
       "children": [
-        "/_protected/users/$userId",
-        "/_protected/users/"
+        "/_protected/users/",
+        "/_protected/users/$userId/"
       ]
     },
     "/_public/login": {
@@ -510,14 +533,6 @@ export const routeTree = rootRoute
         "/_pathlessLayout/_nested-layout/route-b"
       ]
     },
-    "/_protected/posts/$postId": {
-      "filePath": "_protected/posts/$postId/route.tsx",
-      "parent": "/_protected/posts"
-    },
-    "/_protected/users/$userId": {
-      "filePath": "_protected/users/$userId/route.tsx",
-      "parent": "/_protected/users"
-    },
     "/_pathlessLayout/_nested-layout/route-a": {
       "filePath": "_pathlessLayout/_nested-layout/route-a.tsx",
       "parent": "/_pathlessLayout/_nested-layout"
@@ -530,8 +545,20 @@ export const routeTree = rootRoute
       "filePath": "_protected/posts/index.tsx",
       "parent": "/_protected/posts"
     },
+    "/_protected/todo/": {
+      "filePath": "_protected/todo/index.tsx",
+      "parent": "/_protected"
+    },
     "/_protected/users/": {
       "filePath": "_protected/users/index.tsx",
+      "parent": "/_protected/users"
+    },
+    "/_protected/posts/$postId/": {
+      "filePath": "_protected/posts/$postId/index.tsx",
+      "parent": "/_protected/posts"
+    },
+    "/_protected/users/$userId/": {
+      "filePath": "_protected/users/$userId/index.tsx",
       "parent": "/_protected/users"
     },
     "/_protected/posts/_/$postId/deep": {

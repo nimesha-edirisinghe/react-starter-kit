@@ -1,16 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router';
 import { useUserByIdQuery } from '~/api/index';
 import { NotFound } from '~/components/feedback/NotFound';
+import { Route } from '~/routes/_protected/users/$userId';
 
-export const Route = createFileRoute('/_protected/users/$userId')({
-  errorComponent: UserComponent,
-  component: UserComponent,
-  notFoundComponent: () => {
-    return <NotFound>User not found</NotFound>;
-  }
-});
-
-function UserComponent() {
+const UserIdComponent = () => {
   const { userId } = Route.useParams();
   const { data: user, isLoading, isError } = useUserByIdQuery(userId);
 
@@ -23,4 +15,6 @@ function UserComponent() {
       <div className="text-sm">{user.email}</div>
     </div>
   );
-}
+};
+
+export default UserIdComponent;

@@ -1,6 +1,6 @@
 import { UserI } from '~/types/user';
-import { apiClient } from '../client';
 import log from '~/utils/log';
+import { apiClient } from '../client';
 
 export const getUsers = async (): Promise<UserI[]> => {
   const res = await apiClient.get('/users');

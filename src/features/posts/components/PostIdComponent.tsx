@@ -1,17 +1,9 @@
-import { Link, createFileRoute } from '@tanstack/react-router';
+import { Link } from '@tanstack/react-router';
 import { usePostByIdQuery } from '~/api/queries/usePostsQuery';
 import { NotFound } from '~/components/feedback/NotFound';
-import { PostErrorComponent } from '~/components/feedback/PostError';
+import { Route } from '~/routes/_protected/posts/$postId';
 
-export const Route = createFileRoute('/_protected/posts/$postId')({
-  errorComponent: PostErrorComponent,
-  component: PostComponent,
-  notFoundComponent: () => {
-    return <NotFound>Post not found</NotFound>;
-  }
-});
-
-function PostComponent() {
+const PostIdComponent = () => {
   const { postId } = Route.useParams();
   const { data: post, isLoading, isError } = usePostByIdQuery(postId);
 
@@ -34,4 +26,6 @@ function PostComponent() {
       </Link>
     </div>
   );
-}
+};
+
+export default PostIdComponent;
