@@ -3,3 +3,25 @@
 
 echo "✅ Validating commit message format..."
 pnpm commitlint --edit "$1"
+
+
+# ─────────────────────────────────────────────
+# Allowed commit types (Conventional Commits):
+# 
+# [
+#   'build',
+#   'chore',
+#   'ci',
+#   'docs',
+#   'feat',
+#   'fix',
+#   'perf',
+#   'refactor',
+#   'revert',
+#   'style',
+#   'test'
+# ]
+# 
+# ❌ echo "foo: some message" # fails
+# ✅ echo "fix: some message" # passes
+# ─────────────────────────────────────────────

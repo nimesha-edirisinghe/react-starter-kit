@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode", // Prettier - Code formatter
+        "dbaeumer.vscode-eslint", // ESLint integration
+        "bradlc.vscode-tailwindcss", // Tailwind CSS IntelliSense
+        "mikestead.dotenv", // .env syntax highlighting
+        "christian-kohler.path-intellisense", // File path autocomplete
+        "eamodio.gitlens", // GitLens — Git supercharged
+        "usernamehw.errorlens", // Inline error/warning lens
+        "vitest.explorer", // Vitest test runner GUI
+        "jakob101.zustand-snippets", // Zustand code snippets
+        "vivaxy.vscode-conventional-commits", // Conventional commit message helper
+        "naumovs.color-highlight" // Highlights CSS color codes in files
+    ]
+}

@@ -80,8 +80,15 @@ pnpm test
 
 >
 
-- `.husky/` : Git hooks directory used to automate tasks like running linters or tests before commits or pushes (e.g., `pre-commit`, `pre-push`)
+- `.husky/` : Git hooks directory used to automate tasks like running linters or tests before commits or pushes.
+  - `pre-commit` – Runs `lint-staged` to auto-format and lint staged files.
+  - `pre-push` – Executes tests (`pnpm test`) to ensure code quality before pushing.
+  - `commit-msg` – Validates commit message format using Commitlint to enforce conventional commits.
+  - `_/` – Internal Husky scripts (auto-managed by Husky, do not edit manually).
 - `.vscode/` : Project-specific settings and extensions
+
+  - `settings.json` – Configures formatters, disables search/watch for generated files like `routeTree.gen.ts`, and enforces consistent dev environment.
+  - `extensions.json` – Recommends VS Code extensions like ESLint, Prettier, and Tailwind IntelliSense for collaborators.
 
 ## `src/` - Main Application Code
 
@@ -152,3 +159,7 @@ pnpm test
 #### 📁 `utils/`
 
 - General utility functions and helpers
+
+---
+
+### Key Design Decisions
