@@ -1,4 +1,5 @@
 import { Link, Outlet } from '@tanstack/react-router';
+import { BookOpen } from 'lucide-react';
 import { usePostsQuery } from '~/api/queries/usePostsQuery';
 import { Skeleton } from '~/components/ui/skeleton';
 // import { ScrollArea } from '~/components/ui/scroll-area';
@@ -10,7 +11,10 @@ const PostsComponent = () => {
     <div className="flex flex-col md:flex-row h-full min-h-[70vh] border rounded-lg overflow-hidden shadow-sm animate-in fade-in slide-in-from-bottom-2">
       <aside className="w-full md:w-1/4 border-r bg-gray-50 dark:bg-gray-900 p-4">
         <div className="sticky top-0 z-10 bg-gray-50 dark:bg-gray-900 pb-2">
-          <h2 className="text-lg font-semibold">📚 All Posts</h2>
+          <h2 className="text-lg font-semibold flex items-center gap-2">
+            <BookOpen className="w-5 h-5" />
+            All Posts
+          </h2>
         </div>
         <div className="mt-2 max-h-[calc(100vh-8rem)] pr-1 ">
           {isLoading ? (

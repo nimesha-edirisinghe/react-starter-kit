@@ -1,6 +1,5 @@
 import { QueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
-import { queryKeys } from './queryKeys';
 
 const handleError = (error: unknown) => {
   if (error instanceof Error) {
@@ -23,14 +22,3 @@ export const queryClient = new QueryClient({
     }
   }
 });
-
-export const dehydrateQueryClient = async () => {
-  const dehydratedState = await queryClient.getQueryData(queryKeys.users.list());
-  return dehydratedState;
-};
-
-export const hydrateQueryClient = async (dehydratedState: unknown) => {
-  if (dehydratedState) {
-    await queryClient.setQueryData(queryKeys.users.list(), dehydratedState);
-  }
-};

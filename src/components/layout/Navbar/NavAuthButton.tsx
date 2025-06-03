@@ -17,7 +17,7 @@ export const NavAuthButton = ({ isAuthenticated, onLogout }: Props) => (
       <Button
         onClick={onLogout}
         variant="outline"
-        className="border-slate-300 text-slate-800 hover:bg-slate-100 hover:border-slate-400 transition-all duration-300"
+        className="border-slate-300 text-slate-800 hover:bg-slate-100 hover:border-slate-400 transition-all duration-300 cursor-pointer"
       >
         Logout
       </Button>

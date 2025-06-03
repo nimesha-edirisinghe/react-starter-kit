@@ -2,6 +2,7 @@ import { Link, Outlet } from '@tanstack/react-router';
 import { useUsersQuery } from '~/api/queries/useUsersQuery';
 import { Skeleton } from '~/components/ui/skeleton';
 import { ScrollArea } from '~/components/ui/scroll-area';
+import { Users } from 'lucide-react';
 
 const UserComponent = () => {
   const { data: users = [], isLoading, isError } = useUsersQuery();
@@ -9,7 +10,10 @@ const UserComponent = () => {
   return (
     <div className="flex flex-col md:flex-row min-h-[70vh] border rounded-lg overflow-hidden shadow-sm animate-in fade-in slide-in-from-bottom-2">
       <aside className="w-full md:w-1/4 border-r bg-gray-50 dark:bg-gray-900 p-4">
-        <h2 className="text-lg font-semibold mb-3">👥 Users</h2>
+        <h2 className="text-lg font-semibold mb-3 flex items-center gap-2">
+          <Users className="w-5 h-5" />
+          Users
+        </h2>
         <ScrollArea className="max-h-[calc(100vh-8rem)] pr-1">
           {isLoading ? (
             <ul className="space-y-3">

@@ -21,7 +21,7 @@ export const NavBar = () => {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 px-6 py-4 bg-[#fdf6f9]/60 backdrop-blur-md border-b border-rose-100 shadow-sm">
+      <nav className="sticky top-0 z-50 px-6 py-4 bg-[#fdf6f9]/60 backdrop-blur-md border-b border-rose-100 shadow-sm select-none">
         <div className=" mx-auto flex items-center gap-4">
           <NavLogo />
 
