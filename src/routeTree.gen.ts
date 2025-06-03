@@ -11,7 +11,6 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as RedirectImport } from './routes/redirect'
 import { Route as ProtectedImport } from './routes/_protected'
 import { Route as PathlessLayoutImport } from './routes/_pathlessLayout'
 import { Route as IndexImport } from './routes/index'
@@ -30,12 +29,6 @@ import { Route as ProtectedPostsPostIdIndexImport } from './routes/_protected/po
 import { Route as ProtectedPostsPostIdDeepImport } from './routes/_protected/posts/_.$postId.deep'
 
 // Create/Update Routes
-
-const RedirectRoute = RedirectImport.update({
-  id: '/redirect',
-  path: '/redirect',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const ProtectedRoute = ProtectedImport.update({
   id: '/_protected',
@@ -157,13 +150,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof ProtectedImport
-      parentRoute: typeof rootRoute
-    }
-    '/redirect': {
-      id: '/redirect'
-      path: '/redirect'
-      fullPath: '/redirect'
-      preLoaderRoute: typeof RedirectImport
       parentRoute: typeof rootRoute
     }
     '/_protected/posts': {
@@ -341,7 +327,6 @@ const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof PathlessLayoutNestedLayoutRouteWithChildren
-  '/redirect': typeof RedirectRoute
   '/posts': typeof ProtectedPostsRouteRouteWithChildren
   '/users': typeof ProtectedUsersRouteRouteWithChildren
   '/login': typeof PublicLoginRouteRoute
@@ -359,7 +344,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof PathlessLayoutNestedLayoutRouteWithChildren
-  '/redirect': typeof RedirectRoute
   '/login': typeof PublicLoginRouteRoute
   '/deferred': typeof ProtectedDeferredRoute
   '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
@@ -377,7 +361,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_pathlessLayout': typeof PathlessLayoutRouteWithChildren
   '/_protected': typeof ProtectedRouteWithChildren
-  '/redirect': typeof RedirectRoute
   '/_protected/posts': typeof ProtectedPostsRouteRouteWithChildren
   '/_protected/users': typeof ProtectedUsersRouteRouteWithChildren
   '/_public/login': typeof PublicLoginRouteRoute
@@ -398,7 +381,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
-    | '/redirect'
     | '/posts'
     | '/users'
     | '/login'
@@ -415,7 +397,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | ''
-    | '/redirect'
     | '/login'
     | '/deferred'
     | '/route-a'
@@ -431,7 +412,6 @@ export interface FileRouteTypes {
     | '/'
     | '/_pathlessLayout'
     | '/_protected'
-    | '/redirect'
     | '/_protected/posts'
     | '/_protected/users'
     | '/_public/login'
@@ -452,7 +432,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PathlessLayoutRoute: typeof PathlessLayoutRouteWithChildren
   ProtectedRoute: typeof ProtectedRouteWithChildren
-  RedirectRoute: typeof RedirectRoute
   PublicLoginRouteRoute: typeof PublicLoginRouteRoute
 }
 
@@ -460,7 +439,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PathlessLayoutRoute: PathlessLayoutRouteWithChildren,
   ProtectedRoute: ProtectedRouteWithChildren,
-  RedirectRoute: RedirectRoute,
   PublicLoginRouteRoute: PublicLoginRouteRoute,
 }
 
@@ -477,7 +455,6 @@ export const routeTree = rootRoute
         "/",
         "/_pathlessLayout",
         "/_protected",
-        "/redirect",
         "/_public/login"
       ]
     },
@@ -498,9 +475,6 @@ export const routeTree = rootRoute
         "/_protected/deferred",
         "/_protected/todo/"
       ]
-    },
-    "/redirect": {
-      "filePath": "redirect.tsx"
     },
     "/_protected/posts": {
       "filePath": "_protected/posts/route.tsx",

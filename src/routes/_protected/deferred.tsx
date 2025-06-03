@@ -6,8 +6,8 @@ import { Input } from '~/components/ui/input';
 import { Badge } from '~/components/ui/badge';
 import { Sparkles, UserRound, Loader2, RefreshCw } from 'lucide-react';
 import { motion } from 'framer-motion';
-import InteractiveCounter from '~/components/common/InteractiveCounter';
-import LiveClock from '~/components/common/LiveClock';
+import InteractiveCounter from '~/components/common/Counter/Counter';
+import LiveClock from '~/components/common/LiveClock/LiveClock';
 
 const personServerFn = createServerFn({ method: 'GET' })
   .validator((d: string) => d)
