@@ -5,6 +5,7 @@ import { Link } from '@tanstack/react-router';
 import { usePostByIdQuery } from '~/api/queries/usePostsQuery';
 import { Skeleton } from '~/components/ui/skeleton';
 import { Button } from '~/components/ui/button';
+import { Eye } from 'lucide-react';
 
 export const Route = createFileRoute('/_protected/posts/$postId/')({
   errorComponent: PostErrorComponent,
@@ -37,14 +38,15 @@ function PostIdComponent() {
         <h2 className="text-2xl font-bold text-primary">{post.title}</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">{post.body}</p>
       </div>
-
       <Button asChild variant="link" className="px-0">
         <Link
           to="/posts/$postId/deep"
           params={{ postId: String(post.id) }}
           activeProps={{ className: 'font-semibold text-primary underline' }}
+          className="inline-flex items-center gap-1"
         >
-          🔎 View deep details
+          <Eye className="w-4 h-4" />
+          View deep details
         </Link>
       </Button>
     </div>
