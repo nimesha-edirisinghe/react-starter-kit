@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { createUser } from '../services/users';
-import { UserI } from '~/types/user';
+import { UserI } from '~/features/users/types/user';
 import { queryClient } from '~/lib/tanstack/query';
 
 export const useCreateUser = () => {

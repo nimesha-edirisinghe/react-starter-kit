@@ -1,4 +1,4 @@
-import { PostI } from '~/types/post';
+import { PostI } from '~/features/posts/types/post';
 import { apiClient } from '../client';
 import log from '~/utils/log';
 

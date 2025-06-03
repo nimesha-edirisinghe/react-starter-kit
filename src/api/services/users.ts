@@ -1,4 +1,4 @@
-import { UserI } from '~/types/user';
+import { UserI } from '~/features/users/types/user';
 import log from '~/utils/log';
 import { apiClient } from '../client';
 

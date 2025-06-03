@@ -3,7 +3,7 @@ import { Home, LayoutPanelTop } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import { Link } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/_pathlessLayout')({
+export const Route = createFileRoute('/_sharedLayout')({
   component: LayoutComponent
 });
 

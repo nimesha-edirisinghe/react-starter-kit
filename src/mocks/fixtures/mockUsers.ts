@@ -1,4 +1,4 @@
-import { UserI } from '~/types/user';
+import { UserI } from '~/features/users/types/user';
 
 export const mockUsers: UserI[] = [
   { id: 1, name: 'Alice Doe', email: 'alice@example.com' },

@@ -1,4 +1,4 @@
-import type { PostI } from '~/types/post';
+import type { PostI } from '~/features/posts/types/post';
 
 export const mockPosts: PostI[] = [
   { id: 1, title: 'First Post', body: 'This is the first post.' },

@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import type { UserI } from '~/types/user';
+import type { UserI } from '~/features/users/types/user';
 import { mockUsers } from '../fixtures/mockUsers';
 
 export const userHandlers = [

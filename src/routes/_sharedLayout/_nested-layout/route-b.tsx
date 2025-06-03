@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Landmark } from 'lucide-react';
 
-export const Route = createFileRoute('/_pathlessLayout/_nested-layout/route-b')({
+export const Route = createFileRoute('/_sharedLayout/_nested-layout/route-b')({
   component: LayoutBComponent
 });
 

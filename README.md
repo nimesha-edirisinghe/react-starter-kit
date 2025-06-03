@@ -1,72 +1,154 @@
-# Welcome to TanStack.com!
+# React + TanStack Starter Project Setup
 
-This site is built with TanStack Router!
+Welcome to the **React Starter Kit** powered by:
 
-- [TanStack Router Docs](https://tanstack.com/router)
+- **React**
+- **TypeScript**
+- **TanStack Router**
+- **TanStack Query**
+- **Zustand**
+- **Tailwind CSS**
+- **Shadcn UI**
+- **Axios**
+- **Vitest**
 
-It's deployed automagically with Netlify!
+## 1. Prerequisites
 
-- [Netlify](https://netlify.com/)
+Make sure you have the following tools installed:
 
-## Development
+- **Node.js** ≥ 18.x
+- **pnpm** ≥ 8.x — [Install pnpm](https://pnpm.io/installation)
+- **Git** ≥ 2.x
 
-From your terminal:
+## 2. Getting Started
 
-```sh
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/nimesha-edirisinghe/react-starter-kit.git
+cd react-starter-kit
 pnpm install
+```
+
+## 3. Development
+
+To start the local dev server:
+
+```bash
 pnpm dev
 ```
 
-This starts your app in development mode, rebuilding assets on file changes.
+Then open [https://localhost:3000](https://localhost:3000) in your browser.
 
-## Editing and previewing the docs of TanStack projects locally
+## 4. Testing
 
-The documentations for all TanStack projects except for `React Charts` are hosted on [https://tanstack.com](https://tanstack.com), powered by this TanStack Router app.
-In production, the markdown doc pages are fetched from the GitHub repos of the projects, but in development they are read from the local file system.
+Run unit tests using [Vitest](https://vitest.dev/):
 
-Follow these steps if you want to edit the doc pages of a project (in these steps we'll assume it's [`TanStack/form`](https://github.com/tanstack/form)) and preview them locally :
-
-1. Create a new directory called `tanstack`.
-
-```sh
-mkdir tanstack
+```bash
+pnpm test
 ```
 
-2. Enter the directory and clone this repo and the repo of the project there.
+## 5. Useful Commands
 
-```sh
-cd tanstack
-git clone git@github.com:TanStack/tanstack.com.git
-git clone git@github.com:TanStack/form.git
-```
+| Command             | Description                          |
+| ------------------- | ------------------------------------ |
+| `pnpm dev`          | Start dev server                     |
+| `pnpm build`        | Build for production                 |
+| `pnpm lint`         | Run ESLint checks                    |
+| `pnpm format`       | Run Prettier formatting              |
+| `pnpm test`         | Run unit tests                       |
+| `pnpm prepare`      | Setup Husky git hooks                |
 
-> [!NOTE]
-> Your `tanstack` directory should look like this:
+---
+
+# Folder Structure
+
+![alt text](src/assets/docs/folder-structure.png)
+
+# Explanation of Your Folder Structure
+
+#### Root-Level Config Files
+
+- `.eslintrc`, `.prettierrc`, `eslint.config.js` : Code linting and formatting
+- `tsconfig.json` : TypeScript configuration
+- `postcss.config.mjs` : PostCSS config
+- `vite.config.ts`: Vite setup (used under TanStack Start)
+- `vitest.config.ts` : Configuration file for [Vitest](https://vitest.dev/)
+- `.env` : Environment variable file to define app configuration values (e.g., API keys, secrets, URLs) outside of source code
+
+#### 📁`.husky/` 📁`.vscode/`
+
 >
-> ```
-> tanstack/
->    |
->    +-- form/
->    |
->    +-- tanstack.com/
-> ```
 
-> [!WARNING]
-> Make sure the name of the directory in your local file system matches the name of the project's repo. For example, `tanstack/form` must be cloned into `form` (this is the default) instead of `some-other-name`, because that way, the doc pages won't be found.
+- `.husky/` : Git hooks directory used to automate tasks like running linters or tests before commits or pushes (e.g., `pre-commit`, `pre-push`)
+- `.vscode/` : Project-specific settings and extensions
 
-3. Enter the `tanstack/tanstack.com` directory, install the dependencies and run the app in dev mode:
+## `src/` - Main Application Code
 
-```sh
-cd tanstack.com
-pnpm i
-# The app will run on https://localhost:3000 by default
-pnpm dev
-```
+#### 📁 `api/`
 
-4. Now you can visit http://localhost:3000/form/latest/docs/overview in the browser and see the changes you make in `tanstack/form/docs`.
+>
 
-> [!NOTE]
-> The updated pages need to be manually reloaded in the browser.
+- `interceptors/` : Axios request/response interceptors for authentication, error handling
+- `mutations/` : TanStack Query mutation definitions for data modification
+- `queries/` : TanStack Query query definitions for data fetching
+- `services/` : API service functions and endpoint definitions
+- `client.ts` : Axios client configuration
+- `index.ts` : API exports and barrel file
 
-> [!WARNING]
-> You will need to update the `docs/config.json` file (in the project's repo) if you add a new doc page!
+#### 📁 `components/`
+
+>
+
+- `common/` - Reusable UI components used across the app
+- `feedback/` - A dedicated folder for **user feedback UI**, ( Error boundaries, 404 Not Found pages,API-specific error states )
+- `icons/` - Custom icon components
+- `layout/` - Layout wrapper components (navbar, sidebars, etc.)
+- `ui/` - Shadcn/ui components (buttons, forms, input, etc.)
+
+#### 📁 `features/`
+
+>
+
+- Feature-based organization where each feature contains its own components, hooks, and logic
+
+#### 📁 `lib/`
+
+>
+
+- Utility functions and helpers
+
+#### 📁 `mocks/`
+
+>
+
+- `fixtures/` - Static data for mocks
+- `handlers/` - Domain-specific MSW handlers
+- `handlers.ts` - Combines all handlers
+- `browser.ts` - Sets up the MSW service worker in dev
+
+#### 📁 `routes/`
+
+>
+
+- `_protected/` - Protected routes requiring authentication
+- `_public/` - Public routes accessible without authentication
+- `__root.tsx` - Root route component
+- `_protected.tsx` - Protected route layout
+- `index.tsx` - This is the default route shown when someone visits your domain root (e.g., `http://localhost:3000/` or `yourdomain.com/`)
+
+#### 📁 `routes/`
+
+- Zustand store definitions for global state management
+
+#### 📁 `styles/`
+
+- Global CSS and Tailwind configurations
+
+#### 📁 `test/`
+
+- Test utilities and setup files
+
+#### 📁 `utils/`
+
+- General utility functions and helpers
