@@ -13,17 +13,5 @@ export const authHandlers = [
       });
     }
     return new HttpResponse('Invalid credentials', { status: 401 });
-  }),
-
-  http.get('/auth/me', ({ request }) => {
-    const auth = request.headers.get('Authorization');
-    if (auth === 'Bearer mock-token-123') {
-      return HttpResponse.json({
-        id: '1',
-        name: 'Admin',
-        email: 'admin@example.com'
-      });
-    }
-    return new HttpResponse('Unauthorized', { status: 401 });
   })
 ];

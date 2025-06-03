@@ -14,7 +14,7 @@ import { seo } from '~/utils/seo';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '~/lib/tanstack/query';
 import { NavBar } from '~/components/layout/Navbar/Navbar';
-import { useThemeStore } from '~/stores/themeStore';
+import { useThemeStore } from '~/stores/theme-store';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 

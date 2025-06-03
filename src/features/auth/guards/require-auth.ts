@@ -1,5 +1,5 @@
 import { redirect } from '@tanstack/react-router';
-import { useAuthStore } from '~/features/auth/authStore';
+import { useAuthStore } from '../auth-store';
 
 export function requireAuth() {
   const isAuthenticated = useAuthStore.getState().isAuthenticated;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useTodoStore } from '../store/todoStore';
+import { useTodoStore } from '../store/todo-store';
 import { TodoInput } from './TodoInput';
 import { TodoList } from './TodoList';
 
@@ -24,7 +24,7 @@ export const TodoComponent = () => {
 
   return (
     <div className="max-w-md mx-auto p-6 space-y-6">
-      <h1 className="text-2xl font-bold text-center">Manage Your Todos 📝</h1>
+      <h1 className="text-2xl font-bold text-center">Manage Your Todos</h1>
       <TodoInput
         newTodo={newTodo}
         setNewTodo={setNewTodo}

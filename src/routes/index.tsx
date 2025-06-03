@@ -44,14 +44,11 @@ function Home() {
 
   return (
     <div className="relative overflow-hidden min-h-screen bg-gradient-to-br from-rose-100 via-sky-100 to-lime-100">
-      {/* ✨ Gradient Shine Overlays */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.4),transparent_70%)] mix-blend-lighten pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_60%,rgba(255,255,255,0.25),transparent_70%)] mix-blend-lighten pointer-events-none" />
 
-      {/* ✨ Subtle Grid Overlay */}
       <div className="absolute inset-0 bg-grid-black/[0.02] bg-[size:50px_50px]" />
 
-      {/* ✨ Floating Glow Orbs */}
       <motion.div
         variants={floatingVariants}
         initial="initial"
@@ -73,7 +70,6 @@ function Home() {
         className="absolute bottom-32 left-20 w-3 h-3 bg-purple-400 rounded-full opacity-50 blur-md"
       />
 
-      {/* 💡 Main Content */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -99,12 +95,13 @@ function Home() {
             {[
               'React',
               'TypeScript',
+              'TanStack Query',
+              'TanStack Router',
               'Tailwind CSS',
-              'Tanstack Router',
-              'Vite',
+              'Shadcn UI',
+              'Axios',
               'Zustand',
-              'MSW',
-              'ShadCN UI'
+              'MSW'
             ].map((tech, index) => (
               <motion.div
                 key={tech}

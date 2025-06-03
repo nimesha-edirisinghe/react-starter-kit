@@ -1,6 +1,7 @@
 import { Button } from '~/components/ui/button';
 import { cn } from '~/lib/utils/utils';
-import { Todo } from '../store/todoStore';
+import { Todo } from '../store/todo-store';
+import { Pencil, Trash2 } from 'lucide-react';
 
 interface TodoItemProps {
   todo: Todo;
@@ -30,16 +31,18 @@ export const TodoItem = ({ todo, toggleTodo, startEditing, removeTodo }: TodoIte
           size="icon"
           className="h-8 w-8 cursor-pointer"
           onClick={() => startEditing(todo.id, todo.title)}
+          aria-label="edit"
         >
-          ✏️
+          <Pencil className="h-4 w-4" />
         </Button>
         <Button
           variant="secondary"
           size="icon"
           className="h-8 w-8 cursor-pointer"
           onClick={() => removeTodo(todo.id)}
+          aria-label="delete"
         >
-          🗑️
+          <Trash2 className="h-4 w-4" />
         </Button>
       </div>
     </li>

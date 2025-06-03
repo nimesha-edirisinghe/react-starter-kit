@@ -1,4 +1,4 @@
-import { useAuthStore } from '~/features/auth/authStore';
+import { useAuthStore } from '~/features/auth/auth-store';
 import { useNavigate } from '@tanstack/react-router';
 import { NavLogo } from './NavLogo';
 import { NavLinks } from './NavLinks';

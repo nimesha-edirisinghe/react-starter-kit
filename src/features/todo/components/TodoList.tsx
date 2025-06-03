@@ -1,4 +1,4 @@
-import { Todo } from '../store/todoStore';
+import { Todo } from '../store/todo-store';
 import { TodoItem } from './TodoItem';
 
 interface TodoListProps {

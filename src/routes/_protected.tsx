@@ -1,11 +1,6 @@
-import { createFileRoute, redirect } from '@tanstack/react-router';
-import { useAuthStore } from '~/features/auth/authStore';
+import { createFileRoute } from '@tanstack/react-router';
+import { requireAuth } from '~/features/auth/guards/require-auth';
 
 export const Route = createFileRoute('/_protected')({
-  beforeLoad: async () => {
-    const isAuthenticated = useAuthStore.getState().isAuthenticated;
-    if (!isAuthenticated) {
-      throw redirect({ to: '/login' });
-    }
-  }
+  beforeLoad: requireAuth
 });
