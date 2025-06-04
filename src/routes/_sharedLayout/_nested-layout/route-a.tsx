@@ -11,8 +11,7 @@ function LayoutAComponent() {
       <Sparkles className="h-10 w-10 text-primary" />
       <h2 className="text-xl font-semibold text-foreground">Welcome to Route A </h2>
       <p className="text-muted-foreground text-sm max-w-md">
-        This is a beautiful nested route with enhanced UI. Use the top navigation to switch between
-        routes.
+        This is nested route with enhanced UI. Use the top navigation to switch between routes.
       </p>
     </div>
   );

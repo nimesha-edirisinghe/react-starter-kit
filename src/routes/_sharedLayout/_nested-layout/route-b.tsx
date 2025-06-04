@@ -11,8 +11,7 @@ function LayoutBComponent() {
       <Landmark className="h-10 w-10 text-primary" />
       <h2 className="text-xl font-semibold text-foreground">You’ve landed on Route B</h2>
       <p className="text-muted-foreground text-sm max-w-md">
-        This is another nested route inside the layout. Feel free to explore and style it however
-        you like.
+        This is another nested route inside the layout.
       </p>
     </div>
   );
