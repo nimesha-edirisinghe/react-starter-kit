@@ -2,7 +2,7 @@
 import { hydrateRoot } from 'react-dom/client';
 import { StartClient } from '@tanstack/react-start';
 import { createRouter } from './lib/tanstack/router';
-import { config } from './lib/utils/config';
+import { config } from './utils/config';
 
 const ENABLE_MSW = config.enableMSW === 'true' && config.nodeEnv === 'development';
 

@@ -1,5 +1,5 @@
 import { Button } from '~/components/ui/button';
-import { cn } from '~/lib/utils/utils';
+import { cn } from '~/utils/utils';
 import { Todo } from '../store/todo-store';
 import { Pencil, Trash2 } from 'lucide-react';
 

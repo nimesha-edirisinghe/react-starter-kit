@@ -1,6 +1,8 @@
 # React + TanStack Starter Project Setup
 
-Welcome to the **React Starter Kit** powered by:
+Welcome to the **React Starter Kit**
+
+### Tech stack
 
 - **React**
 - **TypeScript**
@@ -14,7 +16,7 @@ Welcome to the **React Starter Kit** powered by:
 
 ## 1. Prerequisites
 
-Make sure you have the following tools installed:
+Make sure you have the following tools installed
 
 - **Node.js** ≥ 18.x
 - **pnpm** ≥ 8.x — [Install pnpm](https://pnpm.io/installation)
@@ -22,7 +24,7 @@ Make sure you have the following tools installed:
 
 ## 2. Getting Started
 
-Clone the repository and install dependencies:
+Clone the repository and install dependencies
 
 ```bash
 git clone https://github.com/nimesha-edirisinghe/react-starter-kit.git
@@ -32,7 +34,7 @@ pnpm install
 
 ## 3. Development
 
-To start the local dev server:
+To start the local dev server
 
 ```bash
 pnpm dev
@@ -42,14 +44,14 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 4. Demo Login Credentials
 
-To sign in to the application during development, use the following credentials:
+To sign in to the application during development, use the following credentials
 
-Email: admin@gmail.com
-Password: 1Qaz2wsx#
+Email: `admin@gmail.com`
+Password: `1Qaz2wsx#`
 
 ## 5. Testing
 
-Run unit tests using [Vitest](https://vitest.dev/):
+Run unit tests using [Vitest](https://vitest.dev/)
 
 ```bash
 pnpm test

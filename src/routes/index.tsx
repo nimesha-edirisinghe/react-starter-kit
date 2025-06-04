@@ -46,9 +46,7 @@ function Home() {
     <div className="relative overflow-hidden min-h-screen bg-gradient-to-br from-rose-100 via-sky-100 to-lime-100 select-none">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.4),transparent_70%)] mix-blend-lighten pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_60%,rgba(255,255,255,0.25),transparent_70%)] mix-blend-lighten pointer-events-none" />
-
       <div className="absolute inset-0 bg-grid-black/[0.02] bg-[size:50px_50px]" />
-
       <motion.div
         variants={floatingVariants}
         initial="initial"

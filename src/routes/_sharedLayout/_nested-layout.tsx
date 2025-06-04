@@ -1,6 +1,6 @@
 import { Link, Outlet, createFileRoute } from '@tanstack/react-router';
 import { LayoutGrid } from 'lucide-react';
-import { cn } from '~/lib/utils/utils';
+import { cn } from '~/utils/utils';
 
 export const Route = createFileRoute('/_sharedLayout/_nested-layout')({
   component: LayoutComponent
