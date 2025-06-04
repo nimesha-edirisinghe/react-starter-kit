@@ -153,7 +153,7 @@ pnpm test
 - `_protected.tsx` - Protected route layout
 - `index.tsx` - This is the default route shown when someone visits your domain root (e.g., `http://localhost:3000/` or `yourdomain.com/`)
 
-#### 📁 `routes/`
+#### 📁 `stores/`
 
 - Zustand store definitions for global state management
 
