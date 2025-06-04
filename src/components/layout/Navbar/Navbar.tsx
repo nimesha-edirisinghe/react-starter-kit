@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
-import { useAuthStore } from '~/features/auth/auth-store';
+import { useAuthStore } from '~/features/auth/store/auth-store';
 
 import { NavLogo } from './NavLogo';
 import { NavLinks } from './NavLinks';

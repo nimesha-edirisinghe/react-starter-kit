@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
+import { usePostByIdQuery } from '~/api/queries/post/usePostsQuery';
 import { PostErrorComponent } from '~/components/feedback/PostError';
-import { usePostByIdQuery } from '~/api/queries/usePostsQuery';
 import { Button } from '~/components/ui/button';
 import { PostDetailCard } from '~/features/posts/components/PostDetailCard';
 import { PostSkeleton } from '~/features/posts/components/PostSkeleton';

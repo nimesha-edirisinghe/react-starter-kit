@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Link, Outlet } from '@tanstack/react-router';
-import { useUsersQuery } from '~/api/queries/useUsersQuery';
 import { Skeleton } from '~/components/ui/skeleton';
 import { ScrollArea } from '~/components/ui/scroll-area';
 import { Users } from 'lucide-react';
+import { useUsersQuery } from '~/api/queries/user/useUsersQuery';
 
 export const Route = createFileRoute('/_protected/users')({
   component: UsersLayoutComponent

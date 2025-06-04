@@ -2,10 +2,10 @@ import { createFileRoute } from '@tanstack/react-router';
 import { NotFound } from '~/components/feedback/NotFound';
 import { PostErrorComponent } from '~/components/feedback/PostError';
 import { Link } from '@tanstack/react-router';
-import { usePostByIdQuery } from '~/api/queries/usePostsQuery';
 import { Skeleton } from '~/components/ui/skeleton';
 import { Button } from '~/components/ui/button';
 import { Eye } from 'lucide-react';
+import { usePostByIdQuery } from '~/api/queries/post/usePostsQuery';
 
 export const Route = createFileRoute('/_protected/posts/$postId/')({
   errorComponent: PostErrorComponent,

@@ -40,7 +40,14 @@ pnpm dev
 
 Then open [https://localhost:3000](https://localhost:3000) in your browser.
 
-## 4. Testing
+## 4. Demo Login Credentials
+
+To sign in to the application during development, use the following credentials:
+
+Email: admin@gmail.com
+Password: 1Qaz2wsx#
+
+## 5. Testing
 
 Run unit tests using [Vitest](https://vitest.dev/):
 
@@ -48,7 +55,7 @@ Run unit tests using [Vitest](https://vitest.dev/):
 pnpm test
 ```
 
-## 5. Useful Commands
+## 6. Useful Commands
 
 | Command             | Description                          |
 | ------------------- | ------------------------------------ |
@@ -163,3 +170,81 @@ pnpm test
 ---
 
 ### Key Design Decisions
+
+##### 1. Feature-based organization (features/)
+
+Each feature is self-contained with its own components, hooks, and logics.
+
+##### 2. Separation of concerns
+
+Clear boundaries between API, UI, state, and routing
+
+##### 3. Type safety
+
+Dedicated types directory for TypeScript definitions
+
+##### 4. Developer experience
+
+Husky for git hooks, ESLint/Prettier for code quality
+
+##### 5. Repository pattern API Layer (api/)
+
+![alt text](src/assets/docs/repository-api-layer.png)
+
+##### 6. Layered Architecture Pattern
+
+Each layer only communicates with adjacent layers
+![alt text](src/assets/docs/layered-design-pattern.png)
+
+##### 7. Multi-Store State Pattern with Zustand
+
+![alt text](src/assets/docs/multi-store.png)
+
+##### 8. Advanced Routing with Tanstack Router
+
+Route Features
+
+- Type-safe navigation - TypeScript knows all your routes
+- Automatic code splitting - Each route is lazy-loaded
+- Search params validation - Type-safe URL parameters
+- Route-level data loading - Preload data before rendering
+- Authentication guards - Protected routes with redirects
+
+##### 9. Route Guards & Middleware Pattern
+
+![alt text](src/assets/docs/auth-guard.png)
+
+---
+
+## Extending the Application: Features, Pages, and Services
+
+### Step-by-Step: Add a New Feature in a TanStack Start App
+
+##### 1. Step 1: Add the Route
+
+If it's protected route feature, add like this
+📁 src/routes/\_protected/tasks/
+
+- `index.tsx` - Create the page UI for the route /tasks
+- `route.tsx`
+
+![alt text](src/assets/docs/protected-task-feature.png)
+
+If it's public route feature, add like this
+📁 src/routes/\_public/tasks/
+
+![alt text](src/assets/docs/public-task-feature.png)
+
+##### Step 2: Create the Feature folder
+
+![alt text](src/assets/docs/feature-folder.png)
+
+##### Step 3: Define the API Layer
+
+![alt text](src/assets/docs/api-folder.png)
+
+##### Step 4: Mock the API for Local Dev
+
+![alt text](src/assets/docs/mock-folder.png)
+
+##### Step 5: Create e2e, integration and unite test files for the new feature called Task.

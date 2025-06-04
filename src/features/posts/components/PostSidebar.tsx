@@ -1,7 +1,7 @@
 import { BookOpen } from 'lucide-react';
 import { Link } from '@tanstack/react-router';
-import { usePostsQuery } from '~/api/queries/usePostsQuery';
 import { Skeleton } from '~/components/ui/skeleton';
+import { usePostsQuery } from '~/api/queries/post/usePostsQuery';
 
 export const PostSidebar = () => {
   const { data: posts = [], isLoading, isError } = usePostsQuery();
