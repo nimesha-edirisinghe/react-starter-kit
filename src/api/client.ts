@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { attachRequestInterceptor } from './interceptors/request.interceptor';
 import { attachResponseInterceptor } from './interceptors/response.interceptor';
+import { config } from '~/lib/utils/config';
 
 export const apiClient = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: config.apiBaseUrl,
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' }
 });

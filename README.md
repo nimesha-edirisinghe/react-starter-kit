@@ -38,7 +38,7 @@ To start the local dev server:
 pnpm dev
 ```
 
-Then open [https://localhost:3000](https://localhost:3000) in your browser.
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 4. Demo Login Credentials
 
