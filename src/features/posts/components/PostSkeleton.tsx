@@ -1,5 +1,3 @@
-// src/components/feedback/PostSkeleton.tsx
-
 import { Skeleton } from '~/components/ui/skeleton';
 
 export const PostSkeleton = () => {
