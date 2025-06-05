@@ -250,3 +250,21 @@ If it's public route feature, add like this
 ![alt text](src/assets/docs/mock-folder.png)
 
 ##### Step 5: Create e2e, integration and unite test files for the new feature called Task.
+
+---
+
+## 📹 Video Walkthrough
+
+Check out the quick video walkthrough of the application architecture, folder structure, and tech stack overview:
+
+👉 [Watch the Loom Video](https://www.loom.com/share/e737d80e08d54390bd0eca12c9267e0c?sid=4430ce17-9ec4-434c-8573-f873dcc63525)
+
+This video covers:
+
+- Architecture Principles
+- Project Structure Overview
+- API layer and routing logic
+- Feature-based folder structure
+- State management with Zustand
+- UI design with Shadcn and TailwindCSS
+- Mocking with MSW
