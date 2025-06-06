@@ -1,4 +1,5 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router';
+import { AuthGuard } from '~/features/auth/components/AuthGuard';
 import { requireAuth } from '~/features/auth/guards/require-auth';
 
 export const Route = createFileRoute('/_protected')({
@@ -9,7 +10,9 @@ export const Route = createFileRoute('/_protected')({
 function ProtectedLayoutComponent() {
   return (
     <main className="flex flex-col max-w-6xl mx-auto p-4 pt-12">
-      <Outlet />
+      <AuthGuard>
+        <Outlet />
+      </AuthGuard>
     </main>
   );
 }

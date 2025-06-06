@@ -216,6 +216,40 @@ Route Features
 
 ![alt text](src/assets/docs/auth-guard.png)
 
+##### 10. Authentication Implementation with Zustand Persistence
+
+The authentication system is implemented using Zustand with persistence to handle user sessions across page refreshes.
+
+###### Core Features
+
+- Persistent authentication state
+- Protected route handling
+- Smooth page refresh experience
+- Loading state management
+
+###### Components
+
+1. **Auth Store**
+
+   - Manages user state
+   - Handles persistence
+   - Controls authentication flow
+
+2. **Auth Guard**
+
+   - Protects routes
+   - Manages redirects
+   - Handles loading states
+
+3. **Route Protection**
+   - Route-level security
+   - Authentication checks
+   - Guard integration
+
+###### Login flow
+
+![alt text](src/assets/docs/login-flow.png)
+
 ---
 
 ## Extending the Application: Features, Pages, and Services
