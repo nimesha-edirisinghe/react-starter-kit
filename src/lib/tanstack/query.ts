@@ -12,8 +12,8 @@ const handleError = (error: unknown) => {
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 15, // 15 minutes
-      gcTime: 1000 * 60 * 15,
+      staleTime: 1000 * 60 * 20, // 20 minutes
+      gcTime: 1000 * 60 * 20,
       retry: 3
     },
     mutations: {
