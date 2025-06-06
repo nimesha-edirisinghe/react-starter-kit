@@ -12,7 +12,11 @@ export const NavLink = ({ to, label, exact = false }: NavLinkProps) => (
     activeProps={{
       className: 'text-pink-600 font-semibold underline underline-offset-4'
     }}
-    {...(exact ? { activeOptions: { exact: true } } : {})}
+    activeOptions={{
+      exact: exact,
+      includeSearch: false,
+      includeHash: false
+    }}
     className="px-3 py-2 text-slate-700 hover:text-pink-500 transition-colors"
   >
     {label}
