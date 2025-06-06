@@ -3,6 +3,7 @@ import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { Button } from '~/components/ui/button';
 import { useLoginForm } from '~/features/auth/hooks/useLoginForm';
+import clsx from 'clsx';
 
 export function LoginForm() {
   const { form, handleSubmit, isPending, error } = useLoginForm();
@@ -17,12 +18,19 @@ export function LoginForm() {
             <FormItem>
               <Label htmlFor="email">Email</Label>
               <FormControl>
-                <Input id="email" type="email" placeholder="Enter your email" {...field} />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  className={clsx(error && 'border-red-500')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="password"
@@ -30,13 +38,21 @@ export function LoginForm() {
             <FormItem>
               <Label htmlFor="password">Password</Label>
               <FormControl>
-                <Input id="password" type="password" placeholder="Enter your password" {...field} />
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  className={clsx(error && 'border-red-500')}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
         {error && <p className="text-sm text-red-600 -mt-2">Invalid credentials</p>}
+
         <Button type="submit" className="w-full" disabled={isPending}>
           {isPending ? 'Logging in...' : 'Login'}
         </Button>
