@@ -31,7 +31,7 @@ export const useTodoStore = create<TodoState>()(
         updateTodo: (id, title) =>
           set(
             (state) => ({
-              todos: state.todos.map((todo) => (todo.id === id ? { ...todo, title } : todo))
+              todos: state.todos?.map((todo) => (todo.id === id ? { ...todo, title } : todo))
             }),
             false,
             'todo/updateTodo'
@@ -39,7 +39,7 @@ export const useTodoStore = create<TodoState>()(
         toggleTodo: (id) =>
           set(
             (state) => ({
-              todos: state.todos.map((todo) =>
+              todos: state.todos?.map((todo) =>
                 todo.id === id ? { ...todo, completed: !todo.completed } : todo
               )
             }),

@@ -15,9 +15,14 @@ function LayoutComponent() {
           <LayoutPanelTop className="h-5 w-5 text-primary" />
           <span>My App Layout</span>
         </div>
-        <Button asChild variant="outline" size="sm">
+        <Button
+          asChild
+          variant="outline"
+          size="sm"
+          className="border border-primary text-primary hover:text-primary hover:bg-custom-orange-foreground"
+        >
           <Link to="/">
-            <Home className="h-4 w-4 mr-1" /> Home
+            <Home className="h-4 w-4 mr-1 text-primary" /> <p className="text-primary">Home</p>
           </Link>
         </Button>
       </header>

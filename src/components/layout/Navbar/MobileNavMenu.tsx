@@ -19,12 +19,13 @@ export const MobileNavMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
           ✕
         </button>
         <div className="flex flex-col gap-4 text-lg text-slate-800">
-          <NavLink to="/" label="Home" exact />
-          <NavLink to="/posts" label="Posts" />
-          <NavLink to="/users" label="Users" />
-          <NavLink to="/route-a" label="Pathless Layout" />
-          <NavLink to="/deferred" label="Deferred" />
-          <NavLink to="/this-route-does-not-exist" label="Broken Route" />
+          <NavLink to="/" label="Home" exact onClick={onClose} />
+          <NavLink to="/todo" label="Todos" onClick={onClose} />
+          <NavLink to="/posts" label="Posts" onClick={onClose} />
+          <NavLink to="/users" label="Users" onClick={onClose} />
+          <NavLink to="/route-a" label="Pathless Layout" onClick={onClose} />
+          <NavLink to="/deferred" label="Deferred" onClick={onClose} />
+          <NavLink to="/this-route-does-not-exist" label="Broken Route" onClick={onClose} />
         </div>
       </motion.div>
     )}

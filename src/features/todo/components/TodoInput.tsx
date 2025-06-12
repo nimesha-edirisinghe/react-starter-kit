@@ -14,7 +14,7 @@ export const TodoInput = ({ newTodo, setNewTodo, onSubmit, isEditing }: TodoInpu
   };
 
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
       <Input
         value={newTodo}
         onChange={(e) => setNewTodo(e.target.value)}
@@ -22,7 +22,7 @@ export const TodoInput = ({ newTodo, setNewTodo, onSubmit, isEditing }: TodoInpu
         placeholder="Add or update todo"
         className="flex-1"
       />
-      <Button onClick={onSubmit} className="shrink-0 cursor-pointer">
+      <Button onClick={onSubmit} className="shrink-0 cursor-pointer w-full sm:w-auto">
         {isEditing ? 'Update' : 'Add'}
       </Button>
     </div>

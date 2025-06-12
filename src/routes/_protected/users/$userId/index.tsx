@@ -42,7 +42,7 @@ function UserIdComponent() {
     <Card className="max-w-md mx-auto animate-in fade-in slide-in-from-bottom-2">
       <CardHeader className="flex flex-col items-center space-y-2">
         <Avatar className="h-14 w-14">
-          <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+          <AvatarFallback>{user.name?.charAt(0) ?? ''}</AvatarFallback>
         </Avatar>
         <CardTitle className="text-lg font-semibold">{user.name}</CardTitle>
       </CardHeader>

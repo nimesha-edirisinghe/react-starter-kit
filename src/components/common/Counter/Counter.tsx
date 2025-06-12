@@ -9,18 +9,18 @@ export default function Counter() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="p-6 md:p-8 bg-white border border-rose-100 rounded-xl shadow-sm select-none">
-      <h1 className="text-2xl font-bold text-slate-800 mb-6 text-center">Interactive Counter</h1>
+    <div className="p-6 md:p-8 bg-background border border-border rounded-xl shadow-sm select-none">
+      <h1 className="text-2xl font-bold text-foreground mb-6 text-center">Interactive Counter</h1>
 
       <section className="space-y-6">
         <p className="text-xs font-medium text-muted-foreground tracking-wide uppercase">
           Counter Example
         </p>
 
-        <div className="bg-muted/50 rounded-md p-5 border border-muted space-y-5">
+        <div className=" rounded-md p-5 space-y-5">
           <div className="flex items-center justify-between">
-            <span className="text-xl font-semibold text-slate-700">
-              Count: <span className="text-pink-600">{count}</span>
+            <span className="text-xl font-semibold text-muted-foreground">
+              Count: <span className="text-primary">{count}</span>
             </span>
             <span className="text-sm text-muted-foreground italic">{getCountMessage(count)}</span>
           </div>
@@ -28,7 +28,7 @@ export default function Counter() {
           <div className="flex items-center gap-3 flex-wrap">
             <button
               onClick={() => setCount((c) => c + 1)}
-              className={`${buttonClass} bg-black text-white hover:bg-zinc-800 cursor-pointer`}
+              className={`${buttonClass} bg-primary text-white  cursor-pointer`}
             >
               <PlusCircle className="h-4 w-4" />
               Increment
@@ -36,7 +36,7 @@ export default function Counter() {
 
             <button
               onClick={() => setCount((c) => c - 1)}
-              className={`${buttonClass} bg-pink-600 text-white hover:bg-pink-700 cursor-pointer`}
+              className={`${buttonClass} bg-transparent border border-primary text-primary cursor-pointer`}
             >
               <MinusCircle className="h-4 w-4" />
               Decrement
@@ -44,7 +44,7 @@ export default function Counter() {
 
             <button
               onClick={() => setCount(0)}
-              className={`${buttonClass} bg-white text-slate-700 border-slate-200 hover:bg-slate-100 cursor-pointer`}
+              className={`${buttonClass} bg-transparent border border-primary text-primary cursor-pointer`}
             >
               <RotateCcw className="h-4 w-4" />
               Reset

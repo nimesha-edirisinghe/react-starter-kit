@@ -8,9 +8,9 @@ export const attachResponseInterceptor = (api: AxiosInstance) => {
     (error) => {
       const status = error?.response?.status;
       if (typeof window !== 'undefined') {
-        if (status === 401 || status === 403) {
+        if ((status === 401 || status === 403) && !error.config.url?.includes('/auth/login')) {
           useAuthStore.getState().logout();
-          log.warn('Redirecting to login...');
+          log.warn('Session expired. Redirecting to login...');
         }
         if (status === 500) {
           log.error('Server error. Please try again later.');

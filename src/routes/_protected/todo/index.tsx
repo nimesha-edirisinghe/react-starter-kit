@@ -28,8 +28,10 @@ export function TodoComponent() {
   };
 
   return (
-    <div className="max-w-6xl px-48 mt-12 space-y-6">
-      <h1 className="text-2xl font-bold text-center">Manage Your Todos</h1>
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 sm:mt-12 space-y-6">
+      <h1 className="text-xl sm:text-2xl font-bold text-center text-foreground">
+        Manage Your Todos
+      </h1>
       <TodoInput
         newTodo={newTodo}
         setNewTodo={setNewTodo}

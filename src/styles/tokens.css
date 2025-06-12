@@ -6,6 +6,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
+  --color-custom-orange-foreground: var(--custom-orange-foreground);
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
 

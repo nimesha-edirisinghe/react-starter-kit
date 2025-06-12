@@ -6,7 +6,7 @@ export const NavLinks = () => (
   <motion.div
     initial={{ opacity: 0, y: -10 }}
     animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: 0.2 }}
+    transition={{ delay: 0.1 }}
     className="hidden md:flex items-center gap-2"
   >
     <NavLink to="/" label="Home" exact />

@@ -7,7 +7,7 @@ import { useLoginMutation } from './useLoginMutation';
 export function useLoginForm() {
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
-  const { mutate, isPending, error } = useLoginMutation();
+  const { mutate, isPending, error, reset } = useLoginMutation();
 
   const form = useForm<LoginFormData>({
     defaultValues: {
@@ -17,10 +17,15 @@ export function useLoginForm() {
   });
 
   const handleSubmit = (data: LoginFormData) => {
+    reset();
+
     mutate(data, {
       onSuccess: ({ user, token }) => {
         login(user, token);
         navigate({ to: '/' });
+      },
+      onError: () => {
+        form.setValue('password', '');
       }
     });
   };

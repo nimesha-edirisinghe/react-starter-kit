@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
-import { FloatingOrbs } from '~/features/home/components/FloatingOrbs';
 import { HeroTitle } from '~/features/home/components/HeroTitle';
 import { TechBadges } from '~/features/home/components/TechBadges';
 
@@ -21,8 +20,7 @@ function Home() {
   };
 
   return (
-    <div className="relative overflow-hidden min-h-screen bg-gradient-to-br from-rose-100 via-sky-100 to-lime-100 select-none">
-      <FloatingOrbs />
+    <div className="relative overflow-hidden min-h-screen bg-background select-none">
       <motion.div
         variants={containerVariants}
         initial="hidden"

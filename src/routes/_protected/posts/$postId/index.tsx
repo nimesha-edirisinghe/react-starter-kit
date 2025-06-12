@@ -35,7 +35,7 @@ function PostIdComponent() {
   return (
     <div className="p-6 space-y-5 rounded-lg border bg-white dark:bg-gray-950 shadow-sm animate-in fade-in slide-in-from-bottom-2">
       <div className="space-y-1">
-        <h2 className="text-2xl font-bold text-primary">{post.title}</h2>
+        <h2 className="text-2xl font-bold text-foreground">{post.title}</h2>
         <p className="text-sm text-muted-foreground leading-relaxed">{post.body}</p>
       </div>
       <Button asChild variant="link" className="px-0">

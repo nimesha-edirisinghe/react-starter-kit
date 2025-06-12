@@ -16,7 +16,7 @@ export const TechBadges = () => {
 
   return (
     <motion.div className="flex flex-wrap justify-center gap-3 mt-8">
-      {stack.map((tech, index) => (
+      {stack?.map((tech, index) => (
         <motion.div
           key={tech}
           initial={{ opacity: 0, scale: 0 }}

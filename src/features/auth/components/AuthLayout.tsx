@@ -16,11 +16,11 @@ interface AuthLayoutProps {
 
 export function AuthLayout({ title, description, footer, children }: AuthLayoutProps) {
   return (
-    <div className="relative overflow-hidden min-h-screen bg-gradient-to-br from-rose-100 via-sky-100 to-lime-100 flex items-center justify-center">
+    <div className="relative overflow-hidden min-h-screen  flex items-center justify-center bg-background select-none">
       <Card className="w-full max-w-md shadow-xl border border-gray-200">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
+          <CardTitle className="text-2xl text-foreground">{title}</CardTitle>
+          <CardDescription className="text-muted-foreground">{description}</CardDescription>
         </CardHeader>
         <CardContent>{children}</CardContent>
         {footer && (

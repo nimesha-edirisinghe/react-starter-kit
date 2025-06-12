@@ -9,7 +9,7 @@ export const Route = createFileRoute('/_public/login')({
 export function LoginPage() {
   return (
     <AuthLayout
-      title="Welcome Back"
+      title="Welcome"
       description="Enter your credentials to log in"
       footer="Don't have an account? Contact admin"
     >

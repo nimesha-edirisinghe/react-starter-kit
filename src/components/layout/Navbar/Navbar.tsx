@@ -7,7 +7,6 @@ import { NavLinks } from './NavLinks';
 import { NavToggle } from './NavToggle';
 import { NavAuthButton } from './NavAuthButton';
 import { MobileNavMenu } from './MobileNavMenu';
-import { ThemeToggle } from './ThemeToggle';
 
 export const NavBar = () => {
   const { isAuthenticated, logout } = useAuthStore();
@@ -21,7 +20,7 @@ export const NavBar = () => {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 px-6 py-4 bg-[#fdf6f9]/60 backdrop-blur-md border-b border-rose-100 shadow-sm select-none">
+      <nav className="sticky top-0 z-50 px-6 py-4 bg-background backdrop-blur-md border-b border-border shadow-sm select-none">
         <div className=" mx-auto flex items-center gap-4">
           <NavLogo />
 
@@ -32,7 +31,7 @@ export const NavBar = () => {
           <div className="flex items-center gap-3 ml-auto">
             {isAuthenticated && <NavToggle onClick={() => setMenuOpen((prev) => !prev)} />}
             <NavAuthButton isAuthenticated={isAuthenticated} onLogout={handleLogout} />
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
           </div>
         </div>
       </nav>

@@ -33,7 +33,11 @@ function PostDeepComponent() {
       </div>
       <PostDetailCard title={post.title} body={post.body} />
       <div className="flex justify-end">
-        <Button asChild variant="outline">
+        <Button
+          asChild
+          variant="outline"
+          className="border border-primary text-primary hover:text-primary hover:bg-custom-orange-foreground"
+        >
           <Link to="/posts">Browse More Posts</Link>
         </Button>
       </div>

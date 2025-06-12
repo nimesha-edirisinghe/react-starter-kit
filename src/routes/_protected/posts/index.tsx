@@ -8,13 +8,17 @@ export const Route = createFileRoute('/_protected/posts/')({
 
 function PostsIndexComponent() {
   return (
-    <div className="flex flex-col items-center justify-center text-center h-full p-6 space-y-4 animate-in fade-in slide-in-from-bottom-2">
-      <FileSearch className="h-10 w-10 text-muted-foreground" />
+    <div className="flex flex-col items-center justify-center text-center h-full p-6 space-y-4 animate-in fade-in slide-in-from-bottom-2 select-none">
+      <FileSearch className="h-10 w-10 text-primary" />
       <h2 className="text-xl font-semibold">No post selected</h2>
       <p className="text-sm text-muted-foreground">
         Please choose a post from the list on the left.
       </p>
-      <Button asChild variant="outline">
+      <Button
+        asChild
+        variant="outline"
+        className="border border-primary text-primary hover:text-primary hover:bg-custom-orange-foreground"
+      >
         <Link to="/posts/$postId" params={{ postId: '1' }}>
           Go to first post
         </Link>

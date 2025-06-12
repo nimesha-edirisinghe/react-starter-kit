@@ -18,5 +18,6 @@ const handleLoginError = (error: AxiosError): string => {
 export const useLoginMutation = () =>
   useMutation({
     mutationFn: loginUser,
-    onError: handleLoginError
+    onError: handleLoginError,
+    retry: false
   });

@@ -1,17 +1,17 @@
 @layer base {
   :root {
-    --background: hsl(0 0% 100%);
-    --foreground: hsl(20 14.3% 4.1%);
+    --background: hsl(0, 0%, 99%);
+    --foreground: hsl(0, 0%, 0%);
     --card: hsl(0 0% 100%);
     --card-foreground: hsl(20 14.3% 4.1%);
     --popover: hsl(0 0% 100%);
     --popover-foreground: hsl(20 14.3% 4.1%);
-    --primary: hsl(24 9.8% 10%);
+    --primary: hsl(5, 99%, 69%);
     --primary-foreground: hsl(60 9.1% 97.8%);
     --secondary: hsl(60 4.8% 95.9%);
     --secondary-foreground: hsl(24 9.8% 10%);
     --muted: hsl(60 4.8% 95.9%);
-    --muted-foreground: hsl(25 5.3% 44.7%);
+    --muted-foreground: hsl(218, 9%, 46%);
     --accent: hsl(60 4.8% 95.9%);
     --accent-foreground: hsl(24 9.8% 10%);
     --destructive: hsl(0 84.2% 60.2%);
@@ -24,6 +24,8 @@
     --chart-3: hsl(197 37% 24%);
     --chart-4: hsl(43 74% 66%);
     --chart-5: hsl(27 87% 67%);
+
+    --custom-orange-foreground: hsl(20, 100%, 96%);
     --radius: 0.5rem;
   }
 
@@ -52,5 +54,7 @@
     --chart-3: hsl(30 80% 55%);
     --chart-4: hsl(280 65% 60%);
     --chart-5: hsl(340 75% 55%);
+
+    --custom-orange-foreground: hsl(27 87% 67%);
   }
 }

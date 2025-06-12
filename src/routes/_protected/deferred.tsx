@@ -4,10 +4,10 @@ import { Suspense, useState, useTransition } from 'react';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Badge } from '~/components/ui/badge';
-import { Sparkles, UserRound, Loader2, RefreshCw } from 'lucide-react';
+import { Loader2, RefreshCw } from 'lucide-react';
 import { motion } from 'framer-motion';
-import InteractiveCounter from '~/components/common/Counter/Counter';
 import LiveClock from '~/components/common/LiveClock/LiveClock';
+import Counter from '~/components/common/Counter/Counter';
 
 const personServerFn = createServerFn({ method: 'GET' })
   .validator((d: string) => d)
@@ -26,7 +26,7 @@ const slowServerFn = createServerFn({ method: 'GET' })
 export const Route = createFileRoute('/_protected/deferred')({
   loader: async () => ({
     deferredStuff: new Promise<string>((r) =>
-      setTimeout(() => r('✨ Hello from the async world!'), 2000)
+      setTimeout(() => r('Hello from the async world!'), 2000)
     ),
     deferredPerson: slowServerFn({ data: 'Tanner Linsley' }),
     person: await personServerFn({ data: 'John Doe' })
@@ -52,9 +52,7 @@ function Deferred() {
         <LiveClock />
       </div>
       <motion.section layout className="space-y-4">
-        <h2 className="text-xl font-bold flex items-center gap-2">
-          <UserRound className="h-5 w-5 text-primary" /> Dynamic Person Fetcher
-        </h2>
+        <h2 className="text-xl font-bold flex items-center gap-2">Dynamic Person Fetcher</h2>
 
         <div className="flex gap-2 items-center">
           <Input
@@ -90,9 +88,7 @@ function Deferred() {
         </Suspense>
       </motion.section>
       <motion.section layout className="space-y-4">
-        <h3 className="text-lg font-semibold flex items-center gap-2">
-          <UserRound className="h-5 w-5 text-primary" /> Deferred Person Data
-        </h3>
+        <h3 className="text-lg font-semibold flex items-center gap-2">Deferred Person Data</h3>
 
         <Suspense fallback={<LoadingMessage text="Loading slow data..." />}>
           <Await promise={deferredPerson}>
@@ -111,24 +107,18 @@ function Deferred() {
       </motion.section>
 
       <motion.section layout className="space-y-4">
-        <h3 className="text-lg font-semibold flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-primary" /> Deferred Message
-        </h3>
+        <h3 className="text-lg font-semibold flex items-center gap-2">Deferred Message</h3>
         <Suspense fallback={<LoadingMessage text="Loading message..." />}>
           <Await promise={deferredStuff}>
             {(data) => (
-              <motion.div
-                layout
-                className="text-primary text-lg font-semibold flex items-center gap-2"
-              >
-                <Sparkles className="h-5 w-5 animate-pulse" />
+              <div className="text-md font-semibold flex items-center gap-2 text-muted-foreground">
                 {data}
-              </motion.div>
+              </div>
             )}
           </Await>
         </Suspense>
       </motion.section>
-      <InteractiveCounter />
+      <Counter />
     </div>
   );
 }
