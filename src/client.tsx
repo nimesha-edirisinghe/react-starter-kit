@@ -9,7 +9,9 @@ const ENABLE_MSW = config.enableMSW === 'true' && config.nodeEnv === 'developmen
 async function enableMockWorker() {
   if (ENABLE_MSW) {
     const { worker } = await import('./mocks/browser');
-    await worker.start();
+    await worker.start({
+      onUnhandledRequest: 'bypass'
+    });
   }
 }
 

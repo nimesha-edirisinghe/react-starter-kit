@@ -25,6 +25,8 @@ export function LoginForm() {
                   type="email"
                   placeholder="Enter your email"
                   className={clsx(error && 'border-destructive')}
+                  autoCapitalize="none"
+                  autoCorrect="off"
                   {...field}
                 />
               </FormControl>
@@ -47,6 +49,8 @@ export function LoginForm() {
                   type="password"
                   placeholder="Enter your password"
                   className={clsx(error && 'border-destructive')}
+                  autoCapitalize="none"
+                  autoCorrect="off"
                   {...field}
                 />
               </FormControl>
