@@ -22,6 +22,7 @@ import { Route as SharedLayoutNestedLayoutRouteBImport } from './routes/_sharedL
 import { Route as SharedLayoutNestedLayoutRouteAImport } from './routes/_sharedLayout/_nested-layout/route-a'
 import { Route as SharedLayoutProtectedUsersRouteImport } from './routes/_sharedLayout/_protected/users/route'
 import { Route as SharedLayoutProtectedPostsRouteImport } from './routes/_sharedLayout/_protected/posts/route'
+import { Route as SharedLayoutProtectedIncidentsRouteImport } from './routes/_sharedLayout/_protected/incidents/route'
 import { Route as SharedLayoutProtectedUsersIndexImport } from './routes/_sharedLayout/_protected/users/index'
 import { Route as SharedLayoutProtectedTodoIndexImport } from './routes/_sharedLayout/_protected/todo/index'
 import { Route as SharedLayoutProtectedPostsIndexImport } from './routes/_sharedLayout/_protected/posts/index'
@@ -96,6 +97,13 @@ const SharedLayoutProtectedPostsRouteRoute =
   SharedLayoutProtectedPostsRouteImport.update({
     id: '/posts',
     path: '/posts',
+    getParentRoute: () => SharedLayoutProtectedRoute,
+  } as any)
+
+const SharedLayoutProtectedIncidentsRouteRoute =
+  SharedLayoutProtectedIncidentsRouteImport.update({
+    id: '/incidents',
+    path: '/incidents',
     getParentRoute: () => SharedLayoutProtectedRoute,
   } as any)
 
@@ -186,6 +194,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof SharedLayoutIndexImport
       parentRoute: typeof SharedLayoutImport
+    }
+    '/_sharedLayout/_protected/incidents': {
+      id: '/_sharedLayout/_protected/incidents'
+      path: '/incidents'
+      fullPath: '/incidents'
+      preLoaderRoute: typeof SharedLayoutProtectedIncidentsRouteImport
+      parentRoute: typeof SharedLayoutProtectedImport
     }
     '/_sharedLayout/_protected/posts': {
       id: '/_sharedLayout/_protected/posts'
@@ -323,6 +338,7 @@ const SharedLayoutProtectedUsersRouteRouteWithChildren =
   )
 
 interface SharedLayoutProtectedRouteChildren {
+  SharedLayoutProtectedIncidentsRouteRoute: typeof SharedLayoutProtectedIncidentsRouteRoute
   SharedLayoutProtectedPostsRouteRoute: typeof SharedLayoutProtectedPostsRouteRouteWithChildren
   SharedLayoutProtectedUsersRouteRoute: typeof SharedLayoutProtectedUsersRouteRouteWithChildren
   SharedLayoutProtectedDeferredRoute: typeof SharedLayoutProtectedDeferredRoute
@@ -330,6 +346,8 @@ interface SharedLayoutProtectedRouteChildren {
 }
 
 const SharedLayoutProtectedRouteChildren: SharedLayoutProtectedRouteChildren = {
+  SharedLayoutProtectedIncidentsRouteRoute:
+    SharedLayoutProtectedIncidentsRouteRoute,
   SharedLayoutProtectedPostsRouteRoute:
     SharedLayoutProtectedPostsRouteRouteWithChildren,
   SharedLayoutProtectedUsersRouteRoute:
@@ -364,6 +382,7 @@ export interface FileRoutesByFullPath {
   '/access-denied': typeof PublicAccessDeniedRouteRoute
   '/login': typeof PublicLoginRouteRoute
   '/': typeof SharedLayoutIndexRoute
+  '/incidents': typeof SharedLayoutProtectedIncidentsRouteRoute
   '/posts': typeof SharedLayoutProtectedPostsRouteRouteWithChildren
   '/users': typeof SharedLayoutProtectedUsersRouteRouteWithChildren
   '/route-a': typeof SharedLayoutNestedLayoutRouteARoute
@@ -382,6 +401,7 @@ export interface FileRoutesByTo {
   '/login': typeof PublicLoginRouteRoute
   '': typeof SharedLayoutProtectedRouteWithChildren
   '/': typeof SharedLayoutIndexRoute
+  '/incidents': typeof SharedLayoutProtectedIncidentsRouteRoute
   '/route-a': typeof SharedLayoutNestedLayoutRouteARoute
   '/route-b': typeof SharedLayoutNestedLayoutRouteBRoute
   '/deferred': typeof SharedLayoutProtectedDeferredRoute
@@ -401,6 +421,7 @@ export interface FileRoutesById {
   '/_sharedLayout/_nested-layout': typeof SharedLayoutNestedLayoutRouteWithChildren
   '/_sharedLayout/_protected': typeof SharedLayoutProtectedRouteWithChildren
   '/_sharedLayout/': typeof SharedLayoutIndexRoute
+  '/_sharedLayout/_protected/incidents': typeof SharedLayoutProtectedIncidentsRouteRoute
   '/_sharedLayout/_protected/posts': typeof SharedLayoutProtectedPostsRouteRouteWithChildren
   '/_sharedLayout/_protected/users': typeof SharedLayoutProtectedUsersRouteRouteWithChildren
   '/_sharedLayout/_nested-layout/route-a': typeof SharedLayoutNestedLayoutRouteARoute
@@ -421,6 +442,7 @@ export interface FileRouteTypes {
     | '/access-denied'
     | '/login'
     | '/'
+    | '/incidents'
     | '/posts'
     | '/users'
     | '/route-a'
@@ -438,6 +460,7 @@ export interface FileRouteTypes {
     | '/login'
     | ''
     | '/'
+    | '/incidents'
     | '/route-a'
     | '/route-b'
     | '/deferred'
@@ -455,6 +478,7 @@ export interface FileRouteTypes {
     | '/_sharedLayout/_nested-layout'
     | '/_sharedLayout/_protected'
     | '/_sharedLayout/'
+    | '/_sharedLayout/_protected/incidents'
     | '/_sharedLayout/_protected/posts'
     | '/_sharedLayout/_protected/users'
     | '/_sharedLayout/_nested-layout/route-a'
@@ -522,6 +546,7 @@ export const routeTree = rootRoute
       "filePath": "_sharedLayout/_protected.tsx",
       "parent": "/_sharedLayout",
       "children": [
+        "/_sharedLayout/_protected/incidents",
         "/_sharedLayout/_protected/posts",
         "/_sharedLayout/_protected/users",
         "/_sharedLayout/_protected/deferred",
@@ -531,6 +556,10 @@ export const routeTree = rootRoute
     "/_sharedLayout/": {
       "filePath": "_sharedLayout/index.tsx",
       "parent": "/_sharedLayout"
+    },
+    "/_sharedLayout/_protected/incidents": {
+      "filePath": "_sharedLayout/_protected/incidents/route.tsx",
+      "parent": "/_sharedLayout/_protected"
     },
     "/_sharedLayout/_protected/posts": {
       "filePath": "_sharedLayout/_protected/posts/route.tsx",

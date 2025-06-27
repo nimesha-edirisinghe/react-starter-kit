@@ -26,7 +26,7 @@ const data = {
   ],
   navMain: [
     {
-      title: 'Home',
+      title: 'Dashboard',
       url: '/',
       icon: SquareTerminal,
       isActive: true,
@@ -35,6 +35,12 @@ const data = {
     {
       title: 'Todos',
       url: '/todo',
+      icon: Bot,
+      allowedRoles: ['admin', 'steward', 'viewer'] as UserRole[]
+    },
+    {
+      title: 'Incidents',
+      url: '/incidents',
       icon: Bot,
       allowedRoles: ['admin', 'steward', 'viewer'] as UserRole[]
     },

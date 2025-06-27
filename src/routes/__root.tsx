@@ -76,7 +76,7 @@ function RootLayout({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-screen flex-col bg-white dark:bg-black text-black dark:text-white">
       <HeadContent />
       <main className="flex-1">{children}</main>
-      {/* <TanStackRouterDevtools position="bottom-left" /> */}
+      <TanStackRouterDevtools position="bottom-left" />
       <Scripts />
     </div>
   );

@@ -9,7 +9,7 @@ export const Route = createFileRoute('/_sharedLayout/_protected')({
 
 function ProtectedLayoutComponent() {
   return (
-    <main className="flex flex-col max-w-6xl mx-auto p-4 pt-12">
+    <main className="flex flex-col w-full">
       <AuthGuard>
         <Outlet />
       </AuthGuard>
