@@ -12,7 +12,8 @@ export const authHandlers = [
         user: {
           id: mockAuthUser.id,
           name: mockAuthUser.name,
-          email: mockAuthUser.email
+          email: mockAuthUser.email,
+          role: mockAuthUser.role
         },
         token: mockAuthUser.token
       });

@@ -13,8 +13,6 @@ import appCss from '~/styles/app.css?url';
 import { seo } from '~/utils/seo';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '~/lib/tanstack/query';
-import { NavBar } from '~/components/layout/Navbar/Navbar';
-import { useThemeStore } from '~/stores/theme-store';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
 
@@ -29,6 +27,7 @@ export const Route = createRootRoute({
       })
     ],
     links: [
+      { rel: 'preload', href: appCss, as: 'style' },
       { rel: 'stylesheet', href: appCss },
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
       { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
@@ -60,23 +59,24 @@ function RootComponent() {
 
 function RootLayout({ children }: { children: React.ReactNode }) {
   const matchRoute = useMatchRoute();
-  const hideNavBar = matchRoute({ to: '/login', fuzzy: false });
+  const hideSidebar = matchRoute({ to: '/login', fuzzy: false });
 
-  React.useEffect(() => {
-    const theme = useThemeStore.getState().theme;
-    const root = document.documentElement;
-    const isDark =
-      theme === 'dark' ||
-      (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    root.classList.toggle('dark', isDark);
-  }, []);
+  if (hideSidebar) {
+    return (
+      <div className="flex min-h-screen flex-col bg-white dark:bg-black text-black dark:text-white">
+        <HeadContent />
+        <main className="flex-1">{children}</main>
+        <TanStackRouterDevtools position="bottom-left" />
+        <Scripts />
+      </div>
+    );
+  }
 
   return (
-    <div className="app-container flex flex-col min-h-screen bg-white dark:bg-black text-black dark:text-white">
+    <div className="flex min-h-screen flex-col bg-white dark:bg-black text-black dark:text-white">
       <HeadContent />
-      {!hideNavBar && <NavBar />}
-      <main className="">{children}</main>
-      <TanStackRouterDevtools position="bottom-left" />
+      <main className="flex-1">{children}</main>
+      {/* <TanStackRouterDevtools position="bottom-left" /> */}
       <Scripts />
     </div>
   );

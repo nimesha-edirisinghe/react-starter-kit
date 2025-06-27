@@ -27,7 +27,8 @@ export const userHandlers = [
     const newUser: UserI = {
       id: Date.now(),
       name: body.name,
-      email: body.email
+      email: body.email,
+      role: body.role ?? 'viewer'
     };
 
     mockUsers.push(newUser);
