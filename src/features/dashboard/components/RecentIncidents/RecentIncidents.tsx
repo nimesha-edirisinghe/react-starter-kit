@@ -2,11 +2,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/com
 import { Badge } from '~/components/ui/badge';
 import { AlertTriangle, Clock, MapPin } from 'lucide-react';
 import { mockIncidents } from '~/mocks/fixtures/mockIncidents';
-import { getSeverityColor } from '~/utils/utilsGetSeverityColor';
 import { getStatusColor } from '~/utils/utilsGetStatusColor';
 
 export function RecentIncidents() {
   const recentIncidents = mockIncidents.slice(0, 5);
+
+  const getSeverityColor = (severity: string) => {
+    switch (severity) {
+      case 'critical':
+        return 'bg-red-500';
+      case 'high':
+        return 'bg-orange-500';
+      case 'medium':
+        return 'bg-yellow-500';
+      case 'low':
+        return 'bg-green-500';
+      default:
+        return 'bg-gray-500';
+    }
+  };
 
   return (
     <Card>

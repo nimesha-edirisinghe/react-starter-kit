@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback } from '~/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { requireRole } from '~/features/auth/guards/require-role';
 
-export const Route = createFileRoute('/_sharedLayout/_protected/users/$userId/')({
+export const Route = createFileRoute('/_protected/users/$userId/')({
   beforeLoad: () => requireRole(['admin']),
   component: UserIdComponent,
   notFoundComponent: () => {

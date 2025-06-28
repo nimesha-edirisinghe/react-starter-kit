@@ -3,7 +3,7 @@ import { DashboardStats } from '~/features/dashboard/components/DashboardStats/D
 import { IncidentCharts } from '~/features/dashboard/components/IncidentCharts/IncidentCharts';
 import { RecentIncidents } from '~/features/dashboard/components/RecentIncidents/RecentIncidents';
 
-export const Route = createFileRoute('/_sharedLayout/')({
+export const Route = createFileRoute('/_protected/')({
   component: Home
 });
 

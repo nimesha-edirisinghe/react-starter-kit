@@ -52,7 +52,7 @@ export function CircuitRadarChart({ data }: { data: any[] }) {
               strokeWidth={2}
             />
             <Tooltip content={<CustomTooltip />} />
-            <Legend />
+            <Legend wrapperStyle={{ fontSize: 12 }} />
           </RadarChart>
         </ResponsiveContainer>
       </CardContent>

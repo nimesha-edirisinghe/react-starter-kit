@@ -33,12 +33,6 @@ const data = {
       allowedRoles: ['admin', 'steward', 'viewer'] as UserRole[]
     },
     {
-      title: 'Todos',
-      url: '/todo',
-      icon: Bot,
-      allowedRoles: ['admin', 'steward', 'viewer'] as UserRole[]
-    },
-    {
       title: 'Incidents',
       url: '/incidents',
       icon: Bot,
@@ -55,6 +49,12 @@ const data = {
       url: '/users',
       icon: Settings2,
       allowedRoles: ['admin'] as UserRole[]
+    },
+    {
+      title: 'Live',
+      url: '/live',
+      icon: Settings2,
+      allowedRoles: ['viewer'] as UserRole[]
     }
   ]
 };

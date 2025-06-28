@@ -6,7 +6,7 @@ import { useUsersQuery } from '~/api/queries/user/useUsersQuery';
 import { requireRole } from '~/features/auth/guards/require-role';
 import { RouteLoading } from '~/components/feedback/RouteLoading';
 
-export const Route = createFileRoute('/_sharedLayout/_protected/users')({
+export const Route = createFileRoute('/_protected/users')({
   beforeLoad: () => requireRole(['admin']),
   component: UsersLayoutComponent,
   pendingComponent: RouteLoading

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// TrendChart.tsx
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -32,9 +31,8 @@ export function TrendChart({ data }: { data: any[] }) {
             <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
             <XAxis dataKey="date" stroke="#64748b" fontSize={12} />
             <YAxis yAxisId="left" stroke="#64748b" fontSize={12} />
-            <YAxis yAxisId="right" orientation="right" stroke="#64748b" fontSize={12} />
             <Tooltip content={<CustomTooltip />} />
-            <Legend />
+            <Legend wrapperStyle={{ fontSize: 12 }} />
             <Area
               yAxisId="left"
               type="monotone"
@@ -42,7 +40,7 @@ export function TrendChart({ data }: { data: any[] }) {
               fill="#3b82f6"
               fillOpacity={0.3}
               stroke="#3b82f6"
-              strokeWidth={2}
+              strokeWidth={1}
               name="Total Incidents"
             />
             <Bar yAxisId="left" dataKey="resolved" fill="#10b981" name="Resolved" />
@@ -51,8 +49,8 @@ export function TrendChart({ data }: { data: any[] }) {
               type="monotone"
               dataKey="responseTime"
               stroke="#ef4444"
-              strokeWidth={3}
-              dot={{ fill: '#ef4444', strokeWidth: 2, r: 4 }}
+              strokeWidth={1}
+              dot={{ fill: '#ef4444', strokeWidth: 2, r: 2 }}
               name="Avg Response Time (min)"
             />
           </ComposedChart>

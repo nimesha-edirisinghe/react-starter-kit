@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { IncidentTable } from '~/features/incident/components/IncidentTable';
 
-export const Route = createFileRoute('/_sharedLayout/_protected/incidents')({
+export const Route = createFileRoute('/_protected/incidents')({
   component: RouteComponent
 });
 

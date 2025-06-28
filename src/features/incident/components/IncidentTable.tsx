@@ -10,33 +10,19 @@ import {
 } from '~/components/ui/table';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
-import { Button } from '~/components/ui/button';
-import { Eye, Edit, MoreHorizontal } from 'lucide-react';
 import { useState, useMemo } from 'react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '~/components/ui/dropdown-menu';
-import { IncidentFiltersComponent, type IncidentFilters } from './IncidentFilters';
-import { mockIncidents, RacingIncident } from '~/mocks/fixtures/mockIncidents';
-import { ViewIncidentModal } from './ViewIncidentModal';
-import { EditIncidentModal } from './EditIncidentModal';
-import { getSeverityColor } from '../../../utils/utilsGetSeverityColor';
-import { getStatusColor } from '../../../utils/utilsGetStatusColor';
+import { mockIncidents } from '~/mocks/fixtures/mockIncidents';
+import { IncidentFilters, IncidentFiltersComponent } from './IncidentFilters';
 
 export function IncidentTable() {
-  const [selectedIncident, setSelectedIncident] = useState<RacingIncident | null>(null);
-  const [viewModalOpen, setViewModalOpen] = useState(false);
-  const [editModalOpen, setEditModalOpen] = useState(false);
   const [filters, setFilters] = useState<IncidentFilters>({
     search: '',
     category: '',
     severity: '',
     status: '',
     type: '',
-    circuit: ''
+    circuit: '',
+    location: ''
   });
 
   // Filter incidents based on current filters
@@ -81,25 +67,41 @@ export function IncidentTable() {
         return false;
       }
 
+      // Location filter - NEW
+      if (filters.location && incident.location !== filters.location) {
+        return false;
+      }
+
       return true;
     });
   }, [filters]);
 
-  const handleViewIncident = (incident: RacingIncident) => {
-    setSelectedIncident(incident);
-    setViewModalOpen(true);
+  const getSeverityColor = (severity: string) => {
+    switch (severity) {
+      case 'critical':
+        return 'bg-red-100 text-red-800';
+      case 'high':
+        return 'bg-orange-100 text-orange-800';
+      case 'medium':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'low':
+        return 'bg-green-100 text-green-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
   };
 
-  const handleEditIncident = (incident: RacingIncident) => {
-    setSelectedIncident(incident);
-    setEditModalOpen(true);
-  };
-
-  const handleSaveIncident = (updatedIncident: RacingIncident) => {
-    // In a real app, this would update the incident in the database
-    console.log('Saving incident:', updatedIncident);
-    setEditModalOpen(false);
-    setSelectedIncident(null);
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'resolved':
+        return 'bg-green-100 text-green-800';
+      case 'investigating':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'pending':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
   };
 
   const handleFiltersChange = (newFilters: IncidentFilters) => {
@@ -113,7 +115,8 @@ export function IncidentTable() {
       severity: '',
       status: '',
       type: '',
-      circuit: ''
+      circuit: '',
+      location: ''
     });
   };
 
@@ -154,7 +157,6 @@ export function IncidentTable() {
                   <TableHead>Status</TableHead>
                   <TableHead>Drivers</TableHead>
                   <TableHead>Lap</TableHead>
-                  <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -196,26 +198,6 @@ export function IncidentTable() {
                       </div>
                     </TableCell>
                     <TableCell>{incident.lapNumber}</TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Open menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => handleViewIncident(incident)}>
-                            <Eye className="mr-2 h-4 w-4" />
-                            View Details
-                          </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => handleEditIncident(incident)}>
-                            <Edit className="mr-2 h-4 w-4" />
-                            Edit Incident
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -223,19 +205,6 @@ export function IncidentTable() {
           )}
         </CardContent>
       </Card>
-
-      <ViewIncidentModal
-        incident={selectedIncident}
-        open={viewModalOpen}
-        onOpenChange={setViewModalOpen}
-      />
-
-      <EditIncidentModal
-        incident={selectedIncident}
-        open={editModalOpen}
-        onOpenChange={setEditModalOpen}
-        onSave={handleSaveIncident}
-      />
     </>
   );
 }

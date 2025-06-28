@@ -2,7 +2,16 @@
 'use client';
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '~/components/ui/card';
-import { ResponsiveContainer, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar } from 'recharts';
+import {
+  ResponsiveContainer,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Bar,
+  Legend
+} from 'recharts';
 import { Clock } from 'lucide-react';
 import { CustomTooltip } from './ChartTooltips/CustomTooltip';
 
@@ -22,6 +31,7 @@ export function HourlyBarChart({ data }: { data: any[] }) {
             <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
             <XAxis dataKey="hour" stroke="#64748b" fontSize={12} />
             <YAxis stroke="#64748b" fontSize={12} />
+            <Legend wrapperStyle={{ fontSize: 12 }} />
             <Tooltip content={<CustomTooltip />} />
             <Bar dataKey="incidents" fill="#8b5cf6" radius={[4, 4, 0, 0]} name="Incidents" />
           </BarChart>

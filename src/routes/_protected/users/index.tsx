@@ -4,7 +4,7 @@ import { Button } from '~/components/ui/button';
 import { Link } from '@tanstack/react-router';
 import { requireRole } from '~/features/auth/guards/require-role';
 
-export const Route = createFileRoute('/_sharedLayout/_protected/users/')({
+export const Route = createFileRoute('/_protected/users/')({
   beforeLoad: () => requireRole(['admin']),
   component: UsersIndexComponent
 });

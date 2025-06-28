@@ -32,7 +32,7 @@ export function CircuitPerformanceChart({ data }: { data: any[] }) {
             <XAxis dataKey="circuit" stroke="#64748b" fontSize={12} />
             <YAxis stroke="#64748b" fontSize={12} />
             <Tooltip content={<CustomTooltip />} />
-            <Legend />
+            <Legend wrapperStyle={{ fontSize: 12 }} />
             <Bar dataKey="incidents" fill="#ef4444" name="Total Incidents" radius={[2, 2, 0, 0]} />
             <Bar dataKey="resolved" fill="#10b981" name="Resolved" radius={[2, 2, 0, 0]} />
           </BarChart>
