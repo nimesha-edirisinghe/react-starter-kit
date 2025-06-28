@@ -30,25 +30,13 @@ const data = {
       url: '/',
       icon: SquareTerminal,
       isActive: true,
-      allowedRoles: ['admin', 'steward', 'viewer'] as UserRole[]
+      allowedRoles: ['admin', 'steward'] as UserRole[]
     },
     {
       title: 'Incidents',
       url: '/incidents',
       icon: Bot,
-      allowedRoles: ['admin', 'steward', 'viewer'] as UserRole[]
-    },
-    {
-      title: 'Posts',
-      url: '/posts',
-      icon: Bot,
       allowedRoles: ['admin', 'steward'] as UserRole[]
-    },
-    {
-      title: 'Users',
-      url: '/users',
-      icon: Settings2,
-      allowedRoles: ['admin'] as UserRole[]
     },
     {
       title: 'Live',

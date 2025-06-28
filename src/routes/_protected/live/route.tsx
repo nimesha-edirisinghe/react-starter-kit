@@ -1,11 +1,18 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { LiveAlerts } from '~/features/live/components/LiveAlerts';
 import { LiveCharts } from '~/features/live/components/LiveCharts';
 import { LiveIncidentFeed } from '~/features/live/components/LiveIncidentFeed';
 import { LiveMap } from '~/features/live/components/LiveMap';
 import { RaceStatus } from '~/features/live/components/RaceStatus';
+import { useAuthStore } from '~/features/auth/store/auth-store';
 
 export const Route = createFileRoute('/_protected/live')({
+  beforeLoad: () => {
+    const { user } = useAuthStore.getState();
+    if (user?.role !== 'viewer') {
+      throw redirect({ to: '/' });
+    }
+  },
   component: ViewerLive
 });
 
