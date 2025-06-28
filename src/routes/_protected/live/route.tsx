@@ -1,22 +1,17 @@
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { LiveAlerts } from '~/features/live/components/LiveAlerts';
 import { LiveCharts } from '~/features/live/components/LiveCharts';
 import { LiveIncidentFeed } from '~/features/live/components/LiveIncidentFeed';
 import { LiveMap } from '~/features/live/components/LiveMap';
 import { RaceStatus } from '~/features/live/components/RaceStatus';
-import { useAuthStore } from '~/features/auth/store/auth-store';
+import { requireRole } from '~/features/auth/guards/require-role';
 
 export const Route = createFileRoute('/_protected/live')({
-  beforeLoad: () => {
-    const { user } = useAuthStore.getState();
-    if (user?.role !== 'viewer') {
-      throw redirect({ to: '/' });
-    }
-  },
-  component: ViewerLive
+  beforeLoad: () => requireRole(['admin', 'steward', 'viewer']),
+  component: ViewerLiveComponent
 });
 
-function ViewerLive() {
+function ViewerLiveComponent() {
   return (
     <div className="space-y-6 min-h-screen">
       <div className="relative">
@@ -48,7 +43,6 @@ function ViewerLive() {
           <LiveMap />
         </div>
       </div>
-
       <LiveIncidentFeed />
     </div>
   );

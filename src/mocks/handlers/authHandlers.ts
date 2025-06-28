@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { mockAuthUser } from '../fixtures/mockAuthData';
+import { mockAllUsers } from '../fixtures/mockAuthData';
 
 export const authHandlers = [
   http.post('/auth/login', async ({ request }) => {
@@ -7,17 +7,22 @@ export const authHandlers = [
       email: string;
       password: string;
     };
-    if (email === mockAuthUser.email && password === mockAuthUser.password) {
+
+    // Find user by email and password
+    const user = mockAllUsers.find((u) => u.email === email && u.password === password);
+
+    if (user) {
       return HttpResponse.json({
         user: {
-          id: mockAuthUser.id,
-          name: mockAuthUser.name,
-          email: mockAuthUser.email,
-          role: mockAuthUser.role
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role
         },
-        token: mockAuthUser.token
+        token: user.token
       });
     }
+
     return new HttpResponse('Invalid credentials', { status: 401 });
   })
 ];
