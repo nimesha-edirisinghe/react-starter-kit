@@ -2,12 +2,15 @@
 
 import { Table, TableBody } from '~/components/ui/table';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useIncidentsQuery } from '~/api/queries/incident/useIncidentsQuery';
 import { IncidentFilters } from '../../types/incident-filters';
 import { IncidentFiltersComponent } from '../incident-filters/IncidentFilters';
 import { IncidentRow } from './IncidentRow';
 import { IncidentTableHeader } from './IncidentTableHeader';
+import { TableFooter } from './table-footer/TableFooter';
+
+const ITEMS_PER_PAGE = 10;
 
 export function IncidentTable() {
   const [filters, setFilters] = useState<IncidentFilters>({
@@ -19,6 +22,8 @@ export function IncidentTable() {
     circuit: '',
     location: ''
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { data: incidents = [] } = useIncidentsQuery();
 
@@ -40,14 +45,11 @@ export function IncidentTable() {
 
   const filteredIncidents = useMemo(() => {
     if (!searchableIncidents.length) return [];
-
     const { search, category, severity, status, type, location } = filters;
-
     const hasActiveFilters = search || category || severity || status || type || location;
     if (!hasActiveFilters) {
       return searchableIncidents;
     }
-
     const searchTerm = search.toLowerCase();
 
     return searchableIncidents.filter((incident) => {
@@ -62,6 +64,15 @@ export function IncidentTable() {
       return true;
     });
   }, [searchableIncidents, filters]);
+
+  const totalPages = Math.ceil(filteredIncidents.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedIncidents = filteredIncidents.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filters]);
 
   const handleFiltersChange = useCallback((newFilters: IncidentFilters) => {
     setFilters(newFilters);
@@ -79,12 +90,19 @@ export function IncidentTable() {
     });
   }, []);
 
+  const handlePageChange = useCallback((page: number) => {
+    setCurrentPage(page);
+  }, []);
+
   const counts = useMemo(
     () => ({
       filtered: filteredIncidents.length,
-      total: incidents.length
+      total: incidents.length,
+      showing: paginatedIncidents.length,
+      start: startIndex + 1,
+      end: Math.min(endIndex, filteredIncidents.length)
     }),
-    [filteredIncidents.length, incidents.length]
+    [filteredIncidents.length, incidents.length, paginatedIncidents.length, startIndex, endIndex]
   );
 
   return (
@@ -100,7 +118,7 @@ export function IncidentTable() {
           <CardTitle className="flex items-center justify-between">
             <span>All Incidents</span>
             <div className="text-sm text-slate-600">
-              Showing {counts.filtered} of {counts.total} incidents
+              Showing {counts.start}-{counts.end} of {counts.filtered} incidents
             </div>
           </CardTitle>
         </CardHeader>
@@ -113,14 +131,23 @@ export function IncidentTable() {
               </div>
             </div>
           ) : (
-            <Table>
-              <IncidentTableHeader />
-              <TableBody>
-                {filteredIncidents.map((incident) => (
-                  <IncidentRow key={incident.id} incident={incident} />
-                ))}
-              </TableBody>
-            </Table>
+            <>
+              <Table>
+                <IncidentTableHeader />
+                <TableBody>
+                  {paginatedIncidents.map((incident) => (
+                    <IncidentRow key={incident.id} incident={incident} />
+                  ))}
+                </TableBody>
+              </Table>
+              {totalPages > 1 && (
+                <TableFooter
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={handlePageChange}
+                />
+              )}
+            </>
           )}
         </CardContent>
       </Card>
