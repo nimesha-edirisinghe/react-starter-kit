@@ -1,6 +1,6 @@
 'use client';
 
-import { Link } from '@tanstack/react-router';
+import { Link, useRouterState } from '@tanstack/react-router';
 import { type LucideIcon } from 'lucide-react';
 import {
   SidebarGroup,
@@ -9,6 +9,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton
 } from '~/components/ui/sidebar';
+import { cn } from '~/utils/utils';
 
 export function NavMain({
   items
@@ -20,20 +21,40 @@ export function NavMain({
     isActive?: boolean;
   }[];
 }) {
+  const currentPath = useRouterState({
+    select: (state) => state.location.pathname
+  });
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => (
-          <SidebarMenuItem key={item.title}>
-            <SidebarMenuButton asChild tooltip={item.title}>
-              <Link to={item.url} className="flex items-center gap-2 w-full">
-                {item.icon && <item.icon className="h-4 w-4" />}
-                <span>{item.title}</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        ))}
+        {items.map((item) => {
+          const isActive =
+            currentPath === item.url || (item.url !== '/' && currentPath.startsWith(item.url));
+
+          return (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton
+                asChild
+                tooltip={item.title}
+                data-active={isActive}
+                className="data-[active=true]:bg-white data-[active=true]:text-primary data-[active=true]:font-medium hover:!bg-custom-orange-foreground hover:!text-primary"
+              >
+                <Link
+                  to={item.url}
+                  className={cn(
+                    'flex items-center gap-2 w-full transition-all duration-200 ease-in-out',
+                    isActive && 'text-primary !bg-[#FFF1EA] hover:text-primary hover:bg-[#FFF1EA]'
+                  )}
+                >
+                  {item.icon && <item.icon style={{ height: '16px', width: '16px' }} />}
+                  <span>{item.title}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          );
+        })}
       </SidebarMenu>
     </SidebarGroup>
   );

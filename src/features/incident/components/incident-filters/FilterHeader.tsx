@@ -19,6 +19,7 @@ export function FilterHeader({
   onToggleAdvanced,
   onReset
 }: FilterHeaderProps) {
+  const isDisabledResetBtn = activeFiltersCount === 0;
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
       <div className="flex items-center gap-2">
@@ -37,7 +38,7 @@ export function FilterHeader({
           onClick={onToggleAdvanced}
           className="flex items-center gap-2"
         >
-          <Settings className="h-4 w-4" />
+          <Settings className="h-4 w-4 text-primary" />
           <span>Advanced</span>
           {advancedFiltersCount > 0 && (
             <Badge variant="secondary" className="text-xs ml-1">
@@ -51,9 +52,9 @@ export function FilterHeader({
           size="sm"
           onClick={onReset}
           className="flex items-center gap-2 bg-transparent"
-          disabled={activeFiltersCount === 0}
+          disabled={isDisabledResetBtn}
         >
-          <RotateCcw className="h-4 w-4" />
+          <RotateCcw className="h-4 w-4 text-primary" />
           <span>Reset All</span>
         </Button>
       </div>

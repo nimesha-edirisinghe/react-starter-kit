@@ -55,12 +55,6 @@ export function LiveAlerts() {
         };
 
         setAlerts((prev) => [newAlert, ...prev.slice(0, 4)]); // Keep only 5 most recent
-
-        // Play sound if enabled
-        if (soundEnabled && randomAlert.type === 'critical') {
-          // In a real app, you'd play an actual sound
-          console.log('🔊 Critical alert sound!');
-        }
       }
     }, 8000);
 

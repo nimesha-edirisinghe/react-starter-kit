@@ -28,7 +28,7 @@ export function DynamicBreadcrumb() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbPage>{t('navigation.dashboard')}</BreadcrumbPage>
+            <BreadcrumbPage className="text-primary">{t('navigation.dashboard')}</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -66,9 +66,9 @@ export function DynamicBreadcrumb() {
       <BreadcrumbList>
         {breadcrumbItems.map((item) => (
           <React.Fragment key={item.path}>
-            <BreadcrumbItem>
+            <BreadcrumbItem className="text-primary">
               {item.isLast ? (
-                <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                <BreadcrumbPage className="text-primary">{item.label}</BreadcrumbPage>
               ) : (
                 <BreadcrumbLink href={item.path}>{item.label}</BreadcrumbLink>
               )}
