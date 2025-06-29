@@ -8,12 +8,14 @@ import {
   BreadcrumbPage
 } from '~/components/ui/breadcrumb';
 import { useRouterState } from '@tanstack/react-router';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 
 export function DynamicBreadcrumb() {
   const currentPath = useRouterState({
     select: (state) => state.location.pathname
   });
+  const { t } = useTranslation();
 
   if (currentPath === '/login') {
     return null;
@@ -26,7 +28,7 @@ export function DynamicBreadcrumb() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbPage>Home</BreadcrumbPage>
+            <BreadcrumbPage>{t('navigation.dashboard')}</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -36,10 +38,25 @@ export function DynamicBreadcrumb() {
   const breadcrumbItems = pathSegments.map((segment, index) => {
     const path = '/' + pathSegments.slice(0, index + 1).join('/');
     const isLast = index === pathSegments.length - 1;
-    const label = segment
-      .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+
+    // Map path segments to translation keys
+    let label = segment;
+    switch (segment) {
+      case 'incidents':
+        label = t('navigation.incidents');
+        break;
+      case 'live':
+        label = t('navigation.live');
+        break;
+      case 'dashboard':
+        label = t('navigation.dashboard');
+        break;
+      default:
+        label = segment
+          .split('-')
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+    }
 
     return { path, label, isLast };
   });

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
@@ -22,7 +21,6 @@ export function LiveCharts() {
   const [incidentRate, setIncidentRate] = useState(0);
   const [responseTime, setResponseTime] = useState(0);
 
-  // Generate real-time data
   useEffect(() => {
     const generateDataPoint = () => {
       const now = new Date();
@@ -40,7 +38,6 @@ export function LiveCharts() {
       };
     };
 
-    // Initialize with some data
     const initialData = Array.from({ length: 20 }, () => generateDataPoint());
     setRealtimeData(initialData);
 

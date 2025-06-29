@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { IncidentTable } from '~/features/incident/components/IncidentTable';
 import { requireRole } from '~/features/auth/guards/require-role';
+import { IncidentTable } from '~/features/incident/components/incident-table/IncidentTable';
 
 export const Route = createFileRoute('/_protected/incidents')({
   beforeLoad: () => requireRole(['admin', 'steward']),

@@ -1,0 +1,93 @@
+import { apiClient } from '../client';
+
+export interface DashboardStats {
+  totalIncidents: number;
+  investigating: number;
+  resolved: number;
+  pending: number;
+}
+
+export interface RecentIncident {
+  id: string;
+  type: string;
+  raceCategory: string;
+  location: string;
+  circuit: string;
+  severity: string;
+  drivers: string[];
+  teams: string[];
+  lapNumber: number;
+  raceTime: string;
+  description: string;
+  timestamp: string;
+  status: string;
+  stewardNotes?: string;
+}
+
+export interface ChartData {
+  name: string;
+  value: number;
+  fill?: string;
+}
+
+export interface TrendData {
+  date: string;
+  incidents: number;
+  resolved: number;
+}
+
+export interface HourlyData {
+  hour: string;
+  incidents: number;
+}
+
+export interface CircuitData {
+  circuit: string;
+  incidents: number;
+  performance: number;
+}
+
+export interface DashboardData {
+  stats: DashboardStats;
+  recentIncidents: RecentIncident[];
+  severityData: ChartData[];
+  trendData: TrendData[];
+  hourlyData: HourlyData[];
+  circuitData: CircuitData[];
+}
+
+// API functions
+export const getDashboardStats = async (): Promise<DashboardStats> => {
+  const response = await apiClient.get('/api/dashboard/stats');
+  return response.data;
+};
+
+export const getRecentIncidents = async (): Promise<RecentIncident[]> => {
+  const response = await apiClient.get('/api/dashboard/recent-incidents');
+  return response.data;
+};
+
+export const getSeverityData = async (): Promise<ChartData[]> => {
+  const response = await apiClient.get('/api/dashboard/severity-data');
+  return response.data;
+};
+
+export const getTrendData = async (): Promise<TrendData[]> => {
+  const response = await apiClient.get('/api/dashboard/trend-data');
+  return response.data;
+};
+
+export const getHourlyData = async (): Promise<HourlyData[]> => {
+  const response = await apiClient.get('/api/dashboard/hourly-data');
+  return response.data;
+};
+
+export const getCircuitData = async (): Promise<CircuitData[]> => {
+  const response = await apiClient.get('/api/dashboard/circuit-data');
+  return response.data;
+};
+
+export const getDashboardData = async (): Promise<DashboardData> => {
+  const response = await apiClient.get('/api/dashboard');
+  return response.data;
+};

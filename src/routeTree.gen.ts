@@ -13,7 +13,6 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as ProtectedImport } from './routes/_protected'
 import { Route as ProtectedIndexImport } from './routes/_protected/index'
-import { Route as ProtectedDeferredImport } from './routes/_protected/deferred'
 import { Route as PublicLoginRouteImport } from './routes/_public/login/route'
 import { Route as PublicAccessDeniedRouteImport } from './routes/_public/access-denied/route'
 import { Route as ProtectedLiveRouteImport } from './routes/_protected/live/route'
@@ -29,12 +28,6 @@ const ProtectedRoute = ProtectedImport.update({
 const ProtectedIndexRoute = ProtectedIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => ProtectedRoute,
-} as any)
-
-const ProtectedDeferredRoute = ProtectedDeferredImport.update({
-  id: '/deferred',
-  path: '/deferred',
   getParentRoute: () => ProtectedRoute,
 } as any)
 
@@ -101,13 +94,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicLoginRouteImport
       parentRoute: typeof rootRoute
     }
-    '/_protected/deferred': {
-      id: '/_protected/deferred'
-      path: '/deferred'
-      fullPath: '/deferred'
-      preLoaderRoute: typeof ProtectedDeferredImport
-      parentRoute: typeof ProtectedImport
-    }
     '/_protected/': {
       id: '/_protected/'
       path: '/'
@@ -123,14 +109,12 @@ declare module '@tanstack/react-router' {
 interface ProtectedRouteChildren {
   ProtectedIncidentsRouteRoute: typeof ProtectedIncidentsRouteRoute
   ProtectedLiveRouteRoute: typeof ProtectedLiveRouteRoute
-  ProtectedDeferredRoute: typeof ProtectedDeferredRoute
   ProtectedIndexRoute: typeof ProtectedIndexRoute
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedIncidentsRouteRoute: ProtectedIncidentsRouteRoute,
   ProtectedLiveRouteRoute: ProtectedLiveRouteRoute,
-  ProtectedDeferredRoute: ProtectedDeferredRoute,
   ProtectedIndexRoute: ProtectedIndexRoute,
 }
 
@@ -144,7 +128,6 @@ export interface FileRoutesByFullPath {
   '/live': typeof ProtectedLiveRouteRoute
   '/access-denied': typeof PublicAccessDeniedRouteRoute
   '/login': typeof PublicLoginRouteRoute
-  '/deferred': typeof ProtectedDeferredRoute
   '/': typeof ProtectedIndexRoute
 }
 
@@ -153,7 +136,6 @@ export interface FileRoutesByTo {
   '/live': typeof ProtectedLiveRouteRoute
   '/access-denied': typeof PublicAccessDeniedRouteRoute
   '/login': typeof PublicLoginRouteRoute
-  '/deferred': typeof ProtectedDeferredRoute
   '/': typeof ProtectedIndexRoute
 }
 
@@ -164,22 +146,14 @@ export interface FileRoutesById {
   '/_protected/live': typeof ProtectedLiveRouteRoute
   '/_public/access-denied': typeof PublicAccessDeniedRouteRoute
   '/_public/login': typeof PublicLoginRouteRoute
-  '/_protected/deferred': typeof ProtectedDeferredRoute
   '/_protected/': typeof ProtectedIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | ''
-    | '/incidents'
-    | '/live'
-    | '/access-denied'
-    | '/login'
-    | '/deferred'
-    | '/'
+  fullPaths: '' | '/incidents' | '/live' | '/access-denied' | '/login' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/incidents' | '/live' | '/access-denied' | '/login' | '/deferred' | '/'
+  to: '/incidents' | '/live' | '/access-denied' | '/login' | '/'
   id:
     | '__root__'
     | '/_protected'
@@ -187,7 +161,6 @@ export interface FileRouteTypes {
     | '/_protected/live'
     | '/_public/access-denied'
     | '/_public/login'
-    | '/_protected/deferred'
     | '/_protected/'
   fileRoutesById: FileRoutesById
 }
@@ -224,7 +197,6 @@ export const routeTree = rootRoute
       "children": [
         "/_protected/incidents",
         "/_protected/live",
-        "/_protected/deferred",
         "/_protected/"
       ]
     },
@@ -241,10 +213,6 @@ export const routeTree = rootRoute
     },
     "/_public/login": {
       "filePath": "_public/login/route.tsx"
-    },
-    "/_protected/deferred": {
-      "filePath": "_protected/deferred.tsx",
-      "parent": "/_protected"
     },
     "/_protected/": {
       "filePath": "_protected/index.tsx",

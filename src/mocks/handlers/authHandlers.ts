@@ -8,7 +8,6 @@ export const authHandlers = [
       password: string;
     };
 
-    // Find user by email and password
     const user = mockAllUsers.find((u) => u.email === email && u.password === password);
 
     if (user) {

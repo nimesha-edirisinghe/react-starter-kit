@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { Bot, GalleryVerticalEnd, Settings2, SquareTerminal } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 import {
   Sidebar,
@@ -16,39 +17,40 @@ import { NavUser } from './NavUser';
 import { useAuthStore } from '~/features/auth/store/auth-store';
 import { UserRole } from '~/features/auth/types/auth';
 
-const data = {
-  teams: [
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise'
-    }
-  ],
-  navMain: [
-    {
-      title: 'Dashboard',
-      url: '/',
-      icon: SquareTerminal,
-      isActive: true,
-      allowedRoles: ['admin', 'steward'] as UserRole[]
-    },
-    {
-      title: 'Incidents',
-      url: '/incidents',
-      icon: Bot,
-      allowedRoles: ['admin', 'steward'] as UserRole[]
-    },
-    {
-      title: 'Live',
-      url: '/live',
-      icon: Settings2,
-      allowedRoles: ['viewer'] as UserRole[]
-    }
-  ]
-};
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useAuthStore();
+  const { t } = useTranslation();
+
+  const data = {
+    teams: [
+      {
+        name: 'Acme Inc',
+        logo: GalleryVerticalEnd,
+        plan: 'Enterprise'
+      }
+    ],
+    navMain: [
+      {
+        title: t('navigation.dashboard'),
+        url: '/',
+        icon: SquareTerminal,
+        isActive: true,
+        allowedRoles: ['admin', 'steward'] as UserRole[]
+      },
+      {
+        title: t('navigation.incidents'),
+        url: '/incidents',
+        icon: Bot,
+        allowedRoles: ['admin', 'steward'] as UserRole[]
+      },
+      {
+        title: t('navigation.live'),
+        url: '/live',
+        icon: Settings2,
+        allowedRoles: ['admin', 'steward', 'viewer'] as UserRole[]
+      }
+    ]
+  };
 
   const filteredNavItems = data.navMain.filter((item) => {
     if (!user) return false;

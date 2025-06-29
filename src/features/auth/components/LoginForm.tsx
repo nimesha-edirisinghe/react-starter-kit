@@ -3,10 +3,12 @@ import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { Button } from '~/components/ui/button';
 import { useLoginForm } from '~/features/auth/hooks/useLoginForm';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 export function LoginForm() {
   const { form, handleSubmit, isPending, error } = useLoginForm();
+  const { t } = useTranslation();
 
   return (
     <Form {...form}>
@@ -17,13 +19,13 @@ export function LoginForm() {
           render={({ field }) => (
             <FormItem>
               <Label htmlFor="email" className="text-foreground">
-                Email
+                {t('common.email')}
               </Label>
               <FormControl>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={t('auth.emailPlaceholder')}
                   className={clsx(error && 'border-destructive')}
                   autoCapitalize="none"
                   autoCorrect="off"
@@ -41,13 +43,13 @@ export function LoginForm() {
           render={({ field }) => (
             <FormItem>
               <Label htmlFor="password" className="text-foreground">
-                Password
+                {t('common.password')}
               </Label>
               <FormControl>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Enter your password"
+                  placeholder={t('auth.passwordPlaceholder')}
                   className={clsx(error && 'border-destructive')}
                   autoCapitalize="none"
                   autoCorrect="off"
@@ -59,10 +61,10 @@ export function LoginForm() {
           )}
         />
 
-        {error && <p className="text-sm text-destructive -mt-2">Invalid credentials</p>}
+        {error && <p className="text-sm text-destructive -mt-2">{t('auth.invalidCredentials')}</p>}
 
         <Button type="submit" className="w-full cursor-pointer" disabled={isPending}>
-          {isPending ? 'Logging in...' : 'Login'}
+          {isPending ? t('auth.loggingIn') : t('auth.loginButton')}
         </Button>
       </form>
     </Form>

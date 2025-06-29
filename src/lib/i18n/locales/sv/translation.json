@@ -1,0 +1,95 @@
+{
+    "common": {
+        "dashboard": "Instrumentpanel",
+        "incidents": "Incidenter",
+        "live": "Live",
+        "login": "Logga in",
+        "logout": "Logga ut",
+        "email": "E-post",
+        "password": "Lösenord",
+        "loading": "Laddar...",
+        "error": "Fel",
+        "success": "Lyckades",
+        "cancel": "Avbryt",
+        "save": "Spara",
+        "delete": "Radera",
+        "edit": "Redigera",
+        "create": "Skapa",
+        "search": "Sök",
+        "filter": "Filter",
+        "clear": "Rensa",
+        "back": "Gå tillbaka",
+        "home": "Börja om",
+        "language": "Språk",
+        "welcome": "Välkommen",
+        "welcomeBack": "Välkommen tillbaka",
+        "enterCredentials": "Ange dina inloggningsuppgifter",
+        "contactAdmin": "Har du inget konto? Kontakta administratören",
+        "fullSystemOverview": "Fullständig systemöversikt och hantering",
+        "stewardOverview": "Översikt för funktionärer och incidenthantering",
+        "viewerOverview": "Översikt för åskådare och liveövervakning"
+    },
+    "auth": {
+        "loginTitle": "Välkommen tillbaka",
+        "loginDescription": "Ange dina inloggningsuppgifter för att få åtkomst",
+        "emailPlaceholder": "Ange din e-postadress",
+        "passwordPlaceholder": "Ange ditt lösenord",
+        "invalidCredentials": "Ogiltiga uppgifter",
+        "loggingIn": "Loggar in...",
+        "loginButton": "Logga in"
+    },
+    "navigation": {
+        "dashboard": "Instrumentpanel",
+        "incidents": "Incidenter",
+        "live": "Live",
+        "settings": "Inställningar",
+        "profile": "Profil"
+    },
+    "dashboard": {
+        "title": "Instrumentpanel",
+        "adminDashboard": "Adminpanel",
+        "stewardDashboard": "Funktionärspanel",
+        "viewerDashboard": "Åskådarpanel",
+        "stats": "Statistik",
+        "recentIncidents": "Senaste incidenterna",
+        "circuitPerformance": "Bananes prestation",
+        "hourlyTrends": "Timvisa trender"
+    },
+    "incidents": {
+        "title": "Incidenter",
+        "filters": "Filter",
+        "table": "Incidenttabell",
+        "severity": "Allvarlighetsgrad",
+        "status": "Status",
+        "date": "Datum",
+        "description": "Beskrivning"
+    },
+    "live": {
+        "title": "Live",
+        "alerts": "Livevarningar",
+        "charts": "Livegrafer",
+        "incidentFeed": "Incidentflöde",
+        "map": "Livemap",
+        "raceStatus": "Loppstatus"
+    },
+    "errors": {
+        "pageNotFound": "Sidan kunde inte hittas",
+        "pageNotFoundDescription": "Sidan du letar efter finns inte, kan ha tagits bort eller så är URL:en felaktig.",
+        "accessDenied": "Åtkomst nekad",
+        "accessDeniedDescription": "Du har inte behörighet att komma åt denna resurs."
+    },
+    "counter": {
+        "title": "Interaktiv räknare",
+        "example": "Exempel på räknare",
+        "count": "Räkna",
+        "increment": "Öka",
+        "decrement": "Minska",
+        "reset": "Återställ",
+        "startCounting": "Börja räkna!",
+        "goingNegative": "Går negativt!",
+        "gettingStarted": "Kommer igång",
+        "niceProgress": "Bra framsteg!",
+        "onFire": "Du är glödhet!",
+        "counterMaster": "Räknarmästare!"
+    }
+}
