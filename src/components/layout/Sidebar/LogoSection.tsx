@@ -10,7 +10,7 @@ export const LogoSection = () => {
         <SidebarMenuButton
           size="lg"
           className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground hover:bg-transparent hover:text-current disabled:opacity-100"
-          disabled
+          asChild
         >
           <Logo />
         </SidebarMenuButton>
