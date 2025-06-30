@@ -9,7 +9,8 @@ export function createRouter() {
     defaultPreload: 'intent',
     defaultErrorComponent: DefaultCatchBoundary,
     defaultNotFoundComponent: () => <NotFound />,
-    scrollRestoration: true
+    scrollRestoration: true,
+    notFoundMode: 'root' // Handle 404s at root level for better UX
   });
 
   return router;

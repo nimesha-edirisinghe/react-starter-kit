@@ -48,7 +48,7 @@ export function ActiveFilters({
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-4 w-4 p-0 hover:bg-muted-foreground/20"
+                className="h-4 w-4 p-0 hover:bg-muted-foreground/20 cursor-pointer"
                 onClick={() => onRemoveFilter(key)}
               >
                 <X className="h-3 w-3" />

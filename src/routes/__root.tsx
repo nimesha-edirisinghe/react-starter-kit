@@ -90,7 +90,9 @@ function NotFoundLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col bg-white dark:bg-black text-black dark:text-white">
       <HeadContent />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1" role="main" aria-label="Page not found">
+        {children}
+      </main>
       <Scripts />
     </div>
   );

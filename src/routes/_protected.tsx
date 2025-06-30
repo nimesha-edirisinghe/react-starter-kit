@@ -8,7 +8,18 @@ import { NotFound } from '~/components/feedback/NotFound';
 export const Route = createFileRoute('/_protected')({
   beforeLoad: requireAuth,
   component: ProtectedLayoutComponent,
-  notFoundComponent: () => <NotFound />
+  notFoundComponent: () => (
+    <NotFound>
+      <div className="space-y-2">
+        <p className="text-muted-foreground">
+          This protected page doesn't exist or you may not have access to it.
+        </p>
+        <p className="text-xs text-muted-foreground/80">
+          Check your permissions or try one of the suggested pages below.
+        </p>
+      </div>
+    </NotFound>
+  )
 });
 
 function ProtectedLayoutComponent() {
