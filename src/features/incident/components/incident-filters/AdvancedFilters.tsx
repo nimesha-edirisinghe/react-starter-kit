@@ -33,41 +33,36 @@ export function AdvancedFilters({ filters, onFilterChange }: AdvancedFiltersProp
 
   return (
     <div className="space-y-2 animate-in slide-in-from-top-2 duration-200">
-      <h3 className="text-sm font-medium text-muted-foreground flex items-center gap-2">
+      <h3 className="text-sm font-medium text-muted-foreground flex items-center gap-2 mb-4">
         <Settings className="h-4 w-4" />
         Advanced Filters
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
         <FilterSelect
-          label="Category"
           value={filters.category}
           placeholder="All Categories"
           options={filterOptions.category}
           onChange={(value) => onFilterChange('category', value)}
         />
         <FilterSelect
-          label="Severity"
           value={filters.severity}
           placeholder="All Severities"
           options={filterOptions.severity}
           onChange={(value) => onFilterChange('severity', value)}
         />
         <FilterSelect
-          label="Type"
           value={filters.type}
           placeholder="All Types"
           options={filterOptions.type}
           onChange={(value) => onFilterChange('type', value)}
         />
         <FilterSelect
-          label="Status"
           value={filters.status}
           placeholder="All Statuses"
           options={filterOptions.status}
           onChange={(value) => onFilterChange('status', value)}
         />
         <FilterSelect
-          label="Location"
           value={filters.location}
           placeholder="All Locations"
           options={filterOptions.location}

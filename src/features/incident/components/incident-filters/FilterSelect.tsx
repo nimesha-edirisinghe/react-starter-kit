@@ -9,17 +9,24 @@ import {
 } from '~/components/ui/select';
 
 interface FilterSelectProps {
-  label: string;
+  label?: string;
   value: string;
   placeholder: string;
   options: Array<{ value: string; label: string; color?: string }>;
   onChange: (value: string) => void;
 }
 
-export function FilterSelect({ label, value, placeholder, options, onChange }: FilterSelectProps) {
+export function FilterSelect({
+  label = '',
+  value,
+  placeholder,
+  options,
+  onChange
+}: FilterSelectProps) {
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-xs font-medium text-muted-foreground">{label}</label>
+      {label && <label className="text-xs font-medium text-muted-foreground">{label}</label>}
+
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder={placeholder} />

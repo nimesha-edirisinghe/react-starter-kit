@@ -13,13 +13,8 @@ export function IncidentFiltersComponent({
   onFiltersChange,
   onReset
 }: IncidentFiltersProps) {
-  const {
-    showAdvanced,
-    setShowAdvanced,
-    getActiveFiltersCount,
-    getAdvancedFiltersCount,
-    formatFilterValue
-  } = useIncidentFilters();
+  const { showAdvanced, setShowAdvanced, getActiveFiltersCount, formatFilterValue } =
+    useIncidentFilters();
 
   const handleFilterChange = (key: keyof IncidentFilters, value: string) => {
     onFiltersChange({ ...filters, [key]: value });
@@ -30,7 +25,6 @@ export function IncidentFiltersComponent({
   };
 
   const activeFiltersCount = getActiveFiltersCount(filters);
-  const advancedFiltersCount = getAdvancedFiltersCount(filters);
 
   return (
     <Card className="w-full flex flex-col gap-1">
@@ -38,7 +32,6 @@ export function IncidentFiltersComponent({
         <CardTitle>
           <FilterHeader
             activeFiltersCount={activeFiltersCount}
-            advancedFiltersCount={advancedFiltersCount}
             showAdvanced={showAdvanced}
             onToggleAdvanced={() => setShowAdvanced(!showAdvanced)}
             onReset={onReset}

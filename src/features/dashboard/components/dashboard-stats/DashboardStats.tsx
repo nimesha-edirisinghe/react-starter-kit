@@ -1,10 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { AlertTriangle, Clock, CheckCircle, XCircle } from 'lucide-react';
 import { useDashboardStatsQuery } from '~/api/queries/dashboard/useDashboardStatsQuery';
-import { useTranslation } from 'react-i18next';
 
 export function DashboardStats() {
-  const { t } = useTranslation();
   const { data: stats, isLoading, error } = useDashboardStatsQuery();
 
   if (isLoading) {
@@ -30,7 +28,7 @@ export function DashboardStats() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card>
           <CardContent className="p-6">
-            <p className="text-red-500">{t('common.error')}</p>
+            <p className="text-red-500">Error</p>
           </CardContent>
         </Card>
       </div>
@@ -39,28 +37,28 @@ export function DashboardStats() {
 
   const statsData = [
     {
-      title: t('dashboard.stats.totalIncidents'),
+      title: 'Total Incidents',
       value: stats?.totalIncidents || 0,
       icon: AlertTriangle,
       color: 'text-blue-600',
       bgColor: 'bg-blue-50'
     },
     {
-      title: t('dashboard.stats.investigating'),
+      title: 'Investigating',
       value: stats?.investigating || 0,
       icon: Clock,
       color: 'text-yellow-600',
       bgColor: 'bg-yellow-50'
     },
     {
-      title: t('dashboard.stats.resolved'),
+      title: 'Resolved',
       value: stats?.resolved || 0,
       icon: CheckCircle,
       color: 'text-green-600',
       bgColor: 'bg-green-50'
     },
     {
-      title: t('dashboard.stats.pending'),
+      title: 'Pending',
       value: stats?.pending || 0,
       icon: XCircle,
       color: 'text-red-600',

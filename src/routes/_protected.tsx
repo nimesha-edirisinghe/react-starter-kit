@@ -3,10 +3,12 @@ import { RoleBasedLayout } from '~/components/layout/role-based/RoleBasedLayout'
 import { RoleBasedRedirect } from '~/components/layout/role-based/RoleBasedRedirect';
 import { AuthGuard } from '~/features/auth/components/AuthGuard';
 import { requireAuth } from '~/features/auth/guards/require-auth';
+import { NotFound } from '~/components/feedback/NotFound';
 
 export const Route = createFileRoute('/_protected')({
   beforeLoad: requireAuth,
-  component: ProtectedLayoutComponent
+  component: ProtectedLayoutComponent,
+  notFoundComponent: () => <NotFound />
 });
 
 function ProtectedLayoutComponent() {

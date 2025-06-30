@@ -6,7 +6,6 @@ import { Filter, Settings, ChevronDown, ChevronUp, RotateCcw } from 'lucide-reac
 
 interface FilterHeaderProps {
   activeFiltersCount: number;
-  advancedFiltersCount: number;
   showAdvanced: boolean;
   onToggleAdvanced: () => void;
   onReset: () => void;
@@ -14,7 +13,6 @@ interface FilterHeaderProps {
 
 export function FilterHeader({
   activeFiltersCount,
-  advancedFiltersCount,
   showAdvanced,
   onToggleAdvanced,
   onReset
@@ -36,15 +34,11 @@ export function FilterHeader({
           variant="outline"
           size="sm"
           onClick={onToggleAdvanced}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 "
         >
-          <Settings className="h-4 w-4 text-primary" />
+          <Settings className="h-4 w-4 " />
           <span>Advanced</span>
-          {advancedFiltersCount > 0 && (
-            <Badge variant="secondary" className="text-xs ml-1">
-              {advancedFiltersCount}
-            </Badge>
-          )}
+
           {showAdvanced ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
         </Button>
         <Button
@@ -54,7 +48,7 @@ export function FilterHeader({
           className="flex items-center gap-2 bg-transparent"
           disabled={isDisabledResetBtn}
         >
-          <RotateCcw className="h-4 w-4 text-primary" />
+          <RotateCcw className="h-4 w-4" />
           <span>Reset All</span>
         </Button>
       </div>

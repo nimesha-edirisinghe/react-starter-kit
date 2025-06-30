@@ -2,7 +2,6 @@
 
 import { ChevronsUpDown, LogOut } from 'lucide-react';
 import { useNavigate } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '~/features/auth/store/auth-store';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import {
@@ -19,19 +18,21 @@ import {
   SidebarMenuItem,
   useSidebar
 } from '~/components/ui/sidebar';
+import { DropdownMenuContentProps } from '@radix-ui/react-dropdown-menu';
 
 export function NavUser({
-  user
+  user,
+  side
 }: {
   user: {
     name: string;
     email: string;
   };
+  side?: DropdownMenuContentProps['side'];
 }) {
   const { isMobile } = useSidebar();
   const { logout } = useAuthStore();
   const navigate = useNavigate();
-  const { t } = useTranslation();
 
   const handleLogout = () => {
     logout();
@@ -51,7 +52,7 @@ export function NavUser({
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              className="focus:outline-none focus-visible:outline-none outline-none select-none cursor-pointer data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src="" alt={user.name} />
@@ -66,7 +67,7 @@ export function NavUser({
           </DropdownMenuTrigger>
           <DropdownMenuContent
             className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-            side={isMobile ? 'bottom' : 'right'}
+            side={side ?? (isMobile ? 'bottom' : 'right')}
             align="end"
             sideOffset={4}
           >
@@ -85,7 +86,7 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
-              {t('common.logout')}
+              Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

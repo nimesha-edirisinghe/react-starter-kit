@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { Radio, Activity, LayoutDashboard } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 
 import {
   Sidebar,
@@ -19,25 +18,24 @@ import { LogoSection } from './LogoSection';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useAuthStore();
-  const { t } = useTranslation();
 
   const data = {
     navMain: [
       {
-        title: t('navigation.dashboard'),
+        title: 'Dashboard',
         url: '/',
         icon: LayoutDashboard,
         isActive: true,
         allowedRoles: ['admin', 'steward'] as UserRole[]
       },
       {
-        title: t('navigation.incidents'),
+        title: 'Incidents',
         url: '/incidents',
         icon: Activity,
         allowedRoles: ['admin', 'steward'] as UserRole[]
       },
       {
-        title: t('navigation.live'),
+        title: 'Live',
         url: '/live',
         icon: Radio,
         allowedRoles: ['admin', 'steward', 'viewer'] as UserRole[]

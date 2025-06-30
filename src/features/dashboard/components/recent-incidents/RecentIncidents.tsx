@@ -3,10 +3,8 @@ import { Badge } from '~/components/ui/badge';
 import { AlertTriangle, Clock, MapPin } from 'lucide-react';
 import { useRecentIncidentsQuery } from '~/api/queries/dashboard/useRecentIncidentsQuery';
 import { getStatusColor } from '~/utils/utilsGetStatusColor';
-import { useTranslation } from 'react-i18next';
 
 export function RecentIncidents() {
-  const { t } = useTranslation();
   const { data: recentIncidents, isLoading, error } = useRecentIncidentsQuery();
 
   const getSeverityColor = (severity: string) => {
@@ -28,8 +26,8 @@ export function RecentIncidents() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>{t('dashboard.recentIncidents')}</CardTitle>
-          <CardDescription>{t('dashboard.recentIncidentsDescription')}</CardDescription>
+          <CardTitle>Recent Incidents</CardTitle>
+          <CardDescription>Latest racing incidents requiring attention</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -46,7 +44,7 @@ export function RecentIncidents() {
     return (
       <Card>
         <CardContent className="p-6">
-          <p className="text-red-500">{t('common.error')}</p>
+          <p className="text-red-500">Error</p>
         </CardContent>
       </Card>
     );
@@ -55,8 +53,8 @@ export function RecentIncidents() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('dashboard.recentIncidents')}</CardTitle>
-        <CardDescription>{t('dashboard.recentIncidentsDescription')}</CardDescription>
+        <CardTitle>Recent Incidents</CardTitle>
+        <CardDescription>Latest racing incidents requiring attention</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -96,7 +94,7 @@ export function RecentIncidents() {
                 </div>
 
                 <div className="flex items-center space-x-2">
-                  <span className="text-xs text-slate-500">{t('dashboard.drivers')}:</span>
+                  <span className="text-xs text-slate-500">Drivers:</span>
                   {incident.drivers.map((driver, index) => (
                     <Badge key={index} variant="outline" className="text-xs">
                       {driver}

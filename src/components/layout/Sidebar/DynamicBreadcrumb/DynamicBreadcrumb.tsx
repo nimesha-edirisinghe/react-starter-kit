@@ -8,14 +8,12 @@ import {
   BreadcrumbPage
 } from '~/components/ui/breadcrumb';
 import { useRouterState } from '@tanstack/react-router';
-import { useTranslation } from 'react-i18next';
 import React from 'react';
 
 export function DynamicBreadcrumb() {
   const currentPath = useRouterState({
     select: (state) => state.location.pathname
   });
-  const { t } = useTranslation();
 
   if (currentPath === '/login') {
     return null;
@@ -28,7 +26,7 @@ export function DynamicBreadcrumb() {
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbPage className="text-primary">{t('navigation.dashboard')}</BreadcrumbPage>
+            <BreadcrumbPage className="text-primary">Dashboard</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -43,13 +41,13 @@ export function DynamicBreadcrumb() {
     let label = segment;
     switch (segment) {
       case 'incidents':
-        label = t('navigation.incidents');
+        label = 'Incidents';
         break;
       case 'live':
-        label = t('navigation.live');
+        label = 'Live';
         break;
       case 'dashboard':
-        label = t('navigation.dashboard');
+        label = 'Dashboard';
         break;
       default:
         label = segment
