@@ -1,5 +1,3 @@
-'use client';
-
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import {
@@ -15,18 +13,19 @@ import {
 } from 'recharts';
 import { Activity, TrendingUp, Zap } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useTimezone } from '~/hooks/useTimezone';
 
 export function LiveCharts() {
   const [realtimeData, setRealtimeData] = useState<any[]>([]);
   const [incidentRate, setIncidentRate] = useState(0);
   const [responseTime, setResponseTime] = useState(0);
+  const { formatTime } = useTimezone();
 
   useEffect(() => {
     const generateDataPoint = () => {
       const now = new Date();
       return {
-        time: now.toLocaleTimeString('en-US', {
-          hour12: false,
+        time: formatTime(now, {
           hour: '2-digit',
           minute: '2-digit',
           second: '2-digit'
@@ -49,7 +48,7 @@ export function LiveCharts() {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [formatTime]);
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {

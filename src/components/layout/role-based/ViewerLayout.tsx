@@ -2,6 +2,7 @@ import { useAuthStore } from '~/features/auth/store/auth-store';
 import { NavUser } from '../sidebar/NavUser';
 import { SidebarProvider } from '~/components/ui/sidebar';
 import { Logo } from '../sidebar/Logo';
+import { CountrySelector } from '~/components/common/CountrySelector';
 
 export function ViewerLayout({ children }: { children: React.ReactNode }) {
   const { user } = useAuthStore();
@@ -16,9 +17,10 @@ export function ViewerLayout({ children }: { children: React.ReactNode }) {
         <div className="flex items-center gap-2 px-4">
           <Logo />
         </div>
-        <div>
+        <div className="flex items-center gap-4 px-4">
+          <CountrySelector variant="compact" />
           <SidebarProvider>
-            <div className="ml-auto flex items-center gap-2 px-4 cursor-pointer">
+            <div className="ml-auto flex items-center gap-2 cursor-pointer">
               <NavUser user={user} side="bottom" />
             </div>
           </SidebarProvider>

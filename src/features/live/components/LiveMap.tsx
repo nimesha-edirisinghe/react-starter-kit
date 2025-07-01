@@ -1,9 +1,8 @@
-'use client';
-
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import { MapPin, AlertTriangle, Clock } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { TimezoneDate } from '~/components/common/TimezoneDate';
 
 interface TrackIncident {
   id: string;
@@ -19,7 +18,6 @@ export function LiveMap() {
   const [trackIncidents, setTrackIncidents] = useState<TrackIncident[]>([]);
   const [selectedIncident, setSelectedIncident] = useState<TrackIncident | null>(null);
 
-  // Simulate live incidents on track
   useEffect(() => {
     const locations = [
       { name: 'Turn 1', x: 15, y: 20 },
@@ -83,12 +81,10 @@ export function LiveMap() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {/* Track Map */}
         <div
           className="relative bg-slate-100 rounded-lg p-4 mb-4 border border-slate-200"
-          style={{ aspectRatio: '4/3' }}
+          style={{ height: '28vh' }}
         >
-          {/* Track Layout (simplified Monaco) */}
           <svg
             viewBox="0 0 100 100"
             className="absolute inset-0 w-full h-full"
@@ -167,7 +163,7 @@ export function LiveMap() {
             <p className="text-sm text-slate-700 mb-1">{selectedIncident.location}</p>
             <div className="flex items-center space-x-2 text-xs text-slate-500">
               <Clock className="h-3 w-3" />
-              <span>{selectedIncident.timestamp.toLocaleTimeString()}</span>
+              <TimezoneDate date={selectedIncident.timestamp} format="time" />
             </div>
           </div>
         )}
@@ -188,7 +184,7 @@ export function LiveMap() {
                   ></div>
                   <span className="text-slate-700">{incident.location}</span>
                 </div>
-                <span className="text-slate-500">{incident.timestamp.toLocaleTimeString()}</span>
+                <TimezoneDate date={incident.timestamp} format="time" />
               </div>
             ))}
           </div>

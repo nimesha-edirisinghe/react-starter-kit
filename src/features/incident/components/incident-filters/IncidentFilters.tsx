@@ -12,7 +12,7 @@ export function IncidentFiltersComponent({
   filters,
   onFiltersChange,
   onReset
-}: IncidentFiltersProps) {
+}: Omit<IncidentFiltersProps, 'onAddIncident'>) {
   const { showAdvanced, setShowAdvanced, getActiveFiltersCount, formatFilterValue } =
     useIncidentFilters();
 

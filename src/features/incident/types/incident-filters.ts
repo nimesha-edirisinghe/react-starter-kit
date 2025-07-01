@@ -12,4 +12,5 @@ export interface IncidentFiltersProps {
   filters: IncidentFilters;
   onFiltersChange: (filters: IncidentFilters) => void;
   onReset: () => void;
+  onAddIncident?: () => void;
 }

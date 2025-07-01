@@ -1,10 +1,9 @@
-'use client';
-
 import { Card, CardContent } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { AlertTriangle, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { TimezoneDate } from '~/components/common/TimezoneDate';
 
 interface LiveAlert {
   id: string;
@@ -18,7 +17,6 @@ export function LiveAlerts() {
   const [alerts, setAlerts] = useState<LiveAlert[]>([]);
   const [soundEnabled] = useState(true);
 
-  // Simulate live alerts
   useEffect(() => {
     const alertMessages = [
       {
@@ -129,9 +127,7 @@ export function LiveAlerts() {
                         <Badge className={config.badge} variant="secondary">
                           {alert.type.toUpperCase()}
                         </Badge>
-                        <span className="text-xs text-slate-500">
-                          {alert.timestamp.toLocaleTimeString()}
-                        </span>
+                        <TimezoneDate date={alert.timestamp} format="time" />
                       </div>
                       <p className={`font-medium ${config.text}`}>{alert.message}</p>
                       <p className="text-xs text-slate-500 mt-1">{alert.location}</p>

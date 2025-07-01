@@ -1,5 +1,6 @@
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '~/components/ui/sidebar';
 import { AppSidebar } from '../sidebar/AppSidebar';
+import { CountrySelector } from '~/components/common/CountrySelector';
 
 export function StewardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -10,7 +11,8 @@ export function StewardLayout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-2 px-4 ">
             <SidebarTrigger className="-ml-1 cursor-pointer" />
           </div>
-          <div className="ml-auto px-4">
+          <div className="ml-auto flex items-center gap-4 px-4">
+            <CountrySelector variant="compact" />
             <span className="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded-full font-medium">
               STEWARD
             </span>
