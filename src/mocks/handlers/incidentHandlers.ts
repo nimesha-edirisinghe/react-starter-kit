@@ -1,8 +1,6 @@
 import { http, HttpResponse } from 'msw';
-import { mockIncidents } from '../fixtures/mockIncidents';
+import { incidentsData } from '../fixtures/mockIncidents';
 import type { IncidentFormData, RacingIncident } from '~/features/incident/types/incident';
-
-const incidentsData = [...mockIncidents];
 
 export const incidentHandlers = [
   http.get('/api/incidents', () => {
@@ -37,6 +35,22 @@ export const incidentHandlers = [
       return HttpResponse.json(newIncident, { status: 201 });
     } catch (error) {
       return HttpResponse.json({ error: `Failed to create incident ${error}` }, { status: 400 });
+    }
+  }),
+
+  http.delete('/api/incidents/:id', ({ params }) => {
+    try {
+      const { id } = params;
+      const index = incidentsData.findIndex((incident) => incident.id === id);
+
+      if (index === -1) {
+        return new HttpResponse('Incident not found', { status: 404 });
+      }
+
+      incidentsData.splice(index, 1);
+      return new HttpResponse(null, { status: 204 });
+    } catch (error) {
+      return HttpResponse.json({ error: `Failed to delete incident ${error}` }, { status: 400 });
     }
   })
 ];

@@ -1,37 +1,37 @@
-import { RacingIncident } from '~/features/incident/types/incident';
+import type { RacingIncident } from '~/features/incident/types/incident';
 
 export const mockIncidents: RacingIncident[] = [
   {
-    id: '1',
+    id: 'incident-1',
     type: 'collision',
     raceCategory: 'F1',
     location: 'Turn 3',
-    circuit: 'Monaco Grand Prix',
+    circuit: 'Monaco',
     severity: 'high',
-    drivers: ['Lewis Hamilton', 'Max Verstappen'],
-    teams: ['Mercedes', 'Red Bull Racing'],
-    lapNumber: 23,
-    raceTime: '00:34:12',
-    description: 'Contact between cars at Turn 3 chicane, both drivers able to continue',
-    timestamp: '2024-01-15T14:34:12Z',
+    drivers: ['Max Verstappen', 'Lewis Hamilton'],
+    teams: ['Red Bull Racing', 'Mercedes'],
+    lapNumber: 45,
+    raceTime: '01:23:45',
+    description: 'Contact between cars at Turn 3',
+    timestamp: new Date().toISOString(),
     status: 'investigating',
-    stewardNotes: 'Reviewing onboard footage and telemetry data'
+    stewardNotes: 'Under investigation'
   },
   {
-    id: '2',
-    type: 'penalty',
+    id: 'incident-2',
+    type: 'mechanical',
     raceCategory: 'F1',
     location: 'Pit Lane',
-    circuit: 'Monaco Grand Prix',
+    circuit: 'Monaco',
     severity: 'medium',
     drivers: ['Charles Leclerc'],
     teams: ['Ferrari'],
-    lapNumber: 18,
-    raceTime: '00:28:45',
-    description: 'Unsafe release during pit stop',
-    timestamp: '2024-01-15T14:28:45Z',
+    lapNumber: 30,
+    raceTime: '00:45:12',
+    description: 'Engine failure during pit stop',
+    timestamp: new Date().toISOString(),
     status: 'resolved',
-    stewardNotes: '5-second time penalty applied'
+    stewardNotes: 'No further action required'
   },
   {
     id: '3',
@@ -251,6 +251,9 @@ export const mockIncidents: RacingIncident[] = [
     stewardNotes: 'Notes for incident 10'
   }
 ];
+
+// Mutable copy for handlers to use
+export const incidentsData = [...mockIncidents];
 
 export const getIncidentsByCategory = () => {
   const categories = mockIncidents.reduce(
