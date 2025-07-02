@@ -1,4 +1,4 @@
-import { Globe } from 'lucide-react';
+import { Globe, ChevronDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Button } from '~/components/ui/button';
 import {
@@ -11,6 +11,7 @@ import {
 } from '~/components/ui/dropdown-menu';
 import { useTimezoneStore, COUNTRIES, type Country } from '~/stores/timezone-store';
 import { Badge } from '~/components/ui/badge';
+import { cn } from '~/utils/utils';
 
 interface CountrySelectorProps {
   variant?: 'default' | 'compact';
@@ -20,6 +21,7 @@ interface CountrySelectorProps {
 export function CountrySelector({ variant = 'default', showLabel = true }: CountrySelectorProps) {
   const { selectedCountry, setSelectedCountry } = useTimezoneStore();
   const [currentTime, setCurrentTime] = useState('');
+  const [open, setOpen] = useState(false);
 
   const handleCountrySelect = (country: Country) => {
     setSelectedCountry(country);
@@ -43,11 +45,24 @@ export function CountrySelector({ variant = 'default', showLabel = true }: Count
 
   if (variant === 'compact') {
     return (
-      <DropdownMenu>
+      <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="sm" className="h-8 gap-2 cursor-pointer">
+          <Button
+            variant="ghost"
+            size="sm"
+            className={cn(
+              'h-8 gap-2 cursor-pointer border border-input hover:border-accent-foreground/20 focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus-visible:outline-none outline-none ring-0 ring-offset-0 focus:ring-0 focus:ring-offset-0',
+              open && 'border-primary/20 bg-accent/50'
+            )}
+          >
             <span className="text-base">{selectedCountry.flag}</span>
             <span className="text-xs font-mono">{currentTime}</span>
+            <ChevronDown
+              className={cn(
+                'h-4 w-4 opacity-50 transition-transform duration-200',
+                open && 'rotate-180'
+              )}
+            />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-64">
@@ -79,9 +94,15 @@ export function CountrySelector({ variant = 'default', showLabel = true }: Count
   }
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="flex items-center gap-2 h-auto p-2">
+        <Button
+          variant="ghost"
+          className={cn(
+            'flex items-center gap-2 h-auto p-2 border border-input hover:border-accent-foreground/20 focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none focus-visible:outline-none outline-none ring-0 ring-offset-0 focus:ring-0 focus:ring-offset-0',
+            open && 'border-primary/20 bg-accent/50'
+          )}
+        >
           <Globe className="h-4 w-4" />
           <div className="flex items-center gap-2">
             <span className="text-base">{selectedCountry.flag}</span>
@@ -90,6 +111,12 @@ export function CountrySelector({ variant = 'default', showLabel = true }: Count
               <span className="text-sm font-medium">{selectedCountry.name}</span>
             </div>
           </div>
+          <ChevronDown
+            className={cn(
+              'h-4 w-4 opacity-50 transition-transform duration-200',
+              open && 'rotate-180'
+            )}
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-64">
