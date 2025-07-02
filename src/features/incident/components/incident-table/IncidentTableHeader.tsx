@@ -11,6 +11,7 @@ export function IncidentTableHeader() {
         <TableHead>Status</TableHead>
         <TableHead>Drivers</TableHead>
         <TableHead>Lap</TableHead>
+        <TableHead className="text-center">Actions</TableHead>
       </TableRow>
     </TableHeader>
   );

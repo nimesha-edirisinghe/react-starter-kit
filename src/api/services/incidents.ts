@@ -10,3 +10,7 @@ export const createIncident = async (incidentData: IncidentFormData): Promise<Ra
   const response = await apiClient.post('/incidents', incidentData);
   return response.data;
 };
+
+export const deleteIncident = async (id: string): Promise<void> => {
+  await apiClient.delete(`/incidents/${id}`);
+};
