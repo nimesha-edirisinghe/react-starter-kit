@@ -1,5 +1,3 @@
-'use client';
-
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '~/components/ui/sidebar';
 import { Logo } from './Logo';
 

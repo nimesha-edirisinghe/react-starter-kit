@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronsUpDown, LogOut } from 'lucide-react';
 import { useNavigate } from '@tanstack/react-router';
 import { useAuthStore } from '~/features/auth/store/auth-store';

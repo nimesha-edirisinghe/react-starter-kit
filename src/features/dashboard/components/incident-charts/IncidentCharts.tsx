@@ -1,5 +1,3 @@
-'use client';
-
 import { TrendChart } from './TrendChart';
 import { SeverityPieChart } from './SeverityPieChart';
 import { HourlyBarChart } from './HourlyBarChart';
@@ -11,14 +9,45 @@ import {
   useHourlyDataQuery,
   useCircuitDataQuery
 } from '~/api/queries/dashboard/useChartDataQuery';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
+import { BarChart3, RefreshCw, TrendingUp, WifiOff } from 'lucide-react';
+import { Button } from '~/components/ui/button';
 
 export function IncidentCharts() {
-  const { data: severityData, isLoading: severityLoading } = useSeverityDataQuery();
-  const { data: trendData, isLoading: trendLoading } = useTrendDataQuery();
-  const { data: hourlyData, isLoading: hourlyLoading } = useHourlyDataQuery();
-  const { data: circuitData, isLoading: circuitLoading } = useCircuitDataQuery();
+  const {
+    data: severityData,
+    isLoading: severityLoading,
+    error: severityError,
+    refetch: severityRefetch
+  } = useSeverityDataQuery();
+  const {
+    data: trendData,
+    isLoading: trendLoading,
+    error: trendError,
+    refetch: trendRefetch
+  } = useTrendDataQuery();
+  const {
+    data: hourlyData,
+    isLoading: hourlyLoading,
+    error: hourlyError,
+    refetch: hourlyRefetch
+  } = useHourlyDataQuery();
+  const {
+    data: circuitData,
+    isLoading: circuitLoading,
+    error: circuitError,
+    refetch: circuitRefetch
+  } = useCircuitDataQuery();
 
   const isLoading = severityLoading || trendLoading || hourlyLoading || circuitLoading;
+  const isError = trendError || severityError || hourlyError || circuitError;
+
+  const refetchHandler = () => {
+    trendRefetch?.();
+    severityRefetch?.();
+    hourlyRefetch?.();
+    circuitRefetch?.();
+  };
 
   if (isLoading) {
     return (
@@ -27,6 +56,55 @@ export function IncidentCharts() {
           <div key={i} className="h-64 bg-gray-200 animate-pulse rounded"></div>
         ))}
       </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Card className="lg:col-span-2 border-red-200 bg-red-50/50">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <TrendingUp className="h-5 w-5 text-blue-600" />
+            <span>30-Day Incident Trends</span>
+          </CardTitle>
+          <CardDescription>Daily incident reports, resolutions, and response times</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col items-center justify-center h-[350px] space-y-4">
+            <div className="flex items-center justify-center p-2 rounded-full bg-red-100">
+              <WifiOff className="h-5 w-5 text-red-600" />
+            </div>
+
+            <div className="text-center space-y-2">
+              <h3 className="text-lg font-semibold text-red-900">Failed to Load Incident Trends</h3>
+              <p className="text-red-700 text-sm max-w-md">
+                {isError.message ||
+                  'Unable to fetch trend data. The chart cannot be displayed at this time.'}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 pt-2 flex-col">
+              {refetchHandler && (
+                <Button
+                  onClick={refetchHandler}
+                  variant="outline"
+                  size="sm"
+                  className="cursor-pointer border-red-200 text-red-700 hover:bg-red-100 hover:text-red-800 bg-transparent"
+                  disabled={isLoading}
+                >
+                  <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+                  {isLoading ? 'Retrying...' : 'Retry'}
+                </Button>
+              )}
+
+              <div className="flex items-center gap-2 text-red-600 text-sm">
+                <BarChart3 className="h-4 w-4" />
+                Chart unavailable
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     );
   }
 

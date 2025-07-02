@@ -10,6 +10,15 @@ export default defineConfig({
       tsConfigPaths({
         projects: ['./tsconfig.json']
       })
-    ]
-  }
+    ],
+    server: {
+      proxy: {
+        '^/(api|auth|uploads|webhooks)': {
+          target: 'http://localhost:5000',
+          changeOrigin: true,
+          secure: false
+        }
+      }
+    }
+  } as any
 });

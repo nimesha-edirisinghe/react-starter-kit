@@ -1,5 +1,3 @@
-'use client';
-
 import { TableCell, TableRow } from '~/components/ui/table';
 import { Badge } from '~/components/ui/badge';
 import { useMemo } from 'react';
@@ -22,7 +20,6 @@ export const IncidentRow = ({ incident }: { incident: any }) => {
 
   return (
     <TableRow>
-      <TableCell className="font-medium">#{incident.id}</TableCell>
       <TableCell>{formattedType}</TableCell>
       <TableCell>
         <Badge variant="outline">{incident.raceCategory}</Badge>

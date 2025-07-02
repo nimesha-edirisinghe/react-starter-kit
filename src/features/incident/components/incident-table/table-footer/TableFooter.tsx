@@ -1,5 +1,3 @@
-'use client';
-
 import { Pagination, PaginationContent } from '~/components/ui/pagination';
 import { PaginationNavButton } from './PaginationNavButton';
 import { PaginationPageItem } from './PaginationPageItem';

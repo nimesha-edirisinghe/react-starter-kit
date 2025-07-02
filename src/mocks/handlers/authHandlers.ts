@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw';
 import { mockAllUsers } from '../fixtures/mockAuthData';
 
 export const authHandlers = [
-  http.post('/auth/login', async ({ request }) => {
+  http.post('/api/auth/login', async ({ request }) => {
     const { email, password } = (await request.json()) as {
       email: string;
       password: string;

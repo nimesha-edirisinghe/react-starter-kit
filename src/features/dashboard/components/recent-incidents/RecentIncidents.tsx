@@ -1,11 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
-import { AlertTriangle, Clock, MapPin } from 'lucide-react';
+import { AlertTriangle, Clock, MapPin, RefreshCw, WifiOff } from 'lucide-react';
 import { useRecentIncidentsQuery } from '~/api/queries/dashboard/useRecentIncidentsQuery';
 import { getStatusColor } from '~/utils/utilsGetStatusColor';
+import { Button } from '~/components/ui/button';
 
 export function RecentIncidents() {
-  const { data: recentIncidents, isLoading, error } = useRecentIncidentsQuery();
+  const { data: recentIncidents, isLoading, error, refetch } = useRecentIncidentsQuery();
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
@@ -42,11 +43,43 @@ export function RecentIncidents() {
 
   if (error) {
     return (
-      <Card>
-        <CardContent className="p-6">
-          <p className="text-red-500">Error</p>
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card className="col-span-full border-red-200 bg-red-50/50">
+          <CardHeader className="flex justify-center">
+            <div className="flex flex-col items-center gap-4 text-center">
+              <div className="p-2 rounded-full bg-red-100">
+                <WifiOff className="h-5 w-5 text-red-600" />
+              </div>
+              <div className="text-center">
+                <CardTitle className="text-red-900 text-lg">
+                  Failed to Load Recent Incidents
+                </CardTitle>
+                <p className="text-red-700 text-sm mt-1">
+                  {error?.message ||
+                    'Unable to fetch dashboard statistics. Please check your connection and try again.'}
+                </p>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="pt-0 flex justify-center">
+            <div className="flex flex-col items-center gap-3">
+              <Button
+                onClick={() => refetch()}
+                variant="outline"
+                size="sm"
+                className="border-red-200 text-red-700 hover:bg-red-100 hover:text-red-800"
+              >
+                <RefreshCw className="h-4 w-4 mr-2" />
+                Retry
+              </Button>
+              <div className="flex items-center gap-2 text-red-600 text-sm">
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                Connection issue detected
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     );
   }
 

@@ -12,43 +12,20 @@ import {
   Area
 } from 'recharts';
 import { Activity, TrendingUp, Zap } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { useTimezone } from '~/hooks/useTimezone';
+import { useLiveDataQuery } from '~/api/queries/live/useLiveDataQuery';
+import { LoadingCard } from '~/components/common/LoadingCard';
+import { ErrorCard } from '~/components/common/ErrorCard';
 
 export function LiveCharts() {
-  const [realtimeData, setRealtimeData] = useState<any[]>([]);
-  const [incidentRate, setIncidentRate] = useState(0);
-  const [responseTime, setResponseTime] = useState(0);
-  const { formatTime } = useTimezone();
+  const { data, isLoading, isError } = useLiveDataQuery();
 
-  useEffect(() => {
-    const generateDataPoint = () => {
-      const now = new Date();
-      return {
-        time: formatTime(now, {
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        }),
-        incidents: Math.floor(Math.random() * 8) + 1,
-        responseTime: Math.floor(Math.random() * 10) + 2,
-        severity: Math.floor(Math.random() * 4) + 1,
-        resolved: Math.floor(Math.random() * 6) + 1
-      };
-    };
+  if (isLoading) {
+    return <LoadingCard />;
+  }
 
-    const initialData = Array.from({ length: 20 }, () => generateDataPoint());
-    setRealtimeData(initialData);
-
-    const interval = setInterval(() => {
-      const newPoint = generateDataPoint();
-      setRealtimeData((prev) => [...prev.slice(-19), newPoint]);
-      setIncidentRate(newPoint.incidents);
-      setResponseTime(newPoint.responseTime);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [formatTime]);
+  if (isError) {
+    return <ErrorCard />;
+  }
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
@@ -79,7 +56,9 @@ export function LiveCharts() {
               <div>
                 <p className="text-sm text-slate-600">Current Incident Rate</p>
                 <div className="flex items-center space-x-2">
-                  <p className="text-2xl font-bold text-slate-900">{incidentRate}</p>
+                  <p className="text-2xl font-bold text-slate-900">
+                    {data!.currentMetrics.incidentRate}
+                  </p>
                   <Badge className="bg-red-100 text-red-700 animate-pulse">/min</Badge>
                 </div>
               </div>
@@ -96,7 +75,9 @@ export function LiveCharts() {
               <div>
                 <p className="text-sm text-slate-600">Avg Response Time</p>
                 <div className="flex items-center space-x-2">
-                  <p className="text-2xl font-bold text-slate-900">{responseTime}</p>
+                  <p className="text-2xl font-bold text-slate-900">
+                    {data!.currentMetrics.responseTime}
+                  </p>
                   <Badge className="bg-blue-100 text-blue-700">min</Badge>
                 </div>
               </div>
@@ -113,8 +94,13 @@ export function LiveCharts() {
               <div>
                 <p className="text-sm text-slate-600">Resolution Rate</p>
                 <div className="flex items-center space-x-2">
-                  <p className="text-2xl font-bold text-slate-900">87%</p>
-                  <Badge className="bg-green-100 text-green-700">↑ 5%</Badge>
+                  <p className="text-2xl font-bold text-slate-900">
+                    {data!.currentMetrics.resolutionRate.value}%
+                  </p>
+                  <Badge className="bg-green-100 text-green-700">
+                    {data!.currentMetrics.resolutionRate.change >= 0 ? '↑' : '↓'}{' '}
+                    {Math.abs(data!.currentMetrics.resolutionRate.change)}%
+                  </Badge>
                 </div>
               </div>
             </div>
@@ -134,7 +120,7 @@ export function LiveCharts() {
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={250}>
-              <AreaChart data={realtimeData}>
+              <AreaChart data={data!.timelineData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis dataKey="time" stroke="#64748b" fontSize={10} />
                 <YAxis stroke="#64748b" fontSize={12} />
@@ -163,7 +149,7 @@ export function LiveCharts() {
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={250}>
-              <LineChart data={realtimeData}>
+              <LineChart data={data!.timelineData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis dataKey="time" stroke="#64748b" fontSize={10} />
                 <YAxis stroke="#64748b" fontSize={12} />

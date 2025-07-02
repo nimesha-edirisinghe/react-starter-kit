@@ -1,5 +1,3 @@
-'use client';
-
 import { PaginationItem, PaginationNext, PaginationPrevious } from '~/components/ui/pagination';
 
 interface PaginationNavButtonProps {

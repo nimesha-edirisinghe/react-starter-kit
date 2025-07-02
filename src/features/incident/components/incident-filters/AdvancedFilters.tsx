@@ -1,5 +1,3 @@
-'use client';
-
 import { Settings } from 'lucide-react';
 import { FilterSelect } from './FilterSelect';
 import { IncidentFilters } from '../../types/incident-filters';

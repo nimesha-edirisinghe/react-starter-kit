@@ -4,7 +4,6 @@ export function IncidentTableHeader() {
   return (
     <TableHeader className="bg-[#F7F8F8]">
       <TableRow>
-        <TableHead>ID</TableHead>
         <TableHead>Type</TableHead>
         <TableHead>Category</TableHead>
         <TableHead>Location</TableHead>

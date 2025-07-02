@@ -1,5 +1,3 @@
-'use client';
-
 import { LiveClock } from './LiveClock';
 
 export function LiveHeader() {

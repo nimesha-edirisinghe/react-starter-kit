@@ -1,9 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { AlertTriangle, Clock, CheckCircle, XCircle } from 'lucide-react';
 import { useDashboardStatsQuery } from '~/api/queries/dashboard/useDashboardStatsQuery';
+import { ErrorCard } from '~/components/common/ErrorCard';
 
 export function DashboardStats() {
-  const { data: stats, isLoading, error } = useDashboardStatsQuery();
+  const { data: stats, isLoading, error, refetch } = useDashboardStatsQuery();
 
   if (isLoading) {
     return (
@@ -26,11 +27,15 @@ export function DashboardStats() {
   if (error) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card>
-          <CardContent className="p-6">
-            <p className="text-red-500">Error</p>
-          </CardContent>
-        </Card>
+        <ErrorCard
+          title="Failed to Load Dashboard Stats"
+          message={
+            error?.message ||
+            'Unable to fetch dashboard statistics. Please check your connection and try again.'
+          }
+          onRetry={() => refetch()}
+          isLoading={isLoading}
+        />
       </div>
     );
   }

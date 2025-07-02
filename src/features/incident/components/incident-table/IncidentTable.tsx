@@ -1,5 +1,3 @@
-'use client';
-
 import { Table, TableBody } from '~/components/ui/table';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { useState, useMemo, useCallback, useEffect } from 'react';
@@ -9,6 +7,8 @@ import { IncidentFiltersComponent } from '../incident-filters/IncidentFilters';
 import { IncidentRow } from './IncidentRow';
 import { IncidentTableHeader } from './IncidentTableHeader';
 import { TableFooter } from './table-footer/TableFooter';
+import { ErrorCard } from '~/components/common/ErrorCard';
+import { LoadingCard } from '~/components/common/LoadingCard';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -25,7 +25,7 @@ export function IncidentTable() {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data: incidents = [] } = useIncidentsQuery();
+  const { data: incidents = [], error: fetchingError, isLoading, refetch } = useIncidentsQuery();
 
   const searchableIncidents = useMemo(() => {
     return incidents.map((incident) => ({
@@ -104,6 +104,30 @@ export function IncidentTable() {
     }),
     [filteredIncidents.length, incidents.length, paginatedIncidents.length, startIndex, endIndex]
   );
+
+  if (fetchingError) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <ErrorCard
+          title="Failed to Load Dashboard Stats"
+          message={
+            fetchingError?.message ||
+            'Unable to fetch dashboard statistics. Please check your connection and try again.'
+          }
+          onRetry={() => refetch()}
+          isLoading={isLoading}
+        />
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <LoadingCard variant="default" />
+      </div>
+    );
+  }
 
   return (
     <>

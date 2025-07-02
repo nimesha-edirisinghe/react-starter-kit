@@ -1,30 +1,31 @@
-'use client';
-
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import { Flag, Clock, Users, MapPin } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useRaceDetailsQuery } from '~/api/queries/live/useRaceDetailsQuery';
+import { Skeleton } from '~/components/ui/skeleton';
 
 export function RaceStatus() {
-  const [raceTime, setRaceTime] = useState('01:23:45');
-  const [currentLap] = useState(67);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Simulate race time progression
-      const [hours, minutes, seconds] = raceTime.split(':').map(Number);
-      const totalSeconds = hours * 3600 + minutes * 60 + seconds + 1;
-      const newHours = Math.floor(totalSeconds / 3600);
-      const newMinutes = Math.floor((totalSeconds % 3600) / 60);
-      const newSeconds = totalSeconds % 60;
-
-      setRaceTime(
-        `${newHours.toString().padStart(2, '0')}:${newMinutes.toString().padStart(2, '0')}:${newSeconds.toString().padStart(2, '0')}`
-      );
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [raceTime]);
+  const { data: raceDetails, isLoading } = useRaceDetailsQuery();
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {[...Array(4)].map((_, index) => (
+          <Card
+            key={index}
+            className="border border-border bg-card/50 backdrop-blur-sm shadow-lg animate-pulse"
+          >
+            <div className="space-y-4 w-full px-4">
+              <Skeleton className="h-4 w-[10px]" />
+              <div className="space-y-2">
+                <Skeleton className="h-8 w-[200px]" />
+                <Skeleton className="h-4 w-[150px]" />
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -38,7 +39,7 @@ export function RaceStatus() {
         <CardContent>
           <div className="space-y-1">
             <div className="text-2xl font-bold text-slate-900">LIVE</div>
-            <Badge className="bg-green-500 text-white">Racing</Badge>
+            <Badge className="bg-green-500 text-white">{raceDetails?.status || 'Unknown'}</Badge>
           </div>
         </CardContent>
       </Card>
@@ -51,7 +52,9 @@ export function RaceStatus() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-slate-900 font-mono">{raceTime}</div>
+          <div className="text-2xl font-bold text-slate-900 font-mono">
+            {raceDetails?.raceTime || '00:00:00'}
+          </div>
         </CardContent>
       </Card>
 
@@ -63,7 +66,9 @@ export function RaceStatus() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold text-slate-900">{currentLap}/78</div>
+          <div className="text-2xl font-bold text-slate-900">
+            {raceDetails?.currentLap || 0}/{raceDetails?.totalLaps || 0}
+          </div>
         </CardContent>
       </Card>
 
@@ -75,7 +80,9 @@ export function RaceStatus() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-lg font-bold text-slate-900">Monaco GP</div>
+          <div className="text-lg font-bold text-slate-900">
+            {raceDetails?.circuit || 'Monaco GP'}
+          </div>
         </CardContent>
       </Card>
     </div>

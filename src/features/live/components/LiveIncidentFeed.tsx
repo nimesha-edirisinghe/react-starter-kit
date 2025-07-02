@@ -1,21 +1,25 @@
-'use client';
-
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import { AlertTriangle, Clock, MapPin, Radio } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { mockIncidents } from '~/mocks/fixtures/mockIncidents';
+import { useIncidentsQuery } from '~/api/queries/incident/useIncidentsQuery';
+import type { RacingIncident } from '~/features/incident/types/incident';
+import { ErrorCard } from '~/components/common/ErrorCard';
+import { LoadingCard } from '~/components/common/LoadingCard';
 
 export function LiveIncidentFeed() {
-  const [incidents, setIncidents] = useState(mockIncidents);
+  const { data: incidentsData, isLoading, error } = useIncidentsQuery();
+  const [incidents, setIncidents] = useState<RacingIncident[]>(incidentsData || []);
   const [isLive] = useState(true);
 
-  // Simulate live updates
+  useEffect(() => {
+    setIncidents(incidentsData || []);
+  }, [incidentsData]);
+
   useEffect(() => {
     if (!isLive) return;
 
     const interval = setInterval(() => {
-      // Simulate new incident or status update
       setIncidents((prev) => [...prev]);
     }, 5000);
 
@@ -36,6 +40,14 @@ export function LiveIncidentFeed() {
         return 'border-gray-500 bg-gray-50';
     }
   };
+
+  if (isLoading) {
+    return <LoadingCard />;
+  }
+
+  if (error) {
+    return <ErrorCard />;
+  }
 
   return (
     <Card className="bg-white/80 border-slate-200 backdrop-blur-sm shadow-lg">

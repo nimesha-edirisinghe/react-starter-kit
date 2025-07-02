@@ -1,60 +1,27 @@
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
-import { MapPin, AlertTriangle, Clock } from 'lucide-react';
-import { useState, useEffect } from 'react';
 import { TimezoneDate } from '~/components/common/TimezoneDate';
-
-interface TrackIncident {
-  id: string;
-  location: string;
-  severity: 'low' | 'medium' | 'high' | 'critical';
-  type: string;
-  timestamp: Date;
-  x: number;
-  y: number;
-}
+import { useTrackMapQuery } from '~/api/queries/live/useTrackMapQuery';
+import { LoadingCard } from '~/components/common/LoadingCard';
+import { ErrorCard } from '~/components/common/ErrorCard';
+import { MapPin } from 'lucide-react';
 
 export function LiveMap() {
-  const [trackIncidents, setTrackIncidents] = useState<TrackIncident[]>([]);
-  const [selectedIncident, setSelectedIncident] = useState<TrackIncident | null>(null);
+  const { data, isLoading, error } = useTrackMapQuery();
 
-  useEffect(() => {
-    const locations = [
-      { name: 'Turn 1', x: 15, y: 20 },
-      { name: 'Turn 3', x: 45, y: 35 },
-      { name: 'Pit Lane', x: 80, y: 70 },
-      { name: 'Sector 2', x: 60, y: 50 },
-      { name: 'Chicane', x: 30, y: 80 }
-    ];
+  if (isLoading) {
+    return <LoadingCard title="Live Track Map" />;
+  }
 
-    const severities: Array<'low' | 'medium' | 'high' | 'critical'> = [
-      'low',
-      'medium',
-      'high',
-      'critical'
-    ];
-    const types = ['Collision', 'Debris', 'Mechanical', 'Flag', 'Safety'];
+  if (error) {
+    return <ErrorCard title="Live Track Map" message="Failed to load track map data" />;
+  }
 
-    const interval = setInterval(() => {
-      if (Math.random() > 0.6) {
-        // 40% chance of new incident
-        const location = locations[Math.floor(Math.random() * locations.length)];
-        const newIncident: TrackIncident = {
-          id: Date.now().toString(),
-          location: location.name,
-          severity: severities[Math.floor(Math.random() * severities.length)],
-          type: types[Math.floor(Math.random() * types.length)],
-          timestamp: new Date(),
-          x: location.x + (Math.random() - 0.5) * 10, // Add some randomness
-          y: location.y + (Math.random() - 0.5) * 10
-        };
+  if (!data) {
+    return null;
+  }
 
-        setTrackIncidents((prev) => [newIncident, ...prev.slice(0, 9)]); // Keep only 10 most recent
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const { incidents, trackInfo } = data;
 
   const getSeverityConfig = (severity: string) => {
     switch (severity) {
@@ -77,7 +44,7 @@ export function LiveMap() {
         <CardTitle className="text-slate-900 flex items-center space-x-2">
           <MapPin className="h-5 w-5 text-green-600" />
           <span>Live Track Map</span>
-          <Badge className="bg-green-100 text-green-700">Monaco GP</Badge>
+          <Badge className="bg-green-100 text-green-700">{trackInfo.name}</Badge>
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -108,14 +75,13 @@ export function LiveMap() {
           </svg>
 
           {/* Live Incidents */}
-          {trackIncidents.map((incident) => {
+          {incidents.map((incident) => {
             const config = getSeverityConfig(incident.severity);
             return (
               <div
                 key={incident.id}
                 className="absolute cursor-pointer transform -translate-x-1/2 -translate-y-1/2"
                 style={{ left: `${incident.x}%`, top: `${incident.y}%` }}
-                onClick={() => setSelectedIncident(incident)}
               >
                 <div
                   className={`${config.color} ${config.size} rounded-full ${config.pulse}`}
@@ -148,35 +114,14 @@ export function LiveMap() {
           </div>
         </div>
 
-        {/* Selected Incident Details */}
-        {selectedIncident && (
-          <div className="p-3 bg-slate-50 rounded-lg border border-slate-200">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center space-x-2">
-                <AlertTriangle className="h-4 w-4 text-orange-600" />
-                <span className="font-medium text-slate-900">{selectedIncident.type}</span>
-              </div>
-              <Badge className={`${getSeverityConfig(selectedIncident.severity).color} text-white`}>
-                {selectedIncident.severity}
-              </Badge>
-            </div>
-            <p className="text-sm text-slate-700 mb-1">{selectedIncident.location}</p>
-            <div className="flex items-center space-x-2 text-xs text-slate-500">
-              <Clock className="h-3 w-3" />
-              <TimezoneDate date={selectedIncident.timestamp} format="time" />
-            </div>
-          </div>
-        )}
-
         {/* Recent Incidents List */}
         <div className="mt-4">
           <h4 className="text-sm font-medium text-slate-700 mb-2">Recent Incidents</h4>
           <div className="space-y-2 max-h-20 overflow-y-auto">
-            {trackIncidents.slice(0, 5).map((incident) => (
+            {incidents.slice(0, 5).map((incident) => (
               <div
                 key={incident.id}
                 className="flex items-center justify-between p-2 bg-slate-50 rounded text-xs cursor-pointer hover:bg-slate-100 transition-colors border border-slate-200"
-                onClick={() => setSelectedIncident(incident)}
               >
                 <div className="flex items-center space-x-2">
                   <div

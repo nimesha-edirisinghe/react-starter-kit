@@ -1,5 +1,3 @@
-'use client';
-
 import { useMemo } from 'react';
 
 export type PageItem = number | 'ellipsis';

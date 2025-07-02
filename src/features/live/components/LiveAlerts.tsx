@@ -2,65 +2,18 @@ import { Card, CardContent } from '~/components/ui/card';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
 import { AlertTriangle, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { TimezoneDate } from '~/components/common/TimezoneDate';
-
-interface LiveAlert {
-  id: string;
-  type: 'critical' | 'warning' | 'info';
-  message: string;
-  timestamp: Date;
-  location: string;
-}
+import { useLiveAlertsQuery } from '~/api/queries/live/useLiveAlertsQuery';
+import { LoadingCard } from '~/components/common/LoadingCard';
+import { ErrorCard } from '~/components/common/ErrorCard';
 
 export function LiveAlerts() {
-  const [alerts, setAlerts] = useState<LiveAlert[]>([]);
-  const [soundEnabled] = useState(true);
-
-  useEffect(() => {
-    const alertMessages = [
-      {
-        type: 'critical' as const,
-        message: 'Multi-car collision at Turn 3',
-        location: 'Monaco GP - Turn 3'
-      },
-      {
-        type: 'warning' as const,
-        message: 'Yellow flag deployed in Sector 2',
-        location: 'Monaco GP - Sector 2'
-      },
-      { type: 'info' as const, message: 'Safety car deployed', location: 'Monaco GP - Track' },
-      {
-        type: 'critical' as const,
-        message: 'Red flag - Session stopped',
-        location: 'Monaco GP - Control'
-      },
-      {
-        type: 'warning' as const,
-        message: 'Debris reported on track',
-        location: 'Monaco GP - Turn 1'
-      }
-    ];
-
-    const interval = setInterval(() => {
-      if (Math.random() > 0.7) {
-        // 30% chance of new alert
-        const randomAlert = alertMessages[Math.floor(Math.random() * alertMessages.length)];
-        const newAlert: LiveAlert = {
-          id: Date.now().toString(),
-          ...randomAlert,
-          timestamp: new Date()
-        };
-
-        setAlerts((prev) => [newAlert, ...prev.slice(0, 4)]); // Keep only 5 most recent
-      }
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, [soundEnabled]);
+  const { data: alerts = [], isLoading, error } = useLiveAlertsQuery();
+  const [dismissedAlerts, setDismissedAlerts] = useState<Set<string>>(new Set());
 
   const removeAlert = (id: string) => {
-    setAlerts((prev) => prev.filter((alert) => alert.id !== id));
+    setDismissedAlerts((prev) => new Set([...prev, id]));
   };
 
   const getAlertConfig = (type: string) => {
@@ -96,7 +49,17 @@ export function LiveAlerts() {
     }
   };
 
-  if (alerts.length === 0) return null;
+  const visibleAlerts = alerts.filter((alert) => !dismissedAlerts.has(alert.id));
+
+  if (visibleAlerts.length === 0) return null;
+
+  if (isLoading) {
+    return <LoadingCard />;
+  }
+
+  if (error) {
+    return <ErrorCard />;
+  }
 
   return (
     <Card className="bg-white/80 border-slate-200 backdrop-blur-sm shadow-lg">
@@ -106,13 +69,13 @@ export function LiveAlerts() {
             <AlertTriangle className="h-5 w-5 text-red-500" />
             <h3 className="text-lg font-semibold text-slate-900">Live Alerts</h3>
             <Badge variant="secondary" className="bg-red-100 text-red-700">
-              {alerts.length}
+              {visibleAlerts.length}
             </Badge>
           </div>
         </div>
 
         <div className="space-y-3 max-h-48 overflow-y-auto">
-          {alerts.map((alert) => {
+          {visibleAlerts.map((alert) => {
             const config = getAlertConfig(alert.type);
             return (
               <div

@@ -1,5 +1,3 @@
-'use client';
-
 import { PaginationEllipsis, PaginationItem, PaginationLink } from '~/components/ui/pagination';
 import { PageItem } from '~/features/incident/hooks/usePagination';
 

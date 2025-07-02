@@ -13,8 +13,13 @@ import {
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '~/components/ui/card';
 import { TrendingUp } from 'lucide-react';
 import { CustomTooltip } from './chart-tooltips/CustomTooltip';
+import { FC } from 'react';
 
-export function TrendChart({ data }: { data: any[] }) {
+interface TrendChartProps {
+  data: any[];
+}
+
+export const TrendChart: FC<TrendChartProps> = ({ data }) => {
   return (
     <Card className="lg:col-span-2">
       <CardHeader>
@@ -57,4 +62,4 @@ export function TrendChart({ data }: { data: any[] }) {
       </CardContent>
     </Card>
   );
-}
+};
