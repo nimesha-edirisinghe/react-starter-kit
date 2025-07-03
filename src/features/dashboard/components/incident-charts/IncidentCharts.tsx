@@ -12,6 +12,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { BarChart3, RefreshCw, TrendingUp, WifiOff } from 'lucide-react';
 import { Button } from '~/components/ui/button';
+import { Skeleton } from '~/components/ui/skeleton';
 
 export function IncidentCharts() {
   const {
@@ -51,11 +52,20 @@ export function IncidentCharts() {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {[...Array(5)].map((_, i) => (
-          <div key={i} className="h-64 bg-gray-200 animate-pulse rounded"></div>
-        ))}
-      </div>
+      <>
+        <Card className="border border-border bg-card/50">
+          <CardContent className="pt-0">
+            <div className="grid gap-6">
+              <Skeleton className="h-64 w-full rounded-lg" />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {[...Array(4)].map((_, index) => (
+                  <Skeleton key={index} className="h-64 w-full rounded-lg" />
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </>
     );
   }
 

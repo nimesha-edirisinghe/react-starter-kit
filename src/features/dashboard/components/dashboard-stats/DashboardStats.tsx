@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
 import { AlertTriangle, Clock, CheckCircle, XCircle } from 'lucide-react';
 import { useDashboardStatsQuery } from '~/api/queries/dashboard/useDashboardStatsQuery';
 import { ErrorCard } from '~/components/common/ErrorCard';
+import { Skeleton } from '~/components/ui/skeleton';
 
 export function DashboardStats() {
   const { data: stats, isLoading, error, refetch } = useDashboardStatsQuery();
@@ -12,11 +13,11 @@ export function DashboardStats() {
         {[...Array(4)].map((_, i) => (
           <Card key={i}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="h-4 bg-gray-200 rounded animate-pulse w-24"></div>
-              <div className="h-8 w-8 bg-gray-200 rounded animate-pulse"></div>
+              <Skeleton className="h-8 w-24" />
+              <Skeleton className="h-8 w-8" />
             </CardHeader>
             <CardContent>
-              <div className="h-8 bg-gray-200 rounded animate-pulse"></div>
+              <Skeleton className="h-8 w-full" />
             </CardContent>
           </Card>
         ))}

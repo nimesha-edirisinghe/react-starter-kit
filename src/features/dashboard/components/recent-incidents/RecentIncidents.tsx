@@ -4,6 +4,7 @@ import { AlertTriangle, Clock, MapPin, RefreshCw, WifiOff } from 'lucide-react';
 import { useRecentIncidentsQuery } from '~/api/queries/dashboard/useRecentIncidentsQuery';
 import { getStatusColor } from '~/utils/utilsGetStatusColor';
 import { Button } from '~/components/ui/button';
+import { LoadingCard } from '~/components/common/LoadingCard';
 
 export function RecentIncidents() {
   const { data: recentIncidents, isLoading, error, refetch } = useRecentIncidentsQuery();
@@ -24,21 +25,7 @@ export function RecentIncidents() {
   };
 
   if (isLoading) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Incidents</CardTitle>
-          <CardDescription>Latest racing incidents requiring attention</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-24 bg-gray-200 animate-pulse rounded"></div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    );
+    return <LoadingCard />;
   }
 
   if (error) {

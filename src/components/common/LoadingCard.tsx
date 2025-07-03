@@ -5,7 +5,7 @@ interface LoadingCardProps {
   title?: string;
   message?: string;
   className?: string;
-  variant?: 'default' | 'stats' | 'list' | 'chart';
+  variant?: 'default' | 'stats' | 'list' | 'chart' | 'table';
 }
 
 export function LoadingCard({
@@ -53,6 +53,25 @@ export function LoadingCard({
                 <Skeleton key={i} className="h-4 w-20" />
               ))}
             </div>
+          </div>
+        );
+      case 'table':
+        return (
+          <div className="w-full space-y-2">
+            {/* Table Header */}
+            <div className="flex gap-4">
+              {[...Array(5)].map((_, i) => (
+                <Skeleton key={i} className="h-4 w-[120px]" />
+              ))}
+            </div>
+            {/* Table Rows */}
+            {[...Array(5)].map((_, rowIdx) => (
+              <div key={rowIdx} className="flex gap-4">
+                {[...Array(5)].map((_, colIdx) => (
+                  <Skeleton key={colIdx} className="h-6 w-[120px] rounded-sm" />
+                ))}
+              </div>
+            ))}
           </div>
         );
       default:
