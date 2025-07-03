@@ -3,7 +3,7 @@ import { LiveClock } from './LiveClock';
 export function LiveHeader() {
   return (
     <div className="relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-lg" />
+      <div className="absolute inset-0 bg-custom-primary-fill rounded-lg border border-primary" />
       <div className="relative p-6">
         <div className="flex items-center justify-between">
           <div>

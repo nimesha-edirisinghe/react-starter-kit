@@ -14,7 +14,7 @@ export const mockAdminUsers = [
     id: 'admin-1',
     name: 'John Admin',
     email: 'admin1@racing.com',
-    password: 'admin123',
+    password: 'admin123!',
     token: 'admin-token-1',
     role: 'admin' as UserRole
   },
@@ -22,7 +22,7 @@ export const mockAdminUsers = [
     id: 'admin-2',
     name: 'Sarah Manager',
     email: 'admin2@racing.com',
-    password: 'admin123',
+    password: 'admin123!',
     token: 'admin-token-2',
     role: 'admin' as UserRole
   },
@@ -30,7 +30,7 @@ export const mockAdminUsers = [
     id: 'admin-3',
     name: 'Mike Director',
     email: 'admin3@racing.com',
-    password: 'admin123',
+    password: 'admin123!',
     token: 'admin-token-3',
     role: 'admin' as UserRole
   }
@@ -42,7 +42,7 @@ export const mockStewardUsers = [
     id: 'steward-1',
     name: 'Emma Steward',
     email: 'steward1@racing.com',
-    password: 'steward123',
+    password: 'steward123!',
     token: 'steward-token-1',
     role: 'steward' as UserRole
   },
@@ -50,7 +50,7 @@ export const mockStewardUsers = [
     id: 'steward-2',
     name: 'David Official',
     email: 'steward2@racing.com',
-    password: 'steward123',
+    password: 'steward123!',
     token: 'steward-token-2',
     role: 'steward' as UserRole
   },
@@ -58,7 +58,7 @@ export const mockStewardUsers = [
     id: 'steward-3',
     name: 'Lisa Referee',
     email: 'steward3@racing.com',
-    password: 'steward123',
+    password: 'steward123!',
     token: 'steward-token-3',
     role: 'steward' as UserRole
   }
@@ -70,7 +70,7 @@ export const mockViewerUsers = [
     id: 'viewer-1',
     name: 'Alex Viewer',
     email: 'viewer1@racing.com',
-    password: 'viewer123',
+    password: 'viewer123!',
     token: 'viewer-token-1',
     role: 'viewer' as UserRole
   },
@@ -78,7 +78,7 @@ export const mockViewerUsers = [
     id: 'viewer-2',
     name: 'Maria Observer',
     email: 'viewer2@racing.com',
-    password: 'viewer123',
+    password: 'viewer123!',
     token: 'viewer-token-2',
     role: 'viewer' as UserRole
   },
@@ -86,7 +86,7 @@ export const mockViewerUsers = [
     id: 'viewer-3',
     name: 'Tom Spectator',
     email: 'viewer3@racing.com',
-    password: 'viewer123',
+    password: 'viewer123!',
     token: 'viewer-token-3',
     role: 'viewer' as UserRole
   }

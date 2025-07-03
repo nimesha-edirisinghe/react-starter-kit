@@ -5,35 +5,38 @@ import {
   getHourlyData,
   getCircuitData
 } from '~/api/services/dashboard';
+import { dashboardQueryKeys } from '~/lib/tanstack/queryKeys';
+
+const STALE_TIME = 10 * 60 * 1000; // 10 minutes
 
 export function useSeverityDataQuery() {
   return useQuery({
-    queryKey: ['dashboard', 'severity-data'],
+    queryKey: dashboardQueryKeys.charts.severity(),
     queryFn: getSeverityData,
-    staleTime: 10 * 60 * 1000
+    staleTime: STALE_TIME
   });
 }
 
 export function useTrendDataQuery() {
   return useQuery({
-    queryKey: ['dashboard', 'trend-data'],
+    queryKey: dashboardQueryKeys.charts.trend(),
     queryFn: getTrendData,
-    staleTime: 10 * 60 * 1000
+    staleTime: STALE_TIME
   });
 }
 
 export function useHourlyDataQuery() {
   return useQuery({
-    queryKey: ['dashboard', 'hourly-data'],
+    queryKey: dashboardQueryKeys.charts.hourly(),
     queryFn: getHourlyData,
-    staleTime: 10 * 60 * 1000
+    staleTime: STALE_TIME
   });
 }
 
 export function useCircuitDataQuery() {
   return useQuery({
-    queryKey: ['dashboard', 'circuit-data'],
+    queryKey: dashboardQueryKeys.charts.circuit(),
     queryFn: getCircuitData,
-    staleTime: 10 * 60 * 1000
+    staleTime: STALE_TIME
   });
 }

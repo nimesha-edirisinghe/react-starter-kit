@@ -2,7 +2,6 @@ import axios from 'axios';
 import { attachRequestInterceptor } from './interceptors/request.interceptor';
 import { attachResponseInterceptor } from './interceptors/response.interceptor';
 import { config } from '~/utils/config';
-import { attachLanguageInterceptor } from './interceptors/language.interceptor';
 
 export const apiClient = axios.create({
   baseURL: config.apiBaseUrl,
@@ -17,5 +16,4 @@ export const apiClient = axios.create({
 });
 
 attachRequestInterceptor(apiClient);
-attachLanguageInterceptor(apiClient);
 attachResponseInterceptor(apiClient);

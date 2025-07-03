@@ -11,7 +11,7 @@ export function LiveClock() {
   }, []);
 
   return (
-    <div className="flex items-center space-x-3 px-3 py-2 bg-slate-100 rounded-lg border border-slate-200">
+    <div className="flex items-center space-x-3 px-3 py-2 bg-custom-primary-fill rounded-lg">
       <div className="flex items-center space-x-1">
         <span className="text-base">{selectedCountry.flag}</span>
         <span className="text-xs text-slate-500 font-medium">

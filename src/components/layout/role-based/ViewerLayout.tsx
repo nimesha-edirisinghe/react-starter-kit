@@ -20,8 +20,8 @@ export function ViewerLayout({ children }: { children: React.ReactNode }) {
         <div className="flex items-center gap-4 px-4">
           <CountrySelector variant="compact" />
           <SidebarProvider>
-            <div className="ml-auto flex items-center gap-2 cursor-pointer">
-              <NavUser user={user} side="bottom" />
+            <div className="ml-auto flex items-center gap-2">
+              <NavUser user={user} side="bottom" isViewer={true} />
             </div>
           </SidebarProvider>
         </div>

@@ -76,7 +76,7 @@ export function RaceStatus() {
         <CardContent>
           <div className="space-y-1">
             <div className="text-2xl font-bold text-slate-900">LIVE</div>
-            <Badge className="bg-green-500 text-white">{raceDetails?.status || 'Unknown'}</Badge>
+            <Badge className="bg-green-500 text-white">{raceDetails?.status || 'Racing'}</Badge>
           </div>
         </CardContent>
       </Card>

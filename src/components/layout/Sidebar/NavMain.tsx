@@ -43,7 +43,8 @@ export function NavMain({
                   to={item.url}
                   className={cn(
                     'flex items-center gap-2 w-full transition-all duration-200 ease-in-out',
-                    isActive && 'text-primary !bg-[#FFF1EA] hover:text-primary hover:bg-[#FFF1EA]'
+                    isActive &&
+                      'text-primary !bg-transparent hover:text-primary hover:bg-custom-primary-fill'
                   )}
                 >
                   {item.icon && <item.icon style={{ height: '16px', width: '16px' }} />}

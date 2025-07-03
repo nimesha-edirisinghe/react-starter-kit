@@ -30,7 +30,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: 'Incidents',
         url: '/incidents',
         icon: Activity,
-        allowedRoles: ['admin', 'steward'] as UserRole[]
+        allowedRoles: ['admin'] as UserRole[]
       },
       {
         title: 'Live',
@@ -52,7 +52,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   };
 
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="icon" {...props} className="select-none">
       <SidebarHeader>
         <LogoSection />
       </SidebarHeader>

@@ -26,6 +26,8 @@
     --chart-5: hsl(27 87% 67%);
 
     --custom-orange-foreground: hsl(20, 100%, 96%);
+
+    --custom-primary-fill: hsl(20, 100%, 96%);
     --radius: 0.5rem;
 
     /* Sidebar */
@@ -67,6 +69,7 @@
     --chart-5: hsl(340 75% 55%);
 
     --custom-orange-foreground: hsl(27 87% 67%);
+    --custom-primary-fill: hsl(20, 100%, 96%);
 
     /* Sidebar */
 

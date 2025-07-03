@@ -20,7 +20,6 @@ export function AuthGuard({ children, requiredRoles }: AuthGuardProps) {
         return;
       }
 
-      // Check role permissions if required
       if (requiredRoles && user && !requiredRoles.includes(user.role)) {
         navigate({ to: '/access-denied' });
         return;
