@@ -13,7 +13,12 @@ export const liveHandlers = [
 
   http.get('/api/live/chart-data', () => {
     mockLiveChartData.timelineData = mockLiveChartData.timelineData.map((_, i) => ({
-      time: new Date(Date.now() - i * 60000).toISOString(),
+      time: new Date(Date.now() - i * 60000).toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      }),
       incidents: Math.floor(Math.random() * 5),
       responseTime: Math.floor(Math.random() * 60) + 30,
       severity: Math.floor(Math.random() * 4),

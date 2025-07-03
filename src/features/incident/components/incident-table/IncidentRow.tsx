@@ -1,12 +1,20 @@
 import { TableCell, TableRow } from '~/components/ui/table';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
-import { Trash2 } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { MoreVertical, Trash2, Edit } from 'lucide-react';
+import { useMemo, useState, useCallback } from 'react';
 import { SEVERITY_COLORS, STATUS_COLORS } from '../../constants/incident-constants';
 import { useDeleteIncidentMutation } from '~/api/mutations/useDeleteIncidentMutation';
-import { RacingIncident } from '../../types/incident';
+import { useEditIncidentMutation } from '~/api/mutations/useEditIncidentMutation';
+import { RacingIncident, IncidentFormData } from '../../types/incident';
 import DeleteIncidentDialog from '../incident-management/DeleteIncidentDialog';
+import EditIncidentDialog from '../incident-management/EditIncidentDialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '~/components/ui/dropdown-menu';
 
 interface IncidentRowProps {
   incident: RacingIncident;
@@ -14,7 +22,24 @@ interface IncidentRowProps {
 
 export const IncidentRow = ({ incident }: IncidentRowProps) => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editFormData, setEditFormData] = useState<IncidentFormData>(() => ({
+    type: incident.type,
+    raceCategory: incident.raceCategory,
+    location: incident.location,
+    circuit: incident.circuit,
+    severity: incident.severity,
+    drivers: incident.drivers.join(', '),
+    teams: incident.teams.join(', '),
+    lapNumber: incident.lapNumber.toString(),
+    raceTime: incident.raceTime || '',
+    description: incident.description || '',
+    status: incident.status,
+    stewardNotes: incident.stewardNotes || ''
+  }));
+
   const deleteIncidentMutation = useDeleteIncidentMutation();
+  const editIncidentMutation = useEditIncidentMutation();
 
   const formattedType = useMemo(
     () => incident.type.replace('_', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase()),
@@ -38,6 +63,41 @@ export const IncidentRow = ({ incident }: IncidentRowProps) => {
       console.error('Error deleting incident:', error);
     }
   };
+
+  const handleEdit = async () => {
+    try {
+      const formattedData = {
+        ...editFormData,
+        lapNumber: editFormData.lapNumber
+      };
+
+      await editIncidentMutation.mutateAsync({
+        id: incident.id,
+        incident: formattedData
+      });
+      setIsEditDialogOpen(false);
+    } catch (error) {
+      console.error('Error editing incident:', error);
+    }
+  };
+
+  const handleCloseEditDialog = useCallback(() => {
+    setIsEditDialogOpen(false);
+    setEditFormData({
+      type: incident.type,
+      raceCategory: incident.raceCategory,
+      location: incident.location,
+      circuit: incident.circuit,
+      severity: incident.severity,
+      drivers: incident.drivers.join(', '),
+      teams: incident.teams.join(', '),
+      lapNumber: incident.lapNumber.toString(),
+      raceTime: incident.raceTime || '',
+      description: incident.description || '',
+      status: incident.status,
+      stewardNotes: incident.stewardNotes || ''
+    });
+  }, [incident]);
 
   return (
     <>
@@ -72,16 +132,30 @@ export const IncidentRow = ({ incident }: IncidentRowProps) => {
         </TableCell>
         <TableCell>{incident.lapNumber}</TableCell>
         <TableCell className="text-center">
-          <div className="flex items-center justify-center ">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsDeleteDialogOpen(true)}
-              className="cursor-pointer h-8 w-8 text-red-500 hover:text-red-700 hover:bg-red-50"
-              disabled={deleteIncidentMutation.isPending}
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
+          <div className="flex items-center justify-center">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="h-8 w-8 cursor-pointer">
+                  <MoreVertical className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem
+                  onClick={() => setIsEditDialogOpen(true)}
+                  className="cursor-pointer"
+                >
+                  <Edit className="mr-2 h-4 w-4" />
+                  Edit
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => setIsDeleteDialogOpen(true)}
+                  className="cursor-pointer text-red-600 focus:text-red-600"
+                >
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </TableCell>
       </TableRow>
@@ -92,6 +166,15 @@ export const IncidentRow = ({ incident }: IncidentRowProps) => {
         onConfirm={handleDelete}
         isDeleting={deleteIncidentMutation.isPending}
         incidentType={formattedType}
+      />
+
+      <EditIncidentDialog
+        isOpen={isEditDialogOpen}
+        onClose={handleCloseEditDialog}
+        formData={editFormData}
+        onFormDataChange={setEditFormData}
+        onSubmit={handleEdit}
+        isSubmitting={editIncidentMutation.isPending}
       />
     </>
   );

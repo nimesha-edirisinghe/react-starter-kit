@@ -41,12 +41,13 @@ export default function IncidentFormFields({
                   <SelectValue placeholder="Select type" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Collision">Collision</SelectItem>
-                  <SelectItem value="Penalty">Penalty</SelectItem>
-                  <SelectItem value="Mechanical">Mechanical</SelectItem>
-                  <SelectItem value="Track Obstruction">Track Obstruction</SelectItem>
-                  <SelectItem value="Rule Violation">Rule Violation</SelectItem>
-                  <SelectItem value="Weather">Weather</SelectItem>
+                  <SelectItem value="collision">Collision</SelectItem>
+                  <SelectItem value="penalty">Penalty</SelectItem>
+                  <SelectItem value="dnf">DNF</SelectItem>
+                  <SelectItem value="mechanical">Mechanical</SelectItem>
+                  <SelectItem value="unsafe_pit">Unsafe Pit</SelectItem>
+                  <SelectItem value="track_obstruction">Track Obstruction</SelectItem>
+                  <SelectItem value="rule_violation">Rule Violation</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -64,10 +65,9 @@ export default function IncidentFormFields({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="F1">Formula 1</SelectItem>
-                  <SelectItem value="F2">Formula 2</SelectItem>
+                  <SelectItem value="Rally">Rally</SelectItem>
                   <SelectItem value="MotoGP">MotoGP</SelectItem>
                   <SelectItem value="IndyCar">IndyCar</SelectItem>
-                  <SelectItem value="Rally">Rally</SelectItem>
                   <SelectItem value="NASCAR">NASCAR</SelectItem>
                 </SelectContent>
               </Select>

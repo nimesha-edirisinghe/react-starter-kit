@@ -38,6 +38,58 @@ export const incidentHandlers = [
     }
   }),
 
+  http.put('/api/incidents/:id', async ({ request, params }) => {
+    try {
+      const { id } = params;
+      const formData = (await request.json()) as any;
+
+      const index = incidentsData.findIndex((incident) => incident.id === id);
+      if (index === -1) {
+        return new HttpResponse('Incident not found', { status: 404 });
+      }
+
+      const processArrayOrString = (value: string | string[]): string[] => {
+        if (Array.isArray(value)) {
+          return value.filter(Boolean);
+        }
+        return value
+          ? value
+              .split(',')
+              .map((item) => item.trim())
+              .filter(Boolean)
+          : [];
+      };
+
+      const updatedIncident: RacingIncident = {
+        ...incidentsData[index],
+        type: formData.type as RacingIncident['type'],
+        raceCategory: formData.raceCategory as RacingIncident['raceCategory'],
+        location: formData.location,
+        circuit: formData.circuit || formData.location,
+        severity: formData.severity as RacingIncident['severity'],
+        drivers: processArrayOrString(formData.drivers),
+        teams: processArrayOrString(formData.teams),
+        lapNumber:
+          typeof formData.lapNumber === 'number'
+            ? formData.lapNumber
+            : parseInt(formData.lapNumber) || 0,
+        raceTime: formData.raceTime || '00:00:00',
+        description: formData.description,
+        status: formData.status as RacingIncident['status'],
+        stewardNotes: formData.stewardNotes
+      };
+
+      incidentsData[index] = updatedIncident;
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      return HttpResponse.json(updatedIncident);
+    } catch (error) {
+      console.error('Edit incident error:', error);
+      return HttpResponse.json({ error: `Failed to update incident ${error}` }, { status: 400 });
+    }
+  }),
+
   http.delete('/api/incidents/:id', ({ params }) => {
     try {
       const { id } = params;
