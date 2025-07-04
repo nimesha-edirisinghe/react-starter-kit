@@ -74,7 +74,7 @@ export function IncidentCharts() {
       <Card className="lg:col-span-2 border-red-200 bg-red-50/50">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
-            <TrendingUp className="h-5 w-5 text-blue-600" />
+            <TrendingUp className="h-5 w-5 text-primary" />
             <span>30-Day Incident Trends</span>
           </CardTitle>
           <CardDescription>Daily incident reports, resolutions, and response times</CardDescription>

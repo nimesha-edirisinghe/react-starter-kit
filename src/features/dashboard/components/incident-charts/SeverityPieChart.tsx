@@ -8,7 +8,7 @@ export function SeverityPieChart({ data }: { data: any[] }) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
-          <AlertTriangle className="h-5 w-5 text-orange-600" />
+          <AlertTriangle className="h-5 w-5 text-primary" />
           <span>Severity Distribution</span>
         </CardTitle>
         <CardDescription>Incident severity breakdown with percentages</CardDescription>

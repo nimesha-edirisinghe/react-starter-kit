@@ -42,7 +42,7 @@ export function LiveMap() {
     <Card className="bg-white/80 border-slate-200 backdrop-blur-sm shadow-lg h-full">
       <CardHeader>
         <CardTitle className="text-slate-900 flex items-center space-x-2">
-          <MapPin className="h-5 w-5 text-green-600" />
+          <MapPin className="h-5 w-5 text-primary" />
           <span>Live Track Map</span>
           <Badge className="bg-green-100 text-green-700">{trackInfo.name}</Badge>
         </CardTitle>

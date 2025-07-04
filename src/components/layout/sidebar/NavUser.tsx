@@ -44,9 +44,9 @@ export function NavUser({ user, side, isViewer = false }: NavUserProps) {
     .toUpperCase();
 
   const UserAvatar = (
-    <Avatar className="h-8 w-8 rounded-lg">
+    <Avatar className="h-8 w-8 rounded-lg select-none">
       <AvatarImage src="" alt={user.name} />
-      <AvatarFallback className="rounded-lg">{avatarFallbackName}</AvatarFallback>
+      <AvatarFallback className="rounded-lg text-sm ">{avatarFallbackName}</AvatarFallback>
     </Avatar>
   );
 

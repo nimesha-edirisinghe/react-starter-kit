@@ -17,7 +17,7 @@ export function CircuitPerformanceChart({ data }: { data: any[] }) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
-          <MapPin className="h-5 w-5 text-emerald-600" />
+          <MapPin className="h-5 w-5 text-primary" />
           <span>Circuit Performance</span>
         </CardTitle>
         <CardDescription>Incidents vs resolution rates by circuit</CardDescription>
@@ -30,7 +30,7 @@ export function CircuitPerformanceChart({ data }: { data: any[] }) {
             <YAxis stroke="#64748b" fontSize={12} />
             <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ fontSize: 12 }} />
-            <Bar dataKey="incidents" fill="#ef4444" name="Total Incidents" radius={[2, 2, 0, 0]} />
+            <Bar dataKey="incidents" fill="#2563eb" name="Total Incidents" radius={[2, 2, 0, 0]} />
             <Bar dataKey="resolved" fill="#10b981" name="Resolved" radius={[2, 2, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
