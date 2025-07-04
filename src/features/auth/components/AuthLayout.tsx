@@ -22,7 +22,7 @@ export function AuthLayout({ description, footer, children }: AuthLayoutProps) {
           <CardTitle className="text-2xl text-foreground mb-4">
             <div className="flex flex-row items-center justify-center gap-2">
               <img src={logoImage} alt="Boomerang Logo" className="h-12 w-12 object-contain" />
-              <p className="truncate font-bold text-primary text-2xl mt-2">Formula Fire</p>
+              <p className="truncate font-bold text-primary text-2xl mt-2">Formula Zone</p>
             </div>
           </CardTitle>
           <CardDescription className="text-muted-foreground mt-2 mb-2">

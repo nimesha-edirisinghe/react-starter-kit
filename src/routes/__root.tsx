@@ -22,8 +22,8 @@ export const Route = createRootRoute({
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       ...seo({
-        title: 'React Starter Kit',
-        description: 'React Starter Kit'
+        title: 'Formula Zone',
+        description: 'Formula Zone'
       })
     ],
     links: [
