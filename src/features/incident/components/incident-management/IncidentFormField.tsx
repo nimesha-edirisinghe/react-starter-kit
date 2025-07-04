@@ -13,11 +13,13 @@ import { IncidentFormData } from '../../types/incident';
 interface IncidentFormFieldsProps {
   formData: IncidentFormData;
   onFormDataChange: (data: IncidentFormData) => void;
+  errors?: Record<string, string>;
 }
 
 export default function IncidentFormFields({
   formData,
-  onFormDataChange
+  onFormDataChange,
+  errors = {}
 }: IncidentFormFieldsProps) {
   const updateFormData = (field: keyof IncidentFormData, value: string) => {
     onFormDataChange({ ...formData, [field]: value });
@@ -31,13 +33,13 @@ export default function IncidentFormFields({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="type" className="text-sm font-medium">
-                Incident Type
+                Incident Type <span className="text-destructive">*</span>
               </Label>
               <Select
                 value={formData.type}
                 onValueChange={(value) => updateFormData('type', value)}
               >
-                <SelectTrigger className="h-10 w-full">
+                <SelectTrigger className={`h-10 w-full ${errors.type ? 'border-destructive' : ''}`}>
                   <SelectValue placeholder="Select type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -54,13 +56,15 @@ export default function IncidentFormFields({
 
             <div className="space-y-2">
               <Label htmlFor="category" className="text-sm font-medium">
-                Category
+                Category <span className="text-destructive">*</span>
               </Label>
               <Select
                 value={formData.raceCategory}
                 onValueChange={(value) => updateFormData('raceCategory', value)}
               >
-                <SelectTrigger className="h-10 w-full">
+                <SelectTrigger
+                  className={`h-10 w-full ${errors.raceCategory ? 'border-destructive' : ''}`}
+                >
                   <SelectValue placeholder="Select category" />
                 </SelectTrigger>
                 <SelectContent>
@@ -76,11 +80,11 @@ export default function IncidentFormFields({
 
           <div className="space-y-2">
             <Label htmlFor="location" className="text-sm font-medium">
-              Location
+              Location <span className="text-destructive">*</span>
             </Label>
             <Input
               id="location"
-              className="h-10"
+              className={`h-10 ${errors.location ? 'border-destructive' : ''}`}
               placeholder="e.g., Monaco Grand Prix - Turn 3"
               value={formData.location}
               onChange={(e) => updateFormData('location', e.target.value)}
@@ -93,13 +97,15 @@ export default function IncidentFormFields({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="severity" className="text-sm font-medium">
-                Severity
+                Severity <span className="text-destructive">*</span>
               </Label>
               <Select
                 value={formData.severity}
                 onValueChange={(value: any) => updateFormData('severity', value)}
               >
-                <SelectTrigger className="h-10 w-full">
+                <SelectTrigger
+                  className={`h-10 w-full ${errors.severity ? 'border-destructive' : ''}`}
+                >
                   <SelectValue placeholder="Select severity" />
                 </SelectTrigger>
                 <SelectContent>
@@ -113,13 +119,15 @@ export default function IncidentFormFields({
 
             <div className="space-y-2">
               <Label htmlFor="status" className="text-sm font-medium">
-                Status
+                Status <span className="text-destructive">*</span>
               </Label>
               <Select
                 value={formData.status}
                 onValueChange={(value: any) => updateFormData('status', value)}
               >
-                <SelectTrigger className="h-10 w-full">
+                <SelectTrigger
+                  className={`h-10 w-full ${errors.status ? 'border-destructive' : ''}`}
+                >
                   <SelectValue placeholder="Select status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -137,11 +145,11 @@ export default function IncidentFormFields({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="drivers" className="text-sm font-medium">
-                Drivers Involved
+                Drivers Involved <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="drivers"
-                className="h-10"
+                className={`h-10 ${errors.drivers ? 'border-destructive' : ''}`}
                 placeholder="e.g., Lewis Hamilton, Max Verstappen"
                 value={formData.drivers}
                 onChange={(e) => updateFormData('drivers', e.target.value)}
@@ -150,12 +158,12 @@ export default function IncidentFormFields({
 
             <div className="space-y-2">
               <Label htmlFor="lap" className="text-sm font-medium">
-                Lap Number
+                Lap Number <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="lap"
                 type="number"
-                className="h-10"
+                className={`h-10 ${errors.lapNumber ? 'border-destructive' : ''}`}
                 placeholder="e.g., 23"
                 value={formData.lapNumber}
                 onChange={(e) => updateFormData('lapNumber', e.target.value)}
@@ -167,11 +175,11 @@ export default function IncidentFormFields({
         {/* Description Section */}
         <div className="space-y-2">
           <Label htmlFor="description" className="text-sm font-medium">
-            Description <span className="text-muted-foreground text-xs">(Optional)</span>
+            Description <span className="text-destructive">*</span>
           </Label>
           <Textarea
             id="description"
-            className="min-h-[100px] resize-none"
+            className={`min-h-[100px] resize-none ${errors.description ? 'border-destructive' : ''}`}
             placeholder="Additional details about the incident..."
             value={formData.description}
             onChange={(e) => updateFormData('description', e.target.value)}
