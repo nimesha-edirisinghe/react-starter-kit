@@ -1,6 +1,6 @@
 # React + TanStack Starter Project Setup
 
-Welcome to the **React Starter Kit**
+Welcome to the **Formula Zone**
 
 ### Tech stack
 
