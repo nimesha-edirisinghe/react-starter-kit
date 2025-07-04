@@ -156,14 +156,18 @@ export function IncidentTable() {
             </div>
           ) : (
             <>
-              <Table>
-                <IncidentTableHeader />
-                <TableBody>
-                  {paginatedIncidents.map((incident) => (
-                    <IncidentRow key={incident.id} incident={incident} />
-                  ))}
-                </TableBody>
-              </Table>
+              <div className="overflow-x-auto min-w-full">
+                <div className="inline-block min-w-full align-middle">
+                  <Table>
+                    <IncidentTableHeader />
+                    <TableBody>
+                      {paginatedIncidents.map((incident) => (
+                        <IncidentRow key={incident.id} incident={incident} />
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
               {totalPages > 1 && (
                 <TableFooter
                   currentPage={currentPage}

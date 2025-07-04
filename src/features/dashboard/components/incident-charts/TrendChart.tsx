@@ -20,6 +20,9 @@ interface TrendChartProps {
 }
 
 export const TrendChart: FC<TrendChartProps> = ({ data }) => {
+  // Calculate the interval for X-axis ticks (show 15 points including start and end)
+  const tickInterval = Math.max(1, Math.floor((data.length - 1) / 19));
+
   return (
     <Card className="lg:col-span-2">
       <CardHeader>
@@ -33,7 +36,14 @@ export const TrendChart: FC<TrendChartProps> = ({ data }) => {
         <ResponsiveContainer width="100%" height={350}>
           <ComposedChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-            <XAxis dataKey="date" stroke="#64748b" fontSize={12} />
+            <XAxis
+              dataKey="date"
+              stroke="#64748b"
+              fontSize={12}
+              interval={tickInterval}
+              tickMargin={10}
+              textAnchor="end"
+            />
             <YAxis yAxisId="left" stroke="#64748b" fontSize={12} />
             <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ fontSize: 12 }} />

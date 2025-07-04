@@ -9,6 +9,8 @@ import {
 } from '~/components/ui/dialog';
 import type { IncidentFormData } from '../../types/incident';
 import IncidentFormFields from './IncidentFormField';
+import { useState } from 'react';
+import { validateIncidentForm } from '../../utils/form-validation';
 
 interface EditIncidentDialogProps {
   isOpen: boolean;
@@ -27,24 +29,47 @@ export default function EditIncidentDialog({
   onSubmit,
   isSubmitting = false
 }: EditIncidentDialogProps) {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validateForm = () => {
+    const newErrors = validateIncidentForm(formData);
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = () => {
+    if (validateForm()) {
+      onSubmit();
+    }
+  };
+
+  const handleClose = () => {
+    setErrors({});
+    onClose();
+  };
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="!max-w-none w-[50vw] max-h-[95vh] overflow-hidden flex flex-col min-w-[700px]">
         <DialogHeader>
           <DialogTitle>Edit Incident</DialogTitle>
           <DialogDescription>Update the incident details below.</DialogDescription>
         </DialogHeader>
-        <IncidentFormFields formData={formData} onFormDataChange={onFormDataChange} />
+        <IncidentFormFields
+          formData={formData}
+          onFormDataChange={onFormDataChange}
+          errors={errors}
+        />
         <DialogFooter className="flex-shrink-0 pt-4 border-t">
           <Button
             variant="outline"
-            onClick={onClose}
+            onClick={handleClose}
             disabled={isSubmitting}
             className="cursor-pointer"
           >
             Cancel
           </Button>
-          <Button onClick={onSubmit} disabled={isSubmitting} className="cursor-pointer">
+          <Button onClick={handleSubmit} disabled={isSubmitting} className="cursor-pointer">
             {isSubmitting ? 'Saving...' : 'Save Changes'}
           </Button>
         </DialogFooter>
