@@ -1,7 +1,7 @@
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '~/components/ui/sidebar';
 import { Separator } from '~/components/ui/separator';
-import { AppSidebar } from '../sidebar/AppSidebar';
 import { CountrySelector } from '~/components/common/CountrySelector';
+import { AppSidebar } from '../sidebar/AppSidebar';
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
