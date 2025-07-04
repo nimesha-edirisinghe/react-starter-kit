@@ -69,7 +69,7 @@ export function RaceStatus() {
       <Card className="bg-white/80 border-slate-200 backdrop-blur-sm shadow-lg">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm text-slate-600 flex items-center space-x-2">
-            <Flag className="h-4 w-4" />
+            <Flag className="h-4 w-4 text-primary" />
             <span>Race Status</span>
           </CardTitle>
         </CardHeader>
@@ -84,7 +84,7 @@ export function RaceStatus() {
       <Card className="bg-white/80 border-slate-200 backdrop-blur-sm shadow-lg">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm text-slate-600 flex items-center space-x-2">
-            <Clock className="h-4 w-4" />
+            <Clock className="h-4 w-4 text-primary" />
             <span>Race Time</span>
           </CardTitle>
         </CardHeader>
@@ -99,7 +99,7 @@ export function RaceStatus() {
       <Card className="bg-white/80 border-slate-200 backdrop-blur-sm shadow-lg">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm text-slate-600 flex items-center space-x-2">
-            <Users className="h-4 w-4" />
+            <Users className="h-4 w-4 text-primary" />
             <span>Current Lap</span>
           </CardTitle>
         </CardHeader>
@@ -113,7 +113,7 @@ export function RaceStatus() {
       <Card className="bg-white/80 border-slate-200 backdrop-blur-sm shadow-lg">
         <CardHeader className="pb-2">
           <CardTitle className="text-sm text-slate-600 flex items-center space-x-2">
-            <MapPin className="h-4 w-4" />
+            <MapPin className="h-4 w-4 text-primary" />
             <span>Circuit</span>
           </CardTitle>
         </CardHeader>

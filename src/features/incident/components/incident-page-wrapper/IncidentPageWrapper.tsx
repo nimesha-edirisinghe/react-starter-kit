@@ -60,7 +60,15 @@ export default function IncidentPageWrapper() {
       return;
     }
 
-    createIncidentMutation.mutate(formData, {
+    // Generate random race time if not provided in HH:MM:SS format
+    const submissionData = {
+      ...formData,
+      raceTime:
+        formData.raceTime ||
+        `${String(Math.floor(Math.random() * 24)).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`
+    };
+
+    createIncidentMutation.mutate(submissionData, {
       onSuccess: (newIncident) => {
         console.log('Incident created successfully!', newIncident);
         handleCloseDialog();

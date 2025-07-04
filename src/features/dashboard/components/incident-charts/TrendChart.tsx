@@ -24,7 +24,7 @@ export const TrendChart: FC<TrendChartProps> = ({ data }) => {
     <Card className="lg:col-span-2">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
-          <TrendingUp className="h-5 w-5 text-blue-600" />
+          <TrendingUp className="h-5 w-5 text-primary" />
           <span>30-Day Incident Trends</span>
         </CardTitle>
         <CardDescription>Daily incident reports, resolutions, and response times</CardDescription>

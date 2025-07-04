@@ -17,7 +17,7 @@ export function CircuitRadarChart({ data }: { data: any[] }) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
-          <MapPin className="h-5 w-5 text-green-600" />
+          <MapPin className="h-5 w-5 text-primary" />
           <span>Circuit Risk Analysis</span>
         </CardTitle>
         <CardDescription>Multi-dimensional circuit performance comparison</CardDescription>

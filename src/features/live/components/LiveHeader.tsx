@@ -3,7 +3,7 @@ import { LiveClock } from './LiveClock';
 export function LiveHeader() {
   return (
     <div className="relative">
-      <div className="absolute inset-0 bg-custom-primary-fill rounded-lg border border-primary" />
+      <div className="absolute inset-0 bg-custom-primary-fill rounded-lg " />
       <div className="relative px-4 py-6 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0">
           <div className="text-center sm:text-left">

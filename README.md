@@ -1,6 +1,4 @@
-# React + TanStack Starter Project Setup
-
-Welcome to the **Formula Zone**
+# Welcome to the **Formula Zone**
 
 ### Tech stack
 
@@ -32,6 +30,11 @@ cd react-starter-kit
 pnpm install
 ```
 
+### Live Demo
+
+You can check out the live demo of the application at:
+[https://racing-app-opal.vercel.app/](https://racing-app-opal.vercel.app/)
+
 ## 3. Development
 
 To start the local dev server
@@ -44,10 +47,58 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 4. Demo Login Credentials
 
-To sign in to the application during development, use the following credentials
+To sign in to the application during development, use any of the following credentials based on your desired role:
 
-Email: `admin@gmail.com`
-Password: `1Qaz2wsx#`
+### Admin Users
+
+```
+Email: alice.thompson@formulazone.com
+Password: admin123!
+```
+
+```
+Email: brian.maxwell@formulazone.com
+Password: admin123!
+```
+
+```
+Email: cynthia.lee@formulazone.com
+Password: admin123!
+```
+
+### Steward Users
+
+```
+Email: emma.collins@formulazone.com
+Password: steward123!
+```
+
+```
+Email: david.reynolds@formulazone.com
+Password: steward123!
+```
+
+```
+Email: lisa.patel@formulazone.com
+Password: steward123!
+```
+
+### Viewer Users
+
+```
+Email: alex.carter@formulazone.com
+Password: viewer123!
+```
+
+```
+Email: maria.hernandez@formulazone.com
+Password: viewer123!
+```
+
+```
+Email: tom.richards@formulazone.com
+Password: viewer123!
+```
 
 ## 5. Testing
 
@@ -63,7 +114,6 @@ pnpm test
 | ------------------- | ------------------------------------ |
 | `pnpm dev`          | Start dev server                     |
 | `pnpm build`        | Build for production                 |
-| `pnpm lint`         | Run ESLint checks                    |
 | `pnpm format`       | Run Prettier formatting              |
 | `pnpm test`         | Run unit tests                       |
 | `pnpm prepare`      | Setup Husky git hooks                |

@@ -17,7 +17,7 @@ export function HourlyBarChart({ data }: { data: any[] }) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
-          <Clock className="h-5 w-5 text-purple-600" />
+          <Clock className="h-5 w-5 text-primary" />
           <span>Hourly Distribution</span>
         </CardTitle>
         <CardDescription>Incidents by time of day (24-hour format)</CardDescription>
@@ -30,7 +30,7 @@ export function HourlyBarChart({ data }: { data: any[] }) {
             <YAxis stroke="#64748b" fontSize={12} />
             <Legend wrapperStyle={{ fontSize: 12 }} />
             <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="incidents" fill="#8b5cf6" radius={[4, 4, 0, 0]} name="Incidents" />
+            <Bar dataKey="incidents" fill="#2563eb" radius={[4, 4, 0, 0]} name="Incidents" />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>
