@@ -10,7 +10,7 @@ export const Logo = () => {
         </div>
       </div>
       <div className="grid flex-1 text-left text-lg leading-tight">
-        <span className="truncate font-bold text-[#FF5630]">Formula Fire</span>
+        <span className="truncate font-bold text-primary">Formula Fire</span>
       </div>
     </Link>
   );

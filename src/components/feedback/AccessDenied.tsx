@@ -1,18 +1,9 @@
-import { Link, useNavigate } from '@tanstack/react-router';
-import { ArrowLeft, Home, Shield } from 'lucide-react';
+import { Link } from '@tanstack/react-router';
+import { Home, Shield } from 'lucide-react';
 import { useAuthStore } from '~/features/auth/store/auth-store';
 
 export function AccessDenied() {
-  const navigate = useNavigate();
   const { user } = useAuthStore();
-
-  const handleGoBack = () => {
-    if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      navigate({ to: '/' });
-    }
-  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] text-center space-y-6 px-4 animate-in fade-in slide-in-from-top-4">
@@ -32,13 +23,6 @@ export function AccessDenied() {
       </div>
 
       <div className="flex gap-4 flex-wrap justify-center">
-        <button
-          onClick={handleGoBack}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-md font-semibold text-sm transition cursor-pointer text-primary hover:bg-primary/10"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Go Back
-        </button>
         <Link
           to="/"
           className="inline-flex items-center text-primary gap-2 border border-primary px-4 py-2 rounded-md font-semibold text-sm transition cursor-pointer hover:bg-primary hover:text-primary-foreground"
