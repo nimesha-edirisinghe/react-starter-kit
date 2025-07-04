@@ -10,19 +10,23 @@ export function LoginForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5 select-none">
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-foreground">
+                Email
+              </Label>
               <FormControl>
                 <Input
                   id="email"
                   type="email"
                   placeholder="Enter your email"
-                  className={clsx(error && 'border-red-500')}
+                  className={clsx(error && 'border-destructive')}
+                  autoCapitalize="none"
+                  autoCorrect="off"
                   {...field}
                 />
               </FormControl>
@@ -36,13 +40,17 @@ export function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-foreground">
+                Password
+              </Label>
               <FormControl>
                 <Input
                   id="password"
                   type="password"
                   placeholder="Enter your password"
-                  className={clsx(error && 'border-red-500')}
+                  className={clsx(error && 'border-destructive')}
+                  autoCapitalize="none"
+                  autoCorrect="off"
                   {...field}
                 />
               </FormControl>
@@ -51,9 +59,9 @@ export function LoginForm() {
           )}
         />
 
-        {error && <p className="text-sm text-red-600 -mt-2">Invalid credentials</p>}
+        {error && <p className="text-sm text-destructive -mt-2">Invalid credentials</p>}
 
-        <Button type="submit" className="w-full" disabled={isPending}>
+        <Button type="submit" className="w-full cursor-pointer" disabled={isPending}>
           {isPending ? 'Logging in...' : 'Login'}
         </Button>
       </form>

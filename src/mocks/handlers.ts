@@ -1,5 +1,11 @@
 import { authHandlers } from './handlers/authHandlers';
-import { userHandlers } from './handlers/userHandlers';
-import { postHandlers } from './handlers/postHandlers';
+import { dashboardHandlers } from './handlers/dashboardHandlers';
+import { incidentHandlers } from './handlers/incidentHandlers';
+import { liveHandlers } from './handlers/liveHandlers';
 
-export const handlers = [...authHandlers, ...userHandlers, ...postHandlers];
+export const handlers = [
+  ...authHandlers,
+  ...dashboardHandlers,
+  ...incidentHandlers,
+  ...liveHandlers
+];

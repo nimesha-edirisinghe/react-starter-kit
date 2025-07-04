@@ -1,22 +1,31 @@
 import { http, HttpResponse } from 'msw';
-import { mockAuthUser } from '../fixtures/mockAuthData';
+import { mockAllUsers } from '../fixtures/mockAuthData';
+import CryptoJS from 'crypto-js';
 
 export const authHandlers = [
-  http.post('/auth/login', async ({ request }) => {
+  http.post('/api/auth/login', async ({ request }) => {
     const { email, password } = (await request.json()) as {
       email: string;
       password: string;
     };
-    if (email === mockAuthUser.email && password === mockAuthUser.password) {
-      return HttpResponse.json({
-        user: {
-          id: mockAuthUser.id,
-          name: mockAuthUser.name,
-          email: mockAuthUser.email
-        },
-        token: mockAuthUser.token
-      });
+
+    const user = mockAllUsers.find((u) => u.email === email);
+
+    if (user) {
+      const encryptedStoredPassword = CryptoJS.SHA256(user.password || '').toString();
+      if (encryptedStoredPassword === password) {
+        return HttpResponse.json({
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role
+          },
+          token: user.token
+        });
+      }
     }
+
     return new HttpResponse('Invalid credentials', { status: 401 });
   })
 ];

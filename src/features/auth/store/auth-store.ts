@@ -1,10 +1,12 @@
 import { create } from 'zustand';
 import { persist, devtools } from 'zustand/middleware';
+import { UserRole } from '../types/auth';
 
 interface User {
   id: string;
   name: string;
   email: string;
+  role: UserRole;
 }
 
 interface AuthState {

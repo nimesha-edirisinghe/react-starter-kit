@@ -6,6 +6,6 @@ const getEnvVar = (name: string): string => {
 
 export const config = {
   nodeEnv: getEnvVar('VITE_NODE_ENV'),
-  apiBaseUrl: getEnvVar('VITE_BASE_URL'),
+  apiBaseUrl: getEnvVar('VITE_API_BASE_URL'),
   enableMSW: getEnvVar('VITE_ENABLE_MSW')
 };
