@@ -88,6 +88,7 @@ export default function IncidentFormFields({
               placeholder="e.g., Monaco Grand Prix - Turn 3"
               value={formData.location}
               onChange={(e) => updateFormData('location', e.target.value)}
+              maxLength={100}
             />
           </div>
         </div>
@@ -166,7 +167,21 @@ export default function IncidentFormFields({
                 className={`h-10 ${errors.lapNumber ? 'border-destructive' : ''}`}
                 placeholder="e.g., 23"
                 value={formData.lapNumber}
-                onChange={(e) => updateFormData('lapNumber', e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  const numValue = Number(value);
+
+                  if (value === '') {
+                    updateFormData('lapNumber', '');
+                    return;
+                  }
+
+                  if (!isNaN(numValue) && numValue >= 1 && numValue <= 100) {
+                    updateFormData('lapNumber', value);
+                  }
+                }}
+                min={1}
+                max={100}
               />
             </div>
           </div>
@@ -183,7 +198,15 @@ export default function IncidentFormFields({
             placeholder="Additional details about the incident..."
             value={formData.description}
             onChange={(e) => updateFormData('description', e.target.value)}
+            maxLength={255}
           />
+          <div className="flex justify-end mt-1">
+            <span
+              className={`text-xs ${formData.description.length > 255 ? 'text-destructive' : 'text-muted-foreground'}`}
+            >
+              {formData.description.length}/255 characters
+            </span>
+          </div>
         </div>
       </div>
     </div>

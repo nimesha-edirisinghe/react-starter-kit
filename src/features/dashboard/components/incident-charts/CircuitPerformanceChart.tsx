@@ -30,7 +30,7 @@ export function CircuitPerformanceChart({ data }: { data: any[] }) {
             <YAxis stroke="#64748b" fontSize={12} />
             <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ fontSize: 12 }} />
-            <Bar dataKey="incidents" fill="#2563eb" name="Total Incidents" radius={[2, 2, 0, 0]} />
+            <Bar dataKey="incidents" fill="#fe6f62" name="Total Incidents" radius={[2, 2, 0, 0]} />
             <Bar dataKey="resolved" fill="#10b981" name="Resolved" radius={[2, 2, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>

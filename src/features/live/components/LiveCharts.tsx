@@ -50,8 +50,8 @@ export function LiveCharts() {
         <Card className="bg-white/80 border-slate-200 backdrop-blur-sm shadow-lg">
           <CardContent className="p-4">
             <div className="flex items-center space-x-3">
-              <div className="p-2 bg-red-100 rounded-lg">
-                <Activity className="h-5 w-5 text-red-600" />
+              <div className="p-2 bg-custom-primary-fill rounded-lg">
+                <Activity className="h-5 w-5 text-primary" />
               </div>
               <div>
                 <p className="text-sm text-slate-600">Current Incident Rate</p>
@@ -59,7 +59,7 @@ export function LiveCharts() {
                   <p className="text-2xl font-bold text-slate-900">
                     {data!.currentMetrics.incidentRate}
                   </p>
-                  <Badge className="bg-red-100 text-red-700 animate-pulse">/min</Badge>
+                  <Badge className="bg-red-100 text-primary animate-pulse">/min</Badge>
                 </div>
               </div>
             </div>
@@ -128,9 +128,8 @@ export function LiveCharts() {
                 <Area
                   type="monotone"
                   dataKey="incidents"
-                  stroke="#dc2626"
-                  fill="#dc2626"
-                  fillOpacity={0.2}
+                  stroke="#fe6f62"
+                  fill="#fff1eb"
                   strokeWidth={1}
                   name="Incidents"
                 />

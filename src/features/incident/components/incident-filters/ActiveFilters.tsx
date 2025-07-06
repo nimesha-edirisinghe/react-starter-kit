@@ -26,7 +26,7 @@ export function ActiveFilters({
   ];
 
   return (
-    <div className="space-y-2 pt-3 border-t">
+    <div className="space-y-2 pt-3 border-t mt-4">
       <div className="flex items-center gap-2">
         <span className="text-sm font-medium">Active Filters</span>
         <Badge variant="outline" className="text-xs">

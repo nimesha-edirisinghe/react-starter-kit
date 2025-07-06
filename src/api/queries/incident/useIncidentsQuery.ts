@@ -6,7 +6,7 @@ export function useIncidentsQuery() {
   return useQuery({
     queryKey: incidentQueryKeys.list(),
     queryFn: getIncidents,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 20 * 60 * 1000,
     gcTime: 10 * 60 * 1000
   });
 }

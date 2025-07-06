@@ -51,9 +51,9 @@ export const TrendChart: FC<TrendChartProps> = ({ data }) => {
               yAxisId="left"
               type="monotone"
               dataKey="incidents"
-              fill="#3b82f6"
-              fillOpacity={0.3}
-              stroke="#3b82f6"
+              fill="#fff1eb"
+              fillOpacity={1}
+              stroke="#fe6f62"
               strokeWidth={1}
               name="Total Incidents"
             />

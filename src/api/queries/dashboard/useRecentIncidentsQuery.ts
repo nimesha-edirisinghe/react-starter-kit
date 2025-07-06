@@ -6,6 +6,6 @@ export function useRecentIncidentsQuery() {
   return useQuery({
     queryKey: dashboardQueryKeys.recentIncidents(),
     queryFn: getRecentIncidents,
-    staleTime: 2 * 60 * 1000
+    staleTime: 20 * 60 * 1000
   });
 }
