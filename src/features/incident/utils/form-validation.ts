@@ -12,8 +12,17 @@ export const validateIncidentForm = (formData: IncidentFormData): Record<string,
   if (!formData.lapNumber) errors.lapNumber = 'Lap Number is required';
   if (!formData.description.trim()) errors.description = 'Description is required';
 
-  if (formData.lapNumber && Number(formData.lapNumber) <= 0) {
-    errors.lapNumber = 'Lap Number must be greater than 0';
+  const lapNumber = Number(formData.lapNumber);
+  if (formData.lapNumber && (isNaN(lapNumber) || lapNumber < 1 || lapNumber > 100)) {
+    errors.lapNumber = 'Lap Number must be between 1 and 100';
+  }
+
+  if (formData.location.length > 100) {
+    errors.location = 'Location must not exceed 100 characters';
+  }
+
+  if (formData.description.length > 255) {
+    errors.description = 'Description must not exceed 255 characters';
   }
 
   return errors;

@@ -30,7 +30,7 @@ export function HourlyBarChart({ data }: { data: any[] }) {
             <YAxis stroke="#64748b" fontSize={12} />
             <Legend wrapperStyle={{ fontSize: 12 }} />
             <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="incidents" fill="#2563eb" radius={[4, 4, 0, 0]} name="Incidents" />
+            <Bar dataKey="incidents" fill="#fe6f62" radius={[4, 4, 0, 0]} name="Incidents" />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

@@ -46,8 +46,8 @@ export function DashboardStats() {
       title: 'Total Incidents',
       value: stats?.totalIncidents || 0,
       icon: AlertTriangle,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
+      color: 'text-primary',
+      bgColor: 'bg-custom-primary-fill'
     },
     {
       title: 'Investigating',

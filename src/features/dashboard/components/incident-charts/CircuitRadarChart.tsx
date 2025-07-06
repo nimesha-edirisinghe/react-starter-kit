@@ -43,8 +43,8 @@ export function CircuitRadarChart({ data }: { data: any[] }) {
             <Radar
               name="Incidents"
               dataKey="incidents"
-              stroke="#3b82f6"
-              fill="#3b82f6"
+              stroke="#fe6f62"
+              fill="#fe6f62"
               fillOpacity={0.2}
               strokeWidth={2}
             />

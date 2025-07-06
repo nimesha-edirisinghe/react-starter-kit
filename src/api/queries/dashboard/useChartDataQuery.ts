@@ -7,7 +7,7 @@ import {
 } from '~/api/services/dashboard';
 import { dashboardQueryKeys } from '~/lib/tanstack/queryKeys';
 
-const STALE_TIME = 10 * 60 * 1000; // 10 minutes
+const STALE_TIME = 20 * 60 * 1000;
 
 export function useSeverityDataQuery() {
   return useQuery({

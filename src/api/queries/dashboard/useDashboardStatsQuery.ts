@@ -6,6 +6,6 @@ export function useDashboardStatsQuery() {
   return useQuery({
     queryKey: dashboardQueryKeys.stats(),
     queryFn: getDashboardStats,
-    staleTime: 5 * 60 * 1000
+    staleTime: 20 * 60 * 1000
   });
 }

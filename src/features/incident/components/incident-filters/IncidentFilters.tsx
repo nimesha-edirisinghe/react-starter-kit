@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
-import { SearchFilter } from './SearchFilter';
 import { FilterHeader } from './FilterHeader';
 import { AdvancedFilters } from './AdvancedFilters';
 import { ActiveFilters } from './ActiveFilters';
@@ -26,24 +25,21 @@ export function IncidentFiltersComponent({
 
   return (
     <Card className="w-full flex flex-col gap-1">
-      <CardHeader>
+      <CardHeader className="gap-0">
         <CardTitle>
           <FilterHeader
             activeFiltersCount={activeFiltersCount}
             showAdvanced={showAdvanced}
             onToggleAdvanced={() => setShowAdvanced(!showAdvanced)}
             onReset={onReset}
+            searchValue={filters.search}
+            onSearchChange={(value) => handleFilterChange('search', value)}
+            onSearchClear={() => removeFilter('search')}
           />
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="space-y-4">
-        <SearchFilter
-          value={filters.search}
-          onChange={(value) => handleFilterChange('search', value)}
-          onClear={() => removeFilter('search')}
-        />
-
+      <CardContent>
         {showAdvanced && <AdvancedFilters filters={filters} onFilterChange={handleFilterChange} />}
 
         {activeFiltersCount > 0 && (
