@@ -45,6 +45,25 @@ pnpm dev
 
 Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
+### Running with MSW Mocked APIs
+
+If you want to run with MSW mocked APIs, please do this:
+
+1. Make sure MSW is enabled in your environment
+
+```bash
+VITE_API_BASE_URL=http://localhost:3000/api
+VITE_ENABLE_MSW=true
+```
+
+2. Then run the app
+
+```bash
+pnpm dev
+```
+
+This allows you to develop and test the application without needing a real backend API.
+
 ## 4. Demo Login Credentials
 
 To sign in to the application during development, use any of the following credentials based on your desired role:
