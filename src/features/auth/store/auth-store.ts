@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist, devtools } from 'zustand/middleware';
 import { UserRole } from '../types/auth';
+import { useTimezoneStore, COUNTRIES } from '~/stores/timezone-store';
 
 interface User {
   id: string;
@@ -30,10 +31,20 @@ export const useAuthStore = create<AuthState>()(
 
         login: (user, token) => {
           set({ user, token, isAuthenticated: true }, false, 'auth/login');
+          // Set timezone to Sri Lanka
+          const sriLanka = COUNTRIES.find((country) => country.code === 'LK');
+          if (sriLanka) {
+            useTimezoneStore.getState().setSelectedCountry(sriLanka);
+          }
         },
 
         logout: () => {
           set({ user: null, token: null, isAuthenticated: false }, false, 'auth/logout');
+          // Reset timezone to Sri Lanka
+          const sriLanka = COUNTRIES.find((country) => country.code === 'LK');
+          if (sriLanka) {
+            useTimezoneStore.getState().setSelectedCountry(sriLanka);
+          }
         },
 
         setHydrated: (state) => {
