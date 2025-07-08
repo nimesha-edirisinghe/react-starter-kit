@@ -7,7 +7,7 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 BRANCH_NAME=$(git symbolic-ref --short HEAD)
-BRANCH_PATTERN="^(feature|fix|release|docs|test|style|perf|chore)/[0-9]+-[a-z0-9-]+$"
+BRANCH_PATTERN="^(feature|fix|release|docs|test|style|perf|chore|improvements)/[0-9]+-[a-z0-9-]+$"
 
 if ! [[ $BRANCH_NAME =~ $BRANCH_PATTERN ]]; then
   echo "${RED}ERROR:${NC} Branch name '${YELLOW}$BRANCH_NAME${NC}' doesn't match the required pattern."
