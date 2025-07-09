@@ -5,6 +5,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '~/components/ui/select';
+import { memo } from 'react';
 
 interface FilterSelectProps {
   label?: string;
@@ -14,7 +15,7 @@ interface FilterSelectProps {
   onChange: (value: string) => void;
 }
 
-export function FilterSelect({
+const FilterSelect = memo(function FilterSelect({
   label = '',
   value,
   placeholder,
@@ -46,4 +47,6 @@ export function FilterSelect({
       </Select>
     </div>
   );
-}
+});
+
+export { FilterSelect };
