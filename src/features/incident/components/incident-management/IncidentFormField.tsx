@@ -68,7 +68,7 @@ export default function IncidentFormFields({
                   <SelectValue placeholder="Select category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="F1">Formula 1</SelectItem>
+                  <SelectItem value="F1">F1</SelectItem>
                   <SelectItem value="Rally">Rally</SelectItem>
                   <SelectItem value="MotoGP">MotoGP</SelectItem>
                   <SelectItem value="IndyCar">IndyCar</SelectItem>
@@ -183,17 +183,23 @@ export default function IncidentFormFields({
                 className={`h-10 ${errors.lapNumber ? 'border-destructive' : ''}`}
                 placeholder="e.g., 23"
                 value={formData.lapNumber}
+                onKeyDown={(e) => {
+                  if (['e', 'E', '+', '-', '.'].includes(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
                 onChange={(e) => {
                   const value = e.target.value;
-                  const numValue = Number(value);
+                  const numericValue = value.replace(/[^0-9]/g, '');
+                  const numValue = Number(numericValue);
 
-                  if (value === '') {
+                  if (numericValue === '') {
                     updateFormData('lapNumber', '');
                     return;
                   }
 
                   if (!isNaN(numValue) && numValue >= 1 && numValue <= 100) {
-                    updateFormData('lapNumber', value);
+                    updateFormData('lapNumber', numericValue);
                   }
                 }}
                 min={1}

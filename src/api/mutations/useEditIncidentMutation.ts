@@ -61,8 +61,6 @@ export const useEditIncidentMutation = () => {
           const itemsPerPage = data.pagination.limit;
           const newTotalPages = Math.ceil(newFiltered / itemsPerPage);
 
-          // If this was the last item on the current page and not the first page,
-          // we need to navigate to the previous page
           if (updatedIncidents.length === 0 && page > 1 && page > newTotalPages) {
             const filters = {
               search: getUrlParams().search,
@@ -102,7 +100,6 @@ export const useEditIncidentMutation = () => {
   return useMutation<RacingIncident, Error, EditIncidentPayload>({
     mutationFn: editIncident,
     onSuccess: (updatedIncident) => {
-      // Update the cache with the edited incident
       updateIncidentInList(updatedIncident);
       invalidateDashboard();
     },
