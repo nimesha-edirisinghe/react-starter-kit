@@ -5,9 +5,13 @@ import { LiveHeader } from '../LiveHeader';
 import { LiveIncidentFeed } from '../LiveIncidentFeed';
 import { LiveMap } from '../LiveMap';
 import { RaceStatus } from '../RaceStatus';
+import { useIncidentWebSocket } from '~/features/incident/hooks/useIncidentWebSocket';
 
 export default function LivePageWrapper() {
   const { user } = useAuthStore();
+
+  // Initialize WebSocket connection for real-time updates
+  useIncidentWebSocket();
 
   return (
     <div className="space-y-6 min-h-screen">
