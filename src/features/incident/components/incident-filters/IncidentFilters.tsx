@@ -3,25 +3,71 @@ import { FilterHeader } from './FilterHeader';
 import { AdvancedFilters } from './AdvancedFilters';
 import { ActiveFilters } from './ActiveFilters';
 import { useIncidentFilters } from '../../hooks/useIncidentFilters';
+import { useDebouncedSearch } from '../../hooks/useDebouncedSearch';
 import { IncidentFilters, IncidentFiltersProps } from '../../types/incident-filters';
+import { useCallback, memo, useMemo } from 'react';
 
-export function IncidentFiltersComponent({
+const IncidentFiltersComponent = memo(function IncidentFiltersComponent({
   filters,
   onFiltersChange,
   onReset
 }: Omit<IncidentFiltersProps, 'onAddIncident'>) {
-  const { showAdvanced, setShowAdvanced, getActiveFiltersCount, formatFilterValue } =
-    useIncidentFilters();
+  const { showAdvanced, setShowAdvanced, formatFilterValue } = useIncidentFilters();
 
-  const handleFilterChange = (key: keyof IncidentFilters, value: string) => {
-    onFiltersChange({ ...filters, [key]: value });
-  };
+  const handleSearchChange = useCallback(
+    (searchValue: string) => {
+      onFiltersChange({ ...filters, search: searchValue });
+    },
+    [filters, onFiltersChange]
+  );
 
-  const removeFilter = (key: keyof IncidentFilters) => {
-    handleFilterChange(key, '');
-  };
+  const {
+    searchValue,
+    handleSearchChange: handleLocalSearchChange,
+    handleSearchClear
+  } = useDebouncedSearch({
+    initialValue: filters.search,
+    onSearchChange: handleSearchChange,
+    delay: 500
+  });
 
-  const activeFiltersCount = getActiveFiltersCount(filters);
+  const handleFilterChange = useCallback(
+    (key: keyof IncidentFilters, value: string) => {
+      if (key === 'search') {
+        handleLocalSearchChange(value);
+      } else {
+        onFiltersChange({ ...filters, [key]: value });
+      }
+    },
+    [filters, onFiltersChange, handleLocalSearchChange]
+  );
+
+  const removeFilter = useCallback(
+    (key: keyof IncidentFilters) => {
+      if (key === 'search') {
+        handleSearchClear();
+      } else {
+        handleFilterChange(key, '');
+      }
+    },
+    [handleFilterChange, handleSearchClear]
+  );
+
+  const handleToggleAdvanced = useCallback(() => {
+    setShowAdvanced(!showAdvanced);
+  }, [showAdvanced, setShowAdvanced]);
+
+  const currentFilters = useMemo(
+    () => ({
+      ...filters,
+      search: searchValue
+    }),
+    [filters, searchValue]
+  );
+
+  const activeFiltersCount = useMemo(() => {
+    return Object.values(currentFilters).filter((value) => value !== '').length;
+  }, [currentFilters]);
 
   return (
     <Card className="w-full flex flex-col gap-1">
@@ -30,11 +76,11 @@ export function IncidentFiltersComponent({
           <FilterHeader
             activeFiltersCount={activeFiltersCount}
             showAdvanced={showAdvanced}
-            onToggleAdvanced={() => setShowAdvanced(!showAdvanced)}
+            onToggleAdvanced={handleToggleAdvanced}
             onReset={onReset}
-            searchValue={filters.search}
-            onSearchChange={(value) => handleFilterChange('search', value)}
-            onSearchClear={() => removeFilter('search')}
+            searchValue={searchValue}
+            onSearchChange={handleLocalSearchChange}
+            onSearchClear={handleSearchClear}
           />
         </CardTitle>
       </CardHeader>
@@ -44,7 +90,7 @@ export function IncidentFiltersComponent({
 
         {activeFiltersCount > 0 && (
           <ActiveFilters
-            filters={filters}
+            filters={currentFilters}
             activeFiltersCount={activeFiltersCount}
             onRemoveFilter={removeFilter}
             formatFilterValue={formatFilterValue}
@@ -53,4 +99,6 @@ export function IncidentFiltersComponent({
       </CardContent>
     </Card>
   );
-}
+});
+
+export { IncidentFiltersComponent };

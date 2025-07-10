@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '~/components/ui/dropdown-menu';
+import { capitalizeFirst } from '~/utils/utilsCapitalizeFirst';
 
 interface IncidentRowProps {
   incident: RacingIncident;
@@ -113,10 +114,10 @@ export const IncidentRow = ({ incident }: IncidentRowProps) => {
           </div>
         </TableCell>
         <TableCell>
-          <Badge className={severityColor}>{incident.severity}</Badge>
+          <Badge className={severityColor}>{capitalizeFirst(incident.severity)}</Badge>
         </TableCell>
         <TableCell>
-          <Badge className={statusColor}>{incident.status}</Badge>
+          <Badge className={statusColor}>{capitalizeFirst(incident.status)}</Badge>
         </TableCell>
         <TableCell>
           <div className="space-y-1">

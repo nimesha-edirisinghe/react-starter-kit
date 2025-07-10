@@ -3,15 +3,19 @@ import { FilterSelect } from './FilterSelect';
 import { IncidentFilters } from '../../types/incident-filters';
 import { useIncidentsQuery } from '~/api/queries/incident/useIncidentsQuery';
 import { useFilterOptions } from '../../hooks/useFilterOptions';
+import { memo } from 'react';
 
 interface AdvancedFiltersProps {
   filters: IncidentFilters;
   onFilterChange: (key: keyof IncidentFilters, value: string) => void;
 }
 
-export function AdvancedFilters({ filters, onFilterChange }: AdvancedFiltersProps) {
+const AdvancedFilters = memo(function AdvancedFilters({
+  filters,
+  onFilterChange
+}: AdvancedFiltersProps) {
   const { data: incidents, isLoading } = useIncidentsQuery();
-  const { filterOptions } = useFilterOptions(incidents);
+  const { filterOptions } = useFilterOptions(Array.isArray(incidents) ? incidents : []);
 
   if (isLoading) {
     return (
@@ -68,4 +72,6 @@ export function AdvancedFilters({ filters, onFilterChange }: AdvancedFiltersProp
       </div>
     </div>
   );
-}
+});
+
+export { AdvancedFilters };

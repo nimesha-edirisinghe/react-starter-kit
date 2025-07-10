@@ -6,6 +6,7 @@ import { useIncidentsQuery } from '~/api/queries/incident/useIncidentsQuery';
 import type { RacingIncident } from '~/features/incident/types/incident';
 import { ErrorCard } from '~/components/common/ErrorCard';
 import { LoadingCard } from '~/components/common/LoadingCard';
+import { capitalizeFirst } from '~/utils/utilsCapitalizeFirst';
 
 export function LiveIncidentFeed() {
   const { data: incidentsData, isLoading, error } = useIncidentsQuery();
@@ -105,7 +106,7 @@ export function LiveIncidentFeed() {
                         : 'bg-red-100 text-red-800'
                   }
                 >
-                  {incident.status}
+                  {capitalizeFirst(incident.status)}
                 </Badge>
               </div>
             </div>

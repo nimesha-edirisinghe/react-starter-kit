@@ -1,21 +1,61 @@
-import { useState, useCallback } from 'react';
-import { IncidentFilters } from '../types/incident-filters';
+import { useEffect } from 'react';
+import { useIncidentFiltersStore } from '../store/incident-filters-store';
 
 export function useIncidentFilters() {
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  const {
+    showAdvanced,
+    setShowAdvanced,
+    currentPage,
+    handleNavigation,
+    getActiveFiltersCount,
+    getAdvancedFiltersCount,
+    formatFilterValue
+  } = useIncidentFiltersStore();
 
-  const getActiveFiltersCount = useCallback((filters: IncidentFilters) => {
-    return Object.values(filters).filter((value) => value !== '').length;
-  }, []);
+  // Track current page and handle navigation
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const getCurrentPage = () => window.location.pathname;
+      const newPage = getCurrentPage();
 
-  const getAdvancedFiltersCount = useCallback((filters: IncidentFilters) => {
-    const advancedFields = ['category', 'severity', 'status', 'type', 'location'];
-    return advancedFields.filter((field) => filters[field as keyof IncidentFilters] !== '').length;
-  }, []);
+      if (newPage !== currentPage) {
+        handleNavigation(newPage);
+      }
 
-  const formatFilterValue = useCallback((value: string) => {
-    return value.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
-  }, []);
+      const handlePopState = () => {
+        const page = getCurrentPage();
+        handleNavigation(page);
+      };
+
+      // Handle programmatic navigation (clicking links)
+      const originalPushState = window.history.pushState;
+      const originalReplaceState = window.history.replaceState;
+
+      window.history.pushState = function (...args) {
+        originalPushState.apply(window.history, args);
+        setTimeout(() => {
+          const page = getCurrentPage();
+          handleNavigation(page);
+        }, 0);
+      };
+
+      window.history.replaceState = function (...args) {
+        originalReplaceState.apply(window.history, args);
+        setTimeout(() => {
+          const page = getCurrentPage();
+          handleNavigation(page);
+        }, 0);
+      };
+
+      window.addEventListener('popstate', handlePopState);
+
+      return () => {
+        window.removeEventListener('popstate', handlePopState);
+        window.history.pushState = originalPushState;
+        window.history.replaceState = originalReplaceState;
+      };
+    }
+  }, [currentPage, handleNavigation]);
 
   return {
     showAdvanced,

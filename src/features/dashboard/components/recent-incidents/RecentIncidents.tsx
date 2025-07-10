@@ -5,6 +5,7 @@ import { useRecentIncidentsQuery } from '~/api/queries/dashboard/useRecentIncide
 import { getStatusColor } from '~/utils/utilsGetStatusColor';
 import { Button } from '~/components/ui/button';
 import { LoadingCard } from '~/components/common/LoadingCard';
+import { capitalizeFirst } from '~/utils/utilsCapitalizeFirst';
 
 export function RecentIncidents() {
   const { data: recentIncidents, isLoading, error, refetch } = useRecentIncidentsQuery();
@@ -93,7 +94,9 @@ export function RecentIncidents() {
                     {incident.type.replace('_', ' ').replace(/\b\w/g, (l) => l.toUpperCase())} -{' '}
                     {incident.raceCategory}
                   </h4>
-                  <Badge className={getStatusColor(incident.status)}>{incident.status}</Badge>
+                  <Badge className={getStatusColor(incident.status)}>
+                    {capitalizeFirst(incident.status)}
+                  </Badge>
                 </div>
 
                 <p className="text-sm text-slate-600">{incident.description}</p>

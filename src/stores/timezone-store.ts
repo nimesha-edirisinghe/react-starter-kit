@@ -8,7 +8,7 @@ export interface Country {
   flag: string;
 }
 
-// Popular countries with their timezones - you can expand this list
+// Popular countries with their timezones
 export const COUNTRIES: Country[] = [
   { code: 'US', name: 'United States', timezone: 'America/New_York', flag: '🇺🇸' },
   { code: 'GB', name: 'United Kingdom', timezone: 'Europe/London', flag: '🇬🇧' },
@@ -39,7 +39,7 @@ interface TimezoneState {
 export const useTimezoneStore = create<TimezoneState>()(
   persist(
     (set, get) => ({
-      selectedCountry: COUNTRIES[0], // Default to US
+      selectedCountry: COUNTRIES.find((country) => country.code === 'LK') || COUNTRIES[0], // Default to Sri Lanka
 
       setSelectedCountry: (country) => {
         set({ selectedCountry: country });
