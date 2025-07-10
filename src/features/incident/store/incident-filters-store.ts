@@ -67,7 +67,7 @@ export const useIncidentFiltersStore = create<IncidentFiltersState>()(
 
       getAdvancedFiltersCount: () => {
         const { filters } = get();
-        const advancedFields = ['category', 'severity', 'status', 'type', 'location'];
+        const advancedFields = ['category', 'severity', 'status', 'type', 'location', 'circuit'];
         return advancedFields.filter((field) => filters[field as keyof IncidentFilters] !== '')
           .length;
       },
@@ -80,10 +80,13 @@ export const useIncidentFiltersStore = create<IncidentFiltersState>()(
       name: 'incident-filters-storage',
       storage: createJSONStorage(() => sessionStorage),
       partialize: (state) => ({
-        // Only persist showAdvanced and currentPage for navigation detection
-        // Don't persist filters as they come from URL params
         showAdvanced: state.showAdvanced,
-        currentPage: state.currentPage
+        currentPage: state.currentPage,
+        filters: {
+          search: state.filters.search,
+          location: state.filters.location,
+          circuit: state.filters.circuit // Also persist circuit filter
+        }
       }),
       onRehydrateStorage: () => (state, error) => {
         if (error) {

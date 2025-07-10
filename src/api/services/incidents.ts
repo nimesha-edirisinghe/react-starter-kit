@@ -8,6 +8,7 @@ export interface IncidentSearchParams {
   severity?: string;
   status?: string;
   type?: string;
+  circuit?: string;
   location?: string;
   page?: number;
   limit?: number;

@@ -10,6 +10,7 @@ interface FilterHeaderProps {
   searchValue: string;
   onSearchChange: (value: string) => void;
   onSearchClear: () => void;
+  isLoading?: boolean;
 }
 
 export function FilterHeader({
@@ -19,14 +20,20 @@ export function FilterHeader({
   onReset,
   searchValue,
   onSearchChange,
-  onSearchClear
+  onSearchClear,
+  isLoading = false
 }: FilterHeaderProps) {
   const isDisabledResetBtn = activeFiltersCount === 0;
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 ">
         <div className="flex items-center gap-2 w-xl">
-          <SearchFilter value={searchValue} onChange={onSearchChange} onClear={onSearchClear} />
+          <SearchFilter
+            value={searchValue}
+            onChange={onSearchChange}
+            onClear={onSearchClear}
+            disabled={isLoading}
+          />
         </div>
         <div className="flex items-center gap-2">
           <Button
@@ -34,6 +41,7 @@ export function FilterHeader({
             size="sm"
             onClick={onToggleAdvanced}
             className="flex items-center gap-2 cursor-pointer"
+            disabled={isLoading}
           >
             <Filter className="h-4 w-4 " />
             <span>Advanced</span>
@@ -45,7 +53,7 @@ export function FilterHeader({
             size="sm"
             onClick={onReset}
             className="flex items-center gap-2 bg-transparent cursor-pointer"
-            disabled={isDisabledResetBtn}
+            disabled={isDisabledResetBtn || isLoading}
           >
             <RotateCcw className="h-4 w-4" />
             <span>Reset All</span>

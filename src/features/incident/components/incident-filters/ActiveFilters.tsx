@@ -8,21 +8,24 @@ interface ActiveFiltersProps {
   activeFiltersCount: number;
   onRemoveFilter: (key: keyof IncidentFilters) => void;
   formatFilterValue: (value: string) => string;
+  isLoading?: boolean;
 }
 
 export function ActiveFilters({
   filters,
   activeFiltersCount,
   onRemoveFilter,
-  formatFilterValue
+  formatFilterValue,
+  isLoading = false
 }: ActiveFiltersProps) {
   const filterBadges = [
     { key: 'search' as const, label: 'Search', value: filters.search, quoted: true },
-    { key: 'category' as const, label: 'Category', value: filters.category },
-    { key: 'severity' as const, label: 'Severity', value: filters.severity, format: true },
     { key: 'type' as const, label: 'Type', value: filters.type, format: true },
-    { key: 'status' as const, label: 'Status', value: filters.status, format: true },
-    { key: 'location' as const, label: 'Location', value: filters.location }
+    { key: 'category' as const, label: 'Category', value: filters.category },
+    { key: 'circuit' as const, label: 'Circuit', value: filters.circuit },
+    { key: 'location' as const, label: 'Location', value: filters.location },
+    { key: 'severity' as const, label: 'Severity', value: filters.severity, format: true },
+    { key: 'status' as const, label: 'Status', value: filters.status, format: true }
   ];
 
   return (
@@ -42,12 +45,15 @@ export function ActiveFilters({
 
           return (
             <Badge key={key} variant="secondary" className="flex items-center gap-1 pr-1">
-              <span className="text-xs">{badgeText}</span>
+              <span className={`text-xs ${isLoading ? 'opacity-50' : ''}`}>{badgeText}</span>
               <Button
                 variant="ghost"
                 size="sm"
-                className="h-4 w-4 p-0 hover:bg-muted-foreground/20 cursor-pointer"
+                className={`h-4 w-4 p-0 hover:bg-muted-foreground/20 ${
+                  isLoading ? 'cursor-not-allowed' : 'cursor-pointer'
+                }`}
                 onClick={() => onRemoveFilter(key)}
+                disabled={isLoading}
               >
                 <X className="h-3 w-3" />
               </Button>

@@ -6,9 +6,10 @@ interface SearchFilterProps {
   value: string;
   onChange: (value: string) => void;
   onClear: () => void;
+  disabled?: boolean;
 }
 
-export function SearchFilter({ value, onChange, onClear }: SearchFilterProps) {
+export function SearchFilter({ value, onChange, onClear, disabled = false }: SearchFilterProps) {
   return (
     <div className="flex flex-col gap-2 w-full">
       <div className="relative max-w-md">
@@ -17,14 +18,18 @@ export function SearchFilter({ value, onChange, onClear }: SearchFilterProps) {
           placeholder="Search incidents..."
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="pl-10 pr-10"
+          className={`pl-10 pr-10 ${disabled ? 'cursor-not-allowed' : ''}`}
+          disabled={disabled}
         />
         {value && (
           <Button
             variant="ghost"
             size="sm"
-            className="absolute right-1 top-1/2 h-7 w-7 -translate-y-1/2 p-0 hover:bg-muted"
+            className={`absolute right-1 top-1/2 h-7 w-7 -translate-y-1/2 p-0 hover:bg-muted ${
+              disabled ? 'cursor-not-allowed' : ''
+            }`}
             onClick={onClear}
+            disabled={disabled}
           >
             <X className="h-3 w-3" />
           </Button>

@@ -6,6 +6,7 @@ import { useIncidentFilters } from '../../hooks/useIncidentFilters';
 import { useDebouncedSearch } from '../../hooks/useDebouncedSearch';
 import { IncidentFilters, IncidentFiltersProps } from '../../types/incident-filters';
 import { useCallback, memo, useMemo } from 'react';
+import { useIncidentsQuery } from '~/api/queries/incident/useIncidentsQuery';
 
 const IncidentFiltersComponent = memo(function IncidentFiltersComponent({
   filters,
@@ -13,6 +14,7 @@ const IncidentFiltersComponent = memo(function IncidentFiltersComponent({
   onReset
 }: Omit<IncidentFiltersProps, 'onAddIncident'>) {
   const { showAdvanced, setShowAdvanced, formatFilterValue } = useIncidentFilters();
+  const { isLoading } = useIncidentsQuery();
 
   const handleSearchChange = useCallback(
     (searchValue: string) => {
@@ -81,6 +83,7 @@ const IncidentFiltersComponent = memo(function IncidentFiltersComponent({
             searchValue={searchValue}
             onSearchChange={handleLocalSearchChange}
             onSearchClear={handleSearchClear}
+            isLoading={isLoading}
           />
         </CardTitle>
       </CardHeader>
@@ -94,6 +97,7 @@ const IncidentFiltersComponent = memo(function IncidentFiltersComponent({
             activeFiltersCount={activeFiltersCount}
             onRemoveFilter={removeFilter}
             formatFilterValue={formatFilterValue}
+            isLoading={isLoading}
           />
         )}
       </CardContent>
