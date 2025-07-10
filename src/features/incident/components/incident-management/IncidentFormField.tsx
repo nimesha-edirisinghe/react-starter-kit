@@ -78,18 +78,34 @@ export default function IncidentFormFields({
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="location" className="text-sm font-medium">
-              Location <span className="text-destructive">*</span>
-            </Label>
-            <Input
-              id="location"
-              className={`h-10 ${errors.location ? 'border-destructive' : ''}`}
-              placeholder="e.g., Monaco Grand Prix - Turn 3"
-              value={formData.location}
-              onChange={(e) => updateFormData('location', e.target.value)}
-              maxLength={100}
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="circuit" className="text-sm font-medium">
+                Circuit <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="circuit"
+                className={`h-10 ${errors.circuit ? 'border-destructive' : ''}`}
+                placeholder="e.g., Silverstone Circuit"
+                value={formData.circuit}
+                onChange={(e) => updateFormData('circuit', e.target.value)}
+                maxLength={100}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="location" className="text-sm font-medium">
+                Location <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="location"
+                className={`h-10 ${errors.location ? 'border-destructive' : ''}`}
+                placeholder="e.g., Turn 3"
+                value={formData.location}
+                onChange={(e) => updateFormData('location', e.target.value)}
+                maxLength={100}
+              />
+            </div>
           </div>
         </div>
 

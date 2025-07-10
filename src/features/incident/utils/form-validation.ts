@@ -5,6 +5,7 @@ export const validateIncidentForm = (formData: IncidentFormData): Record<string,
 
   if (!formData.type) errors.type = 'Incident Type is required';
   if (!formData.raceCategory) errors.raceCategory = 'Category is required';
+  if (!formData.circuit.trim()) errors.circuit = 'Circuit is required';
   if (!formData.location.trim()) errors.location = 'Location is required';
   if (!formData.severity) errors.severity = 'Severity is required';
   if (!formData.status) errors.status = 'Status is required';
@@ -19,6 +20,10 @@ export const validateIncidentForm = (formData: IncidentFormData): Record<string,
 
   if (formData.location.length > 100) {
     errors.location = 'Location must not exceed 100 characters';
+  }
+
+  if (formData.circuit.length > 100) {
+    errors.circuit = 'Circuit must not exceed 100 characters';
   }
 
   if (formData.description.length > 255) {

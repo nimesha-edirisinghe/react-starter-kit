@@ -29,20 +29,8 @@ export const FALLBACK_FILTER_OPTIONS: FilterOptions = {
     { value: 'resolved', label: 'Resolved', color: 'bg-green-500' },
     { value: 'pending', label: 'Pending', color: 'bg-red-500' }
   ],
-  location: [
-    { value: 'Turn 1', label: 'Turn 1' },
-    { value: 'Turn 2', label: 'Turn 2' },
-    { value: 'Turn 3', label: 'Turn 3' },
-    { value: 'Turn 4', label: 'Turn 4' },
-    { value: 'Pit Lane', label: 'Pit Lane' },
-    { value: 'Sector 1', label: 'Sector 1' },
-    { value: 'Sector 2', label: 'Sector 2' },
-    { value: 'Sector 3', label: 'Sector 3' },
-    { value: 'Start/Finish', label: 'Start/Finish' },
-    { value: 'Chicane', label: 'Chicane' },
-    { value: 'Hairpin', label: 'Hairpin' },
-    { value: 'Stage 4', label: 'Stage 4' }
-  ]
+  location: [],
+  circuit: []
 };
 
 export function generateFilterOptions(incidents: RacingIncident[]): FilterOptions {
@@ -55,6 +43,7 @@ export function generateFilterOptions(incidents: RacingIncident[]): FilterOption
   const types = [...new Set(incidents.map((incident) => incident.type))];
   const statuses = [...new Set(incidents.map((incident) => incident.status))];
   const locations = [...new Set(incidents.map((incident) => incident.location))];
+  const circuits = [...new Set(incidents.map((incident) => incident.circuit))];
 
   const severityColors = {
     low: 'bg-green-500',
@@ -91,6 +80,10 @@ export function generateFilterOptions(incidents: RacingIncident[]): FilterOption
     location: locations.map((location) => ({
       value: location,
       label: location
+    })),
+    circuit: circuits.map((circuit) => ({
+      value: circuit,
+      label: circuit
     }))
   };
 }

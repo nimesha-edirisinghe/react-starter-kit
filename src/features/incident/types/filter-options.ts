@@ -10,4 +10,5 @@ export interface FilterOptions {
   type: FilterOption[];
   status: FilterOption[];
   location: FilterOption[];
+  circuit: FilterOption[];
 }
