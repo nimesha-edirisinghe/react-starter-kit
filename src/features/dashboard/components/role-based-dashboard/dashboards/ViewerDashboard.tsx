@@ -1,6 +1,10 @@
 import { DashboardStats } from '../../dashboard-stats/DashboardStats';
+import { useIncidentWebSocket } from '~/features/incident/hooks/useIncidentWebSocket';
 
 export function ViewerDashboard() {
+  // Initialize WebSocket connection for real-time updates
+  useIncidentWebSocket();
+
   return (
     <div className="space-y-6">
       <div>

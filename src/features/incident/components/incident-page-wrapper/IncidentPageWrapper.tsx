@@ -5,8 +5,12 @@ import { useCreateIncidentMutation } from '~/api/mutations/useCreateIncidentMuta
 import { IncidentFormData } from '../../types/incident';
 import { IncidentTable } from '../incident-table/IncidentTable';
 import AddIncidentDialog from '../incident-management/AddIncidentDialog';
+import { useIncidentWebSocket } from '../../hooks/useIncidentWebSocket';
 
 export default function IncidentPageWrapper() {
+  // Initialize WebSocket connection
+  useIncidentWebSocket();
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [formData, setFormData] = useState<IncidentFormData>({
     type: '',

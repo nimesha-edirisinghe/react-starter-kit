@@ -1,8 +1,12 @@
 import { DashboardStats } from '../../dashboard-stats/DashboardStats';
 import { IncidentCharts } from '../../incident-charts/IncidentCharts';
 import { RecentIncidents } from '../../recent-incidents/RecentIncidents';
+import { useIncidentWebSocket } from '~/features/incident/hooks/useIncidentWebSocket';
 
 export function StewardDashboard() {
+  // Initialize WebSocket connection for real-time updates
+  useIncidentWebSocket();
+
   return (
     <div className="space-y-6">
       <div>
