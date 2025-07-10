@@ -10,10 +10,10 @@ export const FALLBACK_FILTER_OPTIONS: FilterOptions = {
     { value: 'NASCAR', label: 'NASCAR' }
   ],
   severity: [
-    { value: 'low', label: 'Low', color: 'bg-green-500' },
-    { value: 'medium', label: 'Medium', color: 'bg-yellow-500' },
+    { value: 'critical', label: 'Critical', color: 'bg-red-500' },
     { value: 'high', label: 'High', color: 'bg-orange-500' },
-    { value: 'critical', label: 'Critical', color: 'bg-red-500' }
+    { value: 'medium', label: 'Medium', color: 'bg-yellow-500' },
+    { value: 'low', label: 'Low', color: 'bg-green-500' }
   ],
   type: [
     { value: 'collision', label: 'Collision' },
@@ -46,10 +46,10 @@ export function generateFilterOptions(incidents: RacingIncident[]): FilterOption
   const circuits = [...new Set(incidents.map((incident) => incident.circuit))];
 
   const severityColors = {
-    low: 'bg-green-500',
-    medium: 'bg-yellow-500',
+    critical: 'bg-red-500',
     high: 'bg-orange-500',
-    critical: 'bg-red-500'
+    medium: 'bg-yellow-500',
+    low: 'bg-green-500'
   };
 
   const statusColors = {
@@ -58,12 +58,20 @@ export function generateFilterOptions(incidents: RacingIncident[]): FilterOption
     pending: 'bg-red-500'
   };
 
+  // Sort severities in the specified order
+  const severityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
+  const sortedSeverities = [...severities].sort(
+    (a, b) =>
+      (severityOrder[a as keyof typeof severityOrder] ?? 999) -
+      (severityOrder[b as keyof typeof severityOrder] ?? 999)
+  );
+
   return {
     category: categories.map((cat) => ({
       value: cat,
       label: cat === 'F1' ? 'Formula 1' : cat
     })),
-    severity: severities.map((sev) => ({
+    severity: sortedSeverities.map((sev) => ({
       value: sev,
       label: sev.charAt(0).toUpperCase() + sev.slice(1),
       color: severityColors[sev as keyof typeof severityColors]
