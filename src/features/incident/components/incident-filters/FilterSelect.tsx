@@ -70,12 +70,12 @@ const FilterSelect = memo(function FilterSelect({
         <SelectTrigger className="w-full">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="max-h-[300px] overflow-y-auto scroll-smooth snap-y snap-mandatory">
           {sortedOptions.map((option) => (
             <SelectItem
               key={option.value}
               value={option.value}
-              className={option.isTemporary ? 'italic' : ''}
+              className={`snap-start ${option.isTemporary ? 'italic' : ''}`}
             >
               {option.color ? (
                 <div className="flex items-center gap-2">
