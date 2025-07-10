@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '~/components/ui/select';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 interface FilterOption {
   value: string;
@@ -23,6 +23,14 @@ interface FilterSelectProps {
   disabled?: boolean;
 }
 
+// Severity order map for custom sorting
+const SEVERITY_ORDER = {
+  critical: 0,
+  high: 1,
+  medium: 2,
+  low: 3
+};
+
 const FilterSelect = memo(function FilterSelect({
   label = '',
   value,
@@ -37,7 +45,22 @@ const FilterSelect = memo(function FilterSelect({
       ? { value, label: value, isTemporary: true }
       : undefined;
 
-  const allOptions = selectedOption ? [...options, selectedOption] : options;
+  // Sort options and include the selected option if it exists
+  const sortedOptions = useMemo(() => {
+    const allOptions = selectedOption ? [...options, selectedOption] : options;
+
+    const isSeverityFilter = allOptions.some((opt) => opt.value in SEVERITY_ORDER);
+    if (isSeverityFilter) {
+      return [...allOptions].sort((a, b) => {
+        const orderA = SEVERITY_ORDER[a.value as keyof typeof SEVERITY_ORDER] ?? 999;
+        const orderB = SEVERITY_ORDER[b.value as keyof typeof SEVERITY_ORDER] ?? 999;
+        return orderA - orderB;
+      });
+    }
+
+    // Sort other options alphabetically by label
+    return [...allOptions].sort((a, b) => a.label.localeCompare(b.label));
+  }, [options, selectedOption]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -48,7 +71,7 @@ const FilterSelect = memo(function FilterSelect({
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
-          {allOptions.map((option) => (
+          {sortedOptions.map((option) => (
             <SelectItem
               key={option.value}
               value={option.value}

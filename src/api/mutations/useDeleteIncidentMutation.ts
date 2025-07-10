@@ -73,47 +73,15 @@ export const useDeleteIncidentMutation = () => {
     queryClient.invalidateQueries({ queryKey: dashboardQueryKeys.recentIncidents() });
   };
 
-  return useMutation({
+  return useMutation<void, Error, string>({
     mutationFn: deleteIncident,
-    onMutate: async (deletedId: string) => {
-      // Cancel any outgoing refetches
-      await queryClient.cancelQueries({ queryKey: incidentQueryKeys.all });
-
-      // Snapshot the previous values
-      const previousIncidents = queryClient.getQueryData(incidentQueryKeys.list());
-      const previousFilteredQueries = queryClient.getQueriesData<IncidentsResponse>({
-        queryKey: ['incidents', 'filtered']
-      });
-
-      // Optimistically update
-      removeIncidentFromList(deletedId);
-
-      // Return context with the snapshotted values
-      return { previousIncidents, previousFilteredQueries };
-    },
-    onSuccess: (_, deletedId: string) => {
+    onSuccess: (_, deletedId) => {
+      // Update the cache by removing the deleted incident
       removeIncidentFromList(deletedId);
       invalidateDashboard();
     },
-    onError: (error, _, context) => {
+    onError: (error) => {
       console.error('Failed to delete incident:', error);
-      // Rollback to the snapshots
-      if (context?.previousIncidents) {
-        queryClient.setQueryData(incidentQueryKeys.list(), context.previousIncidents);
-      }
-      if (context?.previousFilteredQueries) {
-        context.previousFilteredQueries.forEach(([queryKey, data]) => {
-          if (data) {
-            queryClient.setQueryData(queryKey, data);
-          }
-        });
-      }
-      // Invalidate to refetch
-      queryClient.invalidateQueries({ queryKey: incidentQueryKeys.all });
-    },
-    onSettled: () => {
-      // Always refetch after error or success to ensure consistency
-      queryClient.invalidateQueries({ queryKey: incidentQueryKeys.all });
     }
   });
 };

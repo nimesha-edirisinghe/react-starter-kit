@@ -4,6 +4,12 @@ import { RacingIncident } from '~/features/incident/types/incident';
 import { incidentQueryKeys, dashboardQueryKeys } from '~/lib/tanstack/queryKeys';
 import { IncidentsResponse } from '../services/incidents';
 import { useUrlParams } from '~/features/incident/hooks/useUrlParams';
+import type { IncidentFormData } from '~/features/incident/types/incident';
+
+interface EditIncidentPayload {
+  id: string;
+  incident: IncidentFormData;
+}
 
 export const useEditIncidentMutation = () => {
   const queryClient = useQueryClient();
@@ -93,75 +99,15 @@ export const useEditIncidentMutation = () => {
     queryClient.invalidateQueries({ queryKey: dashboardQueryKeys.recentIncidents() });
   };
 
-  return useMutation({
+  return useMutation<RacingIncident, Error, EditIncidentPayload>({
     mutationFn: editIncident,
-    onMutate: async (variables) => {
-      // Cancel any outgoing refetches
-      await queryClient.cancelQueries({ queryKey: incidentQueryKeys.all });
-
-      // Snapshot the previous values
-      const previousIncidents =
-        queryClient.getQueryData<RacingIncident[]>(incidentQueryKeys.list()) || [];
-      const previousFilteredQueries = queryClient.getQueriesData<IncidentsResponse>({
-        queryKey: ['incidents', 'filtered']
-      });
-
-      // Get the current incident to merge with updates
-      const currentIncident = previousIncidents.find(
-        (incident: RacingIncident) => incident.id === variables.id
-      );
-
-      if (!currentIncident) {
-        return { previousIncidents, previousFilteredQueries };
-      }
-
-      // Create an optimistic incident by merging current data with updates
-      const optimisticIncident: RacingIncident = {
-        ...currentIncident,
-        type: variables.incident.type || currentIncident.type,
-        raceCategory: variables.incident.raceCategory || currentIncident.raceCategory,
-        location: variables.incident.location,
-        circuit: variables.incident.circuit,
-        severity: variables.incident.severity || currentIncident.severity,
-        drivers: variables.incident.drivers.split(',').map((d) => d.trim()),
-        teams: variables.incident.teams.split(',').map((t) => t.trim()),
-        lapNumber: parseInt(variables.incident.lapNumber.toString()),
-        raceTime: variables.incident.raceTime,
-        description: variables.incident.description,
-        status: variables.incident.status || currentIncident.status,
-        stewardNotes: variables.incident.stewardNotes,
-        timestamp: new Date().toISOString()
-      };
-
-      // Optimistically update
-      updateIncidentInList(optimisticIncident);
-
-      // Return context with the snapshotted values
-      return { previousIncidents, previousFilteredQueries };
-    },
     onSuccess: (updatedIncident) => {
+      // Update the cache with the edited incident
       updateIncidentInList(updatedIncident);
       invalidateDashboard();
     },
-    onError: (error, _, context) => {
+    onError: (error) => {
       console.error('Failed to edit incident:', error);
-      // Rollback to the snapshots
-      if (context?.previousIncidents) {
-        queryClient.setQueryData(incidentQueryKeys.list(), context.previousIncidents);
-      }
-      if (context?.previousFilteredQueries) {
-        context.previousFilteredQueries.forEach(([queryKey, data]) => {
-          if (data) {
-            queryClient.setQueryData(queryKey, data);
-          }
-        });
-      }
-      // Invalidate to refetch
-      queryClient.invalidateQueries({ queryKey: incidentQueryKeys.all });
-    },
-    onSettled: () => {
-      // Always refetch after error or success to ensure consistency
-      queryClient.invalidateQueries({ queryKey: incidentQueryKeys.all });
     }
   });
 };

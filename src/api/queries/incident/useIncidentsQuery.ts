@@ -11,8 +11,10 @@ export function useIncidentsQuery() {
   return useQuery({
     queryKey: incidentQueryKeys.list(),
     queryFn: () => getIncidents(),
-    staleTime: 20 * 60 * 1000,
-    gcTime: 10 * 60 * 1000
+    staleTime: Infinity,
+    gcTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false
   });
 }
 
@@ -20,10 +22,11 @@ export function useFilteredIncidentsQuery(params: IncidentSearchParams) {
   return useQuery<IncidentsResponse>({
     queryKey: incidentQueryKeys.filtered(params),
     queryFn: () => getFilteredIncidents(params),
-    staleTime: 20 * 60 * 1000,
-    gcTime: 10 * 60 * 1000,
+    staleTime: Infinity,
+    gcTime: Infinity,
     enabled: true,
     placeholderData: (previousData) => previousData, // Use previous data as placeholder while fetching
-    refetchOnWindowFocus: false // Disable automatic refetch on window focus for better UX
+    refetchOnWindowFocus: false,
+    refetchOnMount: false
   });
 }
