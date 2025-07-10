@@ -25,7 +25,7 @@ export function NavMain({
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel>Modules</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
           const isActive =

@@ -63,7 +63,7 @@ const FilterSelect = memo(function FilterSelect({
   }, [options, selectedOption]);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 cursor-pointer">
       {label && <label className="text-xs font-medium text-muted-foreground">{label}</label>}
 
       <Select value={value} onValueChange={onChange} disabled={disabled}>

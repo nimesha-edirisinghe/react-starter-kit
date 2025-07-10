@@ -14,7 +14,7 @@ const AdvancedFilters = memo(function AdvancedFilters({
   onFilterChange
 }: AdvancedFiltersProps) {
   const { data: incidents, isLoading } = useIncidentsQuery();
-  const { filterOptions } = useFilterOptions(Array.isArray(incidents) ? incidents : []);
+  const { filterOptions } = useFilterOptions(Array.isArray(incidents) ? incidents : [], filters);
 
   return (
     <div className="space-y-2 animate-in slide-in-from-top-2 duration-200 mt-2">
@@ -24,7 +24,7 @@ const AdvancedFilters = memo(function AdvancedFilters({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-6 gap-3">
         <FilterSelect
           value={filters.type}
-          placeholder="All Types"
+          placeholder="Types"
           options={filterOptions.type}
           onChange={(value) => onFilterChange('type', value)}
           disabled={isLoading}
@@ -32,7 +32,7 @@ const AdvancedFilters = memo(function AdvancedFilters({
 
         <FilterSelect
           value={filters.category}
-          placeholder="All Categories"
+          placeholder="Categories"
           options={filterOptions.category}
           onChange={(value) => onFilterChange('category', value)}
           disabled={isLoading}
@@ -40,7 +40,7 @@ const AdvancedFilters = memo(function AdvancedFilters({
 
         <FilterSelect
           value={filters.circuit}
-          placeholder="All Circuits"
+          placeholder="Circuits"
           options={filterOptions.circuit}
           onChange={(value) => onFilterChange('circuit', value)}
           disabled={isLoading}
@@ -48,7 +48,7 @@ const AdvancedFilters = memo(function AdvancedFilters({
 
         <FilterSelect
           value={filters.location}
-          placeholder="All Locations"
+          placeholder="Locations"
           options={filterOptions.location}
           onChange={(value) => onFilterChange('location', value)}
           disabled={isLoading}
@@ -56,7 +56,7 @@ const AdvancedFilters = memo(function AdvancedFilters({
 
         <FilterSelect
           value={filters.severity}
-          placeholder="All Severities"
+          placeholder="Severities"
           options={filterOptions.severity}
           onChange={(value) => onFilterChange('severity', value)}
           disabled={isLoading}

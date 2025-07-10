@@ -1,5 +1,6 @@
 import { FilterOptions } from '../types/filter-options';
 import { RacingIncident } from '../types/incident';
+import { IncidentFilters } from '../types/incident-filters';
 
 export const FALLBACK_FILTER_OPTIONS: FilterOptions = {
   category: [
@@ -33,17 +34,34 @@ export const FALLBACK_FILTER_OPTIONS: FilterOptions = {
   circuit: []
 };
 
-export function generateFilterOptions(incidents: RacingIncident[]): FilterOptions {
+export function generateFilterOptions(
+  incidents: RacingIncident[],
+  currentFilters?: IncidentFilters
+): FilterOptions {
   if (!incidents || incidents.length === 0) {
     return FALLBACK_FILTER_OPTIONS;
   }
 
-  const categories = [...new Set(incidents.map((incident) => incident.raceCategory))];
-  const severities = [...new Set(incidents.map((incident) => incident.severity))];
-  const types = [...new Set(incidents.map((incident) => incident.type))];
-  const statuses = [...new Set(incidents.map((incident) => incident.status))];
-  const locations = [...new Set(incidents.map((incident) => incident.location))];
-  const circuits = [...new Set(incidents.map((incident) => incident.circuit))];
+  // Filter incidents based on current filters
+  const filteredIncidents = incidents.filter((incident) => {
+    if (!currentFilters) return true;
+
+    return (
+      (!currentFilters.type || incident.type === currentFilters.type) &&
+      (!currentFilters.category || incident.raceCategory === currentFilters.category) &&
+      (!currentFilters.severity || incident.severity === currentFilters.severity) &&
+      (!currentFilters.status || incident.status === currentFilters.status) &&
+      (!currentFilters.location || incident.location === currentFilters.location) &&
+      (!currentFilters.circuit || incident.circuit === currentFilters.circuit)
+    );
+  });
+
+  const categories = [...new Set(filteredIncidents.map((incident) => incident.raceCategory))];
+  const severities = [...new Set(filteredIncidents.map((incident) => incident.severity))];
+  const types = [...new Set(filteredIncidents.map((incident) => incident.type))];
+  const statuses = [...new Set(filteredIncidents.map((incident) => incident.status))];
+  const locations = [...new Set(filteredIncidents.map((incident) => incident.location))];
+  const circuits = [...new Set(filteredIncidents.map((incident) => incident.circuit))];
 
   const severityColors = {
     critical: 'bg-red-500',
