@@ -3,7 +3,7 @@ import { RacingIncident } from '../types/incident';
 
 export const FALLBACK_FILTER_OPTIONS: FilterOptions = {
   category: [
-    { value: 'F1', label: 'Formula 1' },
+    { value: 'F1', label: 'F1' },
     { value: 'Rally', label: 'Rally' },
     { value: 'MotoGP', label: 'MotoGP' },
     { value: 'IndyCar', label: 'IndyCar' },
@@ -69,7 +69,7 @@ export function generateFilterOptions(incidents: RacingIncident[]): FilterOption
   return {
     category: categories.map((cat) => ({
       value: cat,
-      label: cat === 'F1' ? 'Formula 1' : cat
+      label: cat === 'F1' ? 'F1' : cat
     })),
     severity: sortedSeverities.map((sev) => ({
       value: sev,

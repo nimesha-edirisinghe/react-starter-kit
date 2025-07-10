@@ -27,13 +27,15 @@ export const useIncidentWebSocket = () => {
   };
 
   const handleIncidentCreated = (newIncident: RacingIncident) => {
-    // Update unfiltered list
     const currentIncidents = queryClient.getQueryData<RacingIncident[]>(incidentQueryKeys.list());
     if (currentIncidents) {
-      queryClient.setQueryData<RacingIncident[]>(incidentQueryKeys.list(), [
-        newIncident,
-        ...currentIncidents
-      ]);
+      const incidentExists = currentIncidents.some((incident) => incident.id === newIncident.id);
+      if (!incidentExists) {
+        queryClient.setQueryData<RacingIncident[]>(incidentQueryKeys.list(), [
+          newIncident,
+          ...currentIncidents
+        ]);
+      }
     }
 
     // Update filtered lists and handle pagination
@@ -53,7 +55,9 @@ export const useIncidentWebSocket = () => {
             (!circuit || newIncident.circuit === circuit) &&
             (!location || newIncident.location === location);
 
-          if (matchesFilters) {
+          const incidentExists = data.incidents.some((incident) => incident.id === newIncident.id);
+
+          if (matchesFilters && !incidentExists) {
             const newTotal = data.pagination.total + 1;
             const newFiltered = data.pagination.filtered + 1;
             const itemsPerPage = data.pagination.limit;

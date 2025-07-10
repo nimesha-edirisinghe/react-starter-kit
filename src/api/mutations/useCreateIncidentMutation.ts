@@ -11,23 +11,20 @@ export const useCreateIncidentMutation = () => {
   const { getUrlParams } = useUrlParams();
 
   const addIncidentToList = (newIncident: RacingIncident) => {
-    // Update unfiltered list
-    const currentIncidents = queryClient.getQueryData<RacingIncident[]>(incidentQueryKeys.list());
-    if (currentIncidents) {
-      queryClient.setQueryData<RacingIncident[]>(incidentQueryKeys.list(), [
-        newIncident,
-        ...currentIncidents
-      ]);
-    }
+    queryClient.setQueryData<RacingIncident[]>(incidentQueryKeys.list(), (oldData) => {
+      if (!oldData) return [newIncident];
+      if (oldData.some((incident) => incident.id === newIncident.id)) {
+        return oldData;
+      }
+      return [newIncident, ...oldData];
+    });
 
-    // Update filtered lists and handle pagination
     queryClient
       .getQueriesData<IncidentsResponse>({
         queryKey: ['incidents', 'filtered']
       })
       .forEach(([queryKey, data]) => {
         if (data) {
-          // Check if the incident matches the current filters
           const { category, severity, status, type, circuit, location } = getUrlParams();
           const matchesFilters =
             (!category || newIncident.raceCategory === category) &&
@@ -38,52 +35,73 @@ export const useCreateIncidentMutation = () => {
             (!location || newIncident.location === location);
 
           if (matchesFilters) {
-            const newTotal = data.pagination.total + 1;
-            const newFiltered = data.pagination.filtered + 1;
-            const itemsPerPage = data.pagination.limit;
-            const newTotalPages = Math.ceil(newFiltered / itemsPerPage);
+            queryClient.setQueryData<IncidentsResponse>(queryKey, (oldData) => {
+              if (!oldData) return data;
 
-            // Add the new incident to the first page only
-            const updatedIncidents =
-              data.pagination.page === 1
-                ? [newIncident, ...data.incidents.slice(0, itemsPerPage - 1)]
-                : data.incidents;
-
-            queryClient.setQueryData<IncidentsResponse>(queryKey, {
-              ...data,
-              incidents: updatedIncidents,
-              pagination: {
-                ...data.pagination,
-                total: newTotal,
-                filtered: newFiltered,
-                totalPages: newTotalPages
-              },
-              counts: {
-                ...data.counts,
-                total: newTotal,
-                filtered: newFiltered,
-                showing: updatedIncidents.length
+              if (oldData.incidents.some((incident) => incident.id === newIncident.id)) {
+                return oldData;
               }
+
+              const newTotal = oldData.pagination.total + 1;
+              const newFiltered = oldData.pagination.filtered + 1;
+              const itemsPerPage = oldData.pagination.limit;
+              const newTotalPages = Math.ceil(newFiltered / itemsPerPage);
+
+              const updatedIncidents =
+                oldData.pagination.page === 1
+                  ? [newIncident, ...oldData.incidents.slice(0, itemsPerPage - 1)]
+                  : oldData.incidents;
+
+              return {
+                ...oldData,
+                incidents: updatedIncidents,
+                pagination: {
+                  ...oldData.pagination,
+                  total: newTotal,
+                  filtered: newFiltered,
+                  totalPages: newTotalPages
+                },
+                counts: {
+                  ...oldData.counts,
+                  total: newTotal,
+                  filtered: newFiltered,
+                  showing: updatedIncidents.length
+                }
+              };
             });
           }
         }
       });
   };
 
-  const invalidateDashboard = () => {
+  const invalidateQueries = () => {
     queryClient.invalidateQueries({ queryKey: dashboardQueryKeys.stats() });
     queryClient.invalidateQueries({ queryKey: dashboardQueryKeys.recentIncidents() });
+
+    queryClient.invalidateQueries({ queryKey: incidentQueryKeys.list() });
+    queryClient.invalidateQueries({
+      queryKey: ['incidents', 'filtered'],
+      refetchType: 'none'
+    });
   };
 
   return useMutation<RacingIncident, Error, IncidentFormData>({
     mutationFn: createIncident,
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: incidentQueryKeys.list() });
+      await queryClient.cancelQueries({ queryKey: ['incidents', 'filtered'] });
+    },
     onSuccess: (newIncident) => {
-      // Update the cache with the new incident
       addIncidentToList(newIncident);
-      invalidateDashboard();
+      invalidateQueries();
     },
     onError: (error) => {
       console.error('Failed to create incident:', error);
+      invalidateQueries();
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: incidentQueryKeys.list() });
+      queryClient.invalidateQueries({ queryKey: ['incidents', 'filtered'] });
     }
   });
 };
