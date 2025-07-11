@@ -5,6 +5,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '~/components/ui/select';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip';
 import { memo, useMemo } from 'react';
 
 interface FilterOption {
@@ -62,6 +63,32 @@ const FilterSelect = memo(function FilterSelect({
     return [...allOptions].sort((a, b) => a.label.localeCompare(b.label));
   }, [options, selectedOption]);
 
+  const renderOptionContent = (option: FilterOption) => {
+    const content = option.color ? (
+      <div className="flex items-center gap-2 truncate">
+        <div className={`w-2 h-2 ${option.color} rounded-full flex-shrink-0`} />
+        <span className="truncate">{option.label}</span>
+      </div>
+    ) : (
+      <span className="truncate">{option.label}</span>
+    );
+
+    if (option.label.length > 30) {
+      return (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>{content}</TooltipTrigger>
+            <TooltipContent className="bg-white border border-gray-200 shadow-sm text-black">
+              <span>{option.label}</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      );
+    }
+
+    return content;
+  };
+
   return (
     <div className="flex flex-col gap-2 cursor-pointer">
       {label && <label className="text-xs font-medium text-muted-foreground">{label}</label>}
@@ -70,21 +97,14 @@ const FilterSelect = memo(function FilterSelect({
         <SelectTrigger className="w-full">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
-        <SelectContent className="max-h-[300px] overflow-y-auto scroll-smooth snap-y snap-mandatory">
+        <SelectContent className="max-h-[300px] max-w-[280px] overflow-y-auto scroll-smooth snap-y snap-mandatory">
           {sortedOptions.map((option) => (
             <SelectItem
               key={option.value}
               value={option.value}
-              className={`snap-start ${option.isTemporary ? 'italic' : ''}`}
+              className={`snap-start truncate   ${option.isTemporary ? 'italic' : ''}`}
             >
-              {option.color ? (
-                <div className="flex items-center gap-2">
-                  <div className={`w-2 h-2 ${option.color} rounded-full`} />
-                  <span>{option.label}</span>
-                </div>
-              ) : (
-                <span>{option.label}</span>
-              )}
+              {renderOptionContent(option)}
             </SelectItem>
           ))}
         </SelectContent>

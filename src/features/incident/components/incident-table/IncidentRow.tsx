@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '~/components/ui/dropdown-menu';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '~/components/ui/tooltip';
 import { capitalizeFirst } from '~/utils/utilsCapitalizeFirst';
 
 interface IncidentRowProps {
@@ -55,6 +56,16 @@ export const IncidentRow = ({ incident }: IncidentRowProps) => {
     SEVERITY_COLORS[incident.severity as keyof typeof SEVERITY_COLORS] || SEVERITY_COLORS.default;
   const statusColor =
     STATUS_COLORS[incident.status as keyof typeof STATUS_COLORS] || STATUS_COLORS.default;
+
+  const isLongCircuitInfo = useMemo(
+    () => incident.circuit.length > 45 || incident.location.length > 25,
+    [incident.circuit, incident.location]
+  );
+
+  const hasLongDriverNames = useMemo(
+    () => incident.drivers.some((driver) => driver.length > 20),
+    [incident.drivers]
+  );
 
   const handleDelete = async () => {
     try {
@@ -100,6 +111,61 @@ export const IncidentRow = ({ incident }: IncidentRowProps) => {
     });
   }, [incident]);
 
+  const renderCircuitCell = () => {
+    const content = (
+      <div className="w-full max-w-[280px]">
+        <div className="font-medium truncate">{incident.circuit}</div>
+        <div className="text-sm text-slate-500 truncate">{incident.location}</div>
+      </div>
+    );
+
+    if (!isLongCircuitInfo) return content;
+
+    return (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>{content}</TooltipTrigger>
+          <TooltipContent className="bg-white border border-gray-200 shadow-sm text-black">
+            <div className="font-medium ">{incident.circuit}</div>
+            <div className="text-sm text-slate-500">{incident.location}</div>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+  };
+
+  const renderDriversCell = () => {
+    const content = (
+      <div className="space-y-1 max-w-[140px]">
+        {visibleDrivers.map((driver: string, index: number) => (
+          <div key={index} className="text-sm truncate">
+            {driver}
+          </div>
+        ))}
+        {hasMoreDrivers && (
+          <div className="text-xs text-slate-500">+{additionalDriversCount} more</div>
+        )}
+      </div>
+    );
+
+    if (!hasLongDriverNames && !hasMoreDrivers) return content;
+
+    return (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>{content}</TooltipTrigger>
+          <TooltipContent className="bg-white border border-gray-200 shadow-sm">
+            {incident.drivers.map((driver: string, index: number) => (
+              <div key={index} className="text-sm text-gray-700">
+                {driver}
+              </div>
+            ))}
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+  };
+
   return (
     <>
       <TableRow>
@@ -107,30 +173,14 @@ export const IncidentRow = ({ incident }: IncidentRowProps) => {
         <TableCell>
           <Badge variant="outline">{incident.raceCategory}</Badge>
         </TableCell>
-        <TableCell>
-          <div>
-            <div className="font-medium">{incident.circuit}</div>
-            <div className="text-sm text-slate-500">{incident.location}</div>
-          </div>
-        </TableCell>
+        <TableCell className="max-w-[270px] w-[270px]">{renderCircuitCell()}</TableCell>
         <TableCell>
           <Badge className={severityColor}>{capitalizeFirst(incident.severity)}</Badge>
         </TableCell>
         <TableCell>
           <Badge className={statusColor}>{capitalizeFirst(incident.status)}</Badge>
         </TableCell>
-        <TableCell>
-          <div className="space-y-1">
-            {visibleDrivers.map((driver: string, index: number) => (
-              <div key={index} className="text-sm">
-                {driver}
-              </div>
-            ))}
-            {hasMoreDrivers && (
-              <div className="text-xs text-slate-500">+{additionalDriversCount} more</div>
-            )}
-          </div>
-        </TableCell>
+        <TableCell>{renderDriversCell()}</TableCell>
         <TableCell>{incident.lapNumber}</TableCell>
         <TableCell className="text-center">
           <div className="flex items-center justify-center">
