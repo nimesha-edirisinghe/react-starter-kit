@@ -10,11 +10,12 @@ import { capitalizeFirst } from '~/utils/utilsCapitalizeFirst';
 
 export function LiveIncidentFeed() {
   const { data: incidentsData, isLoading, error } = useIncidentsQuery();
-  const [incidents, setIncidents] = useState<RacingIncident[]>(incidentsData || []);
+  const [incidents, setIncidents] = useState<RacingIncident[]>([]);
   const [isLive] = useState(true);
 
   useEffect(() => {
-    setIncidents(incidentsData || []);
+    const incidents = Array.isArray(incidentsData) ? incidentsData : incidentsData?.incidents || [];
+    setIncidents(incidents);
   }, [incidentsData]);
 
   useEffect(() => {

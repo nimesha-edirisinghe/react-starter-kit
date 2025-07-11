@@ -64,7 +64,7 @@ const AdvancedFilters = memo(function AdvancedFilters({
 
         <FilterSelect
           value={filters.status}
-          placeholder="All Statuses"
+          placeholder="Statuses"
           options={filterOptions.status}
           onChange={(value) => onFilterChange('status', value)}
           disabled={isLoading}

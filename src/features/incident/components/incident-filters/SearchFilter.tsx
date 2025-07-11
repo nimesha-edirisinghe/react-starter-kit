@@ -15,10 +15,10 @@ export function SearchFilter({ value, onChange, onClear, disabled = false }: Sea
       <div className="relative max-w-md">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
-          placeholder="Search incidents..."
+          placeholder="Search by Type, Category, Circuit, Location or Driver"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className={`pl-10 pr-10 ${disabled ? 'cursor-not-allowed' : ''}`}
+          className={`pl-10 pr-10 font-normal ${disabled ? 'cursor-not-allowed' : ''}  placeholder:text-sm placeholder:font-normal`}
           disabled={disabled}
         />
         {value && (
