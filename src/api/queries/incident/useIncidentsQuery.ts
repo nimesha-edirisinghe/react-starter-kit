@@ -25,7 +25,7 @@ export function useFilteredIncidentsQuery(params: IncidentSearchParams) {
     staleTime: Infinity,
     gcTime: Infinity,
     enabled: true,
-    placeholderData: (previousData) => previousData, // Use previous data as placeholder while fetching
+    placeholderData: (previousData) => previousData,
     refetchOnWindowFocus: false,
     refetchOnMount: false
   });

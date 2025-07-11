@@ -1,5 +1,4 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '~/components/ui/dialog';
-import { useIncidentsQuery } from '~/api/queries/incident/useIncidentsQuery';
 import { Badge } from '~/components/ui/badge';
 import {
   AlertTriangle,
@@ -12,7 +11,6 @@ import {
 } from 'lucide-react';
 import { capitalizeFirst } from '~/utils/utilsCapitalizeFirst';
 import { LoadingCard } from '~/components/common/LoadingCard';
-import { ErrorCard } from '~/components/common/ErrorCard';
 import type { RacingIncident } from '~/features/incident/types/incident';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
@@ -22,18 +20,19 @@ interface IncidentDetailsDialogProps {
   isOpen: boolean;
   onClose: () => void;
   status: string;
+  incidentsData: RacingIncident[] | { incidents: RacingIncident[] } | undefined;
 }
 
-export function IncidentDetailsDialog({ isOpen, onClose, status }: IncidentDetailsDialogProps) {
-  const { data: incidentsData, isLoading, error } = useIncidentsQuery();
+export function IncidentDetailsDialog({
+  isOpen,
+  onClose,
+  status,
+  incidentsData
+}: IncidentDetailsDialogProps) {
   const [expandedIncident, setExpandedIncident] = useState<string | null>(null);
 
-  if (isLoading) {
+  if (!incidentsData) {
     return <LoadingCard />;
-  }
-
-  if (error) {
-    return <ErrorCard />;
   }
 
   const incidents = Array.isArray(incidentsData) ? incidentsData : incidentsData?.incidents || [];

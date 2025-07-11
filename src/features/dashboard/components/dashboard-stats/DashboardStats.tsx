@@ -6,15 +6,26 @@ import { Skeleton } from '~/components/ui/skeleton';
 import { useState } from 'react';
 import { IncidentDetailsDialog } from './IncidentDetailsDialog';
 import { motion } from 'framer-motion';
+import { useIncidentsQuery } from '~/api/queries/incident/useIncidentsQuery';
 
 const MotionCard = motion(Card);
 
 export function DashboardStats() {
-  const { data: stats, isLoading, error, refetch } = useDashboardStatsQuery();
+  const {
+    data: stats,
+    isLoading: statsLoading,
+    error: statsError,
+    refetch
+  } = useDashboardStatsQuery();
+  const {
+    data: incidentsData,
+    isLoading: incidentsLoading,
+    error: incidentsError
+  } = useIncidentsQuery();
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
-  if (isLoading) {
+  if (statsLoading || incidentsLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[...Array(4)].map((_, i) => (
@@ -32,17 +43,18 @@ export function DashboardStats() {
     );
   }
 
-  if (error) {
+  if (statsError || incidentsError) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <ErrorCard
           title="Failed to Load Dashboard Stats"
           message={
-            error?.message ||
+            statsError?.message ||
+            incidentsError?.message ||
             'Unable to fetch dashboard statistics. Please check your connection and try again.'
           }
           onRetry={() => refetch()}
-          isLoading={isLoading}
+          isLoading={statsLoading}
         />
       </div>
     );
@@ -107,9 +119,6 @@ export function DashboardStats() {
             onHoverEnd={() => setHoveredCard(null)}
             whileHover={{ y: -5 }}
             whileTap={{ scale: 0.98 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-slate-600">{stat.title}</CardTitle>
@@ -139,6 +148,7 @@ export function DashboardStats() {
           isOpen={true}
           onClose={() => setSelectedStatus(null)}
           status={selectedStatus}
+          incidentsData={incidentsData}
         />
       )}
     </>

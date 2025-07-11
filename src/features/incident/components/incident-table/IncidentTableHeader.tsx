@@ -6,7 +6,7 @@ export function IncidentTableHeader() {
       <TableRow>
         <TableHead>Type</TableHead>
         <TableHead>Category</TableHead>
-        <TableHead>Location</TableHead>
+        <TableHead>Circuit | Location</TableHead>
         <TableHead>Severity</TableHead>
         <TableHead>Status</TableHead>
         <TableHead>Drivers</TableHead>
